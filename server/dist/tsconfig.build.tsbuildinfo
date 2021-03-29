@@ -3051,6 +3051,41 @@
         "signature": "aa1725e38b5a0b4009f6a74f296f173e7926c119a60454dbd2e523861735df69",
         "affectsGlobalScope": false
       },
+      "../node_modules/nest-status-monitor/dist/config/health.check.configuration.d.ts": {
+        "version": "606c3adcedebeb186a8d7e3742bcbe0162cb069f799516739c640362831c3849",
+        "signature": "606c3adcedebeb186a8d7e3742bcbe0162cb069f799516739c640362831c3849",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nest-status-monitor/dist/config/spans.configuration.d.ts": {
+        "version": "7c4a44108933a669f320d013896e9d0a8bf1f60b2f001c5028e368dc36dfef0c",
+        "signature": "7c4a44108933a669f320d013896e9d0a8bf1f60b2f001c5028e368dc36dfef0c",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nest-status-monitor/dist/config/chart.visibility.configuration.d.ts": {
+        "version": "d03cd985d0a96dd69b0edc14a5fe9abe01ced9c2dc298da1342917b14aed60c8",
+        "signature": "d03cd985d0a96dd69b0edc14a5fe9abe01ced9c2dc298da1342917b14aed60c8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts": {
+        "version": "437583867b55061bb987e01b4a0e8fcabce75d3c0386dfdd6fcb112f40420c8b",
+        "signature": "437583867b55061bb987e01b4a0e8fcabce75d3c0386dfdd6fcb112f40420c8b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nest-status-monitor/dist/status.monitor.module.d.ts": {
+        "version": "963dd4e12c319a51eadc83ce901115abb7af262334baf604f8ce834742f84385",
+        "signature": "963dd4e12c319a51eadc83ce901115abb7af262334baf604f8ce834742f84385",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nest-status-monitor/dist/index.d.ts": {
+        "version": "72fa4ac6b311a7ffab6de9b29b07d5bf7c7ec7a9a9f58d63b87bd04e556813b6",
+        "signature": "72fa4ac6b311a7ffab6de9b29b07d5bf7c7ec7a9a9f58d63b87bd04e556813b6",
+        "affectsGlobalScope": false
+      },
+      "../src/config/statusmonitor.ts": {
+        "version": "0dc87904ffd02acffba3b31c41895f3338f486128abe21ba1858f5f27faa9147",
+        "signature": "5c472f1f17ce22bd858d79d86d62929be669953f6bf6a542804b296c6cdf1a68",
+        "affectsGlobalScope": false
+      },
       "../src/auth/auth.service.ts": {
         "version": "d2601f2c83d94466d3602e7d1b80f8de41ea31f702516a18dc8a5cad215a673d",
         "signature": "677aeca61ec15b34e969c1999067ebbe22ec333d3c22c525dc11e7040147018e",
@@ -3437,7 +3472,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "a3d4b737d499bf4eb0ba3f0f123486e85302c2613182002e55a0f5d611d76db9",
+        "version": "a07c1118d31f87e3ebb6b1d7592406b73bc3acae7aba7da1df52f0e57578fd8e",
         "signature": "72ba1b6f51f679fef4130de0cef13456c2e316f3e9cf20467d45981a5609d917",
         "affectsGlobalScope": false
       },
@@ -5137,6 +5172,22 @@
         "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
         "../node_modules/jest-diff/build/types.d.ts"
       ],
+      "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts": [
+        "../node_modules/nest-status-monitor/dist/config/chart.visibility.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/health.check.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/spans.configuration.d.ts"
+      ],
+      "../node_modules/nest-status-monitor/dist/index.d.ts": [
+        "../node_modules/nest-status-monitor/dist/config/chart.visibility.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/health.check.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/spans.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/status.monitor.module.d.ts"
+      ],
+      "../node_modules/nest-status-monitor/dist/status.monitor.module.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts"
+      ],
       "../node_modules/pretty-format/build/index.d.ts": [
         "../node_modules/pretty-format/build/types.d.ts"
       ],
@@ -6673,10 +6724,12 @@
       "../src/app.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../node_modules/nest-status-monitor/dist/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/app.controller.ts",
         "../src/app.service.ts",
         "../src/auth/auth.module.ts",
+        "../src/config/statusmonitor.ts",
         "../src/course/course.module.ts",
         "../src/login/login.module.ts",
         "../src/users/users.module.ts"
@@ -7987,6 +8040,22 @@
       "../node_modules/jest-diff/build/printdiffs.d.ts": [
         "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
         "../node_modules/jest-diff/build/types.d.ts"
+      ],
+      "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts": [
+        "../node_modules/nest-status-monitor/dist/config/chart.visibility.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/health.check.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/spans.configuration.d.ts"
+      ],
+      "../node_modules/nest-status-monitor/dist/index.d.ts": [
+        "../node_modules/nest-status-monitor/dist/config/chart.visibility.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/health.check.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/spans.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts",
+        "../node_modules/nest-status-monitor/dist/status.monitor.module.d.ts"
+      ],
+      "../node_modules/nest-status-monitor/dist/status.monitor.module.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts"
       ],
       "../node_modules/pretty-format/build/index.d.ts": [
         "../node_modules/pretty-format/build/types.d.ts"
@@ -9889,6 +9958,12 @@
       "../node_modules/jest-diff/build/index.d.ts",
       "../node_modules/jest-diff/build/printdiffs.d.ts",
       "../node_modules/jest-diff/build/types.d.ts",
+      "../node_modules/nest-status-monitor/dist/config/chart.visibility.configuration.d.ts",
+      "../node_modules/nest-status-monitor/dist/config/health.check.configuration.d.ts",
+      "../node_modules/nest-status-monitor/dist/config/spans.configuration.d.ts",
+      "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts",
+      "../node_modules/nest-status-monitor/dist/index.d.ts",
+      "../node_modules/nest-status-monitor/dist/status.monitor.module.d.ts",
       "../node_modules/pretty-format/build/index.d.ts",
       "../node_modules/pretty-format/build/types.d.ts",
       "../node_modules/reflect-metadata/index.d.ts",
@@ -10319,6 +10394,7 @@
       "../src/auth/auth.service.ts",
       "../src/auth/local.strategy.ts",
       "../src/config/database.ts",
+      "../src/config/statusmonitor.ts",
       "../src/course/course.controller.ts",
       "../src/course/course.entity.ts",
       "../src/course/course.module.ts",

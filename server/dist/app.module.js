@@ -16,6 +16,8 @@ const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const nest_status_monitor_1 = require("nest-status-monitor");
+const statusMonitor_1 = require("./config/statusMonitor");
 const auth_module_1 = require("./auth/auth.module");
 const login_module_1 = require("./login/login.module");
 const course_module_1 = require("./course/course.module");
@@ -27,6 +29,7 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     common_1.Module({
         imports: [
+            nest_status_monitor_1.StatusMonitorModule.setUp(statusMonitor_1.default),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
                 host: '8.136.5.2',
