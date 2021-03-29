@@ -22,12 +22,80 @@ let CourseService = class CourseService {
         this.courseRepository = courseRepository;
     }
     async create(course) {
-        const newCourse = await this.courseRepository.insert(course);
-        return {
-            newCourse,
-            message: '创建成功',
-            code: 0,
-        };
+        if (course.courseName === undefined || course.courseByTeaId === undefined) {
+            return {
+                code: 1,
+                message: '缺少课程名或者所属教师id字段'
+            };
+        }
+        try {
+            await this.courseRepository.insert(course);
+            return {
+                code: 0,
+                message: '创建成功'
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '创建失败'
+            };
+        }
+    }
+    async remove(id) {
+        try {
+            const res = await this.courseRepository.delete(id);
+            if (res.affected === 1) {
+                return {
+                    code: 0,
+                    message: '删除成功'
+                };
+            }
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '删除失败'
+            };
+        }
+    }
+    async edit(id, course) {
+        try {
+            await this.courseRepository.update(id, course);
+            return {
+                code: 0,
+                message: '更新成功'
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '更新失败'
+            };
+        }
+    }
+    async findAll(pagination) {
+        try {
+            const users = await typeorm_2.getRepository(course_entity_1.Course)
+                .createQueryBuilder('course')
+                .skip((pagination.page - 1) * pagination.size || 0)
+                .take(pagination.size || 10)
+                .getManyAndCount();
+            return {
+                code: 0,
+                message: '查询成功',
+                data: users[0],
+                total: users[1],
+                page: pagination.page,
+                size: pagination.size,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败'
+            };
+        }
     }
 };
 CourseService = __decorate([

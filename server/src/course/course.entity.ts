@@ -8,8 +8,11 @@ export class Course {
   // @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @ApiProperty({ description: '课程名', example: '物理学概况' })
-  @Column('varchar')
+  @ApiProperty({ description: '课程名 必填', example: '物理学概况' })
+  @Column({
+    nullable: false,
+    type: String,
+  })
   courseName: string;
 
   @ApiProperty({ description: '所属学科', example: '物理学' })
@@ -33,20 +36,28 @@ export class Course {
   teacher: string;
 
 
-  @ApiProperty({ description: '所属教师用户id', example: 23 })
-  @Column('varchar')
+  @ApiProperty({ description: '所属教师用户id 必填', example: 23 })
+  @Column({
+    nullable: false,
+  })
   courseByTeaId: number;
 
-  @ApiProperty({ description: '开课状态', example: '0:未开课，1:进行中，2:已完结' })
-  @Column('varchar')
+  @ApiProperty({ description: '开课状态 默认0 0:未开课，1:进行中，2:已完结', example: 0 })
+  @Column({
+    default: 0,
+  })
   openState: number;
 
-  @ApiProperty({ description: '申报状态状态', example: '0:未申报，1:已申报' })
-  @Column('varchar')
+  @ApiProperty({ description: '申报状态状态 默认0 0:未申报，1:已申报', example: 0 })
+  @Column({
+    default: 0,
+  })
   applyState: number;
 
   @ApiProperty({ description: '申报人id', example: '12' })
-  @Column('varchar')
+  @Column({
+    nullable: true,
+  })
   applicantId: number;
 
   @ApiProperty({ description: '申报人用户名', example: 'heihei' })

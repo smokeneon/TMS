@@ -20,8 +20,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Course.prototype, "id", void 0);
 __decorate([
-    swagger_1.ApiProperty({ description: '课程名', example: '物理学概况' }),
-    typeorm_1.Column('varchar'),
+    swagger_1.ApiProperty({ description: '课程名 必填', example: '物理学概况' }),
+    typeorm_1.Column({
+        nullable: false,
+        type: String,
+    }),
     __metadata("design:type", String)
 ], Course.prototype, "courseName", void 0);
 __decorate([
@@ -50,23 +53,31 @@ __decorate([
     __metadata("design:type", String)
 ], Course.prototype, "teacher", void 0);
 __decorate([
-    swagger_1.ApiProperty({ description: '所属教师用户id', example: 23 }),
-    typeorm_1.Column('varchar'),
+    swagger_1.ApiProperty({ description: '所属教师用户id 必填', example: 23 }),
+    typeorm_1.Column({
+        nullable: false,
+    }),
     __metadata("design:type", Number)
 ], Course.prototype, "courseByTeaId", void 0);
 __decorate([
-    swagger_1.ApiProperty({ description: '开课状态', example: '0:未开课，1:进行中，2:已完结' }),
-    typeorm_1.Column('varchar'),
+    swagger_1.ApiProperty({ description: '开课状态 默认0 0:未开课，1:进行中，2:已完结', example: 0 }),
+    typeorm_1.Column({
+        default: 0,
+    }),
     __metadata("design:type", Number)
 ], Course.prototype, "openState", void 0);
 __decorate([
-    swagger_1.ApiProperty({ description: '申报状态状态', example: '0:未申报，1:已申报' }),
-    typeorm_1.Column('varchar'),
+    swagger_1.ApiProperty({ description: '申报状态状态 默认0 0:未申报，1:已申报', example: 0 }),
+    typeorm_1.Column({
+        default: 0,
+    }),
     __metadata("design:type", Number)
 ], Course.prototype, "applyState", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '申报人id', example: '12' }),
-    typeorm_1.Column('varchar'),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Number)
 ], Course.prototype, "applicantId", void 0);
 __decorate([

@@ -26,6 +26,15 @@ let CourseController = class CourseController {
     async create(course) {
         return await this.courseService.create(course);
     }
+    async remove(id) {
+        return await this.courseService.remove(id);
+    }
+    async update(id, body) {
+        return await this.courseService.edit(id, body);
+    }
+    async findAll(pagination) {
+        return this.courseService.findAll(pagination);
+    }
 };
 __decorate([
     common_1.Post('/add'),
@@ -35,6 +44,30 @@ __decorate([
     __metadata("design:paramtypes", [course_entity_1.Course]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "create", null);
+__decorate([
+    common_1.Delete(':id'),
+    swagger_1.ApiOperation({ summary: '删除一门课程' }),
+    __param(0, common_1.Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "remove", null);
+__decorate([
+    common_1.Put(':id'),
+    swagger_1.ApiOperation({ summary: '编辑一门课程' }),
+    __param(0, common_1.Param('id')), __param(1, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, course_entity_1.Course]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "update", null);
+__decorate([
+    common_1.Get(),
+    swagger_1.ApiOperation({ summary: '查询所有课程列表' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "findAll", null);
 CourseController = __decorate([
     common_1.Controller('course'),
     swagger_1.ApiTags('course增删改查'),
