@@ -10,17 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
+const path = require("path");
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const typeorm_1 = require("@nestjs/typeorm");
+const mailer_1 = require("@nestjs-modules/mailer");
+const pug_adapter_1 = require("@nestjs-modules/mailer/dist/adapters/pug.adapter");
 const typeorm_2 = require("typeorm");
 const nest_status_monitor_1 = require("nest-status-monitor");
 const statusMonitor_1 = require("./config/statusMonitor");
-const auth_module_1 = require("./auth/auth.module");
 const login_module_1 = require("./login/login.module");
 const course_module_1 = require("./course/course.module");
+const email_module_1 = require("./email/email.module");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -29,6 +32,21 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     common_1.Module({
         imports: [
+            mailer_1.MailerModule.forRootAsync({
+                useFactory: () => ({
+                    transport: 'smtps://leonbeau@qq.com:mkfapmnixnabbbhi@smtp.qq.com',
+                    defaults: {
+                        from: '"nest-modules" <modules@nestjs.com>',
+                    },
+                    template: {
+                        dir: path.join(__dirname, './templates/email'),
+                        adapter: new pug_adapter_1.PugAdapter(),
+                        options: {
+                            strict: true,
+                        }
+                    }
+                })
+            }),
             nest_status_monitor_1.StatusMonitorModule.setUp(statusMonitor_1.default),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
@@ -40,8 +58,8 @@ AppModule = __decorate([
                 autoLoadEntities: true,
                 synchronize: true,
             }),
+            email_module_1.EmailModule,
             users_module_1.UsersModule,
-            auth_module_1.AuthModule,
             login_module_1.LoginModule,
             course_module_1.CourseModule,
         ],

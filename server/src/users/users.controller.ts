@@ -15,7 +15,7 @@ class PageBody  {
   page: number;
   size: number;
 }
-@Controller('user')
+@Controller('v1/user')
 @ApiTags('user增删改查')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

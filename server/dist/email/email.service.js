@@ -9,21 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthService = void 0;
+exports.EmailService = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("../users/users.service");
-let AuthService = class AuthService {
-    constructor(userService) {
-        this.userService = userService;
+const mailer_1 = require("@nest-modules/mailer");
+let EmailService = class EmailService {
+    constructor(mailerService) {
+        this.mailerService = mailerService;
     }
-    async validateUser(username, pass) {
-        const user = await this.userService.findOne(username);
-        return null;
+    async sendMail() {
+        try {
+            await this.mailerService.sendMail({
+                to: 'leon@hooc.top',
+                from: 'leonbeau@qq.com',
+                subject: 'leon love u',
+                template: 'welcome',
+            });
+            return 'ok';
+        }
+        catch (error) {
+            return 'error';
+        }
     }
 };
-AuthService = __decorate([
+EmailService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
-], AuthService);
-exports.AuthService = AuthService;
-//# sourceMappingURL=auth.service.js.map
+    __metadata("design:paramtypes", [mailer_1.MailerService])
+], EmailService);
+exports.EmailService = EmailService;
+//# sourceMappingURL=email.service.js.map

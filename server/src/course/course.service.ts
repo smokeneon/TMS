@@ -90,6 +90,22 @@ export class CourseService {
       }
     }
   }
+
+  async findOne(id: string): Promise<object> {
+    try {
+      const res = await this.courseRepository.findOne(id);
+      return {
+        code: 0,
+        message: '查询成功',
+        data: res,
+      }
+    } catch (error) {
+      return {
+        code: 0,
+        message: '查询失败',
+      }
+    }
+  }
 }
 
 

@@ -46,7 +46,20 @@ let UsersService = class UsersService {
         };
     }
     async findOne(id) {
-        return await this.usersRepository.findOne(id);
+        try {
+            const res = await this.usersRepository.findOne(id);
+            return {
+                code: 0,
+                message: '查询成功',
+                data: res,
+            };
+        }
+        catch (error) {
+            return {
+                code: 0,
+                message: '查询失败',
+            };
+        }
     }
 };
 UsersService = __decorate([

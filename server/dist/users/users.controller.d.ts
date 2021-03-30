@@ -7,5 +7,5 @@ export declare class UsersController {
     remove(id: string): Promise<void>;
     update(id: number, body: User): Promise<boolean>;
     findAll(pagination: string): Promise<Object>;
-    detail(id: string): Promise<User>;
+    detail(id: string): Promise<object>;
 }

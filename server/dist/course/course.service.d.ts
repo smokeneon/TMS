@@ -7,4 +7,5 @@ export declare class CourseService {
     remove(id: string): Promise<object>;
     edit(id: number, course: Course): Promise<object>;
     findAll(pagination: any): Promise<Object>;
+    findOne(id: string): Promise<object>;
 }

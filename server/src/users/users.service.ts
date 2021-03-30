@@ -40,7 +40,19 @@ export class UsersService {
     }
   }
 
-  async findOne(id: string): Promise<User> {
-    return await this.usersRepository.findOne(id);
+  async findOne(id: string): Promise<object> {
+    try {
+      const res = await this.usersRepository.findOne(id);
+      return {
+        code: 0,
+        message: '查询成功',
+        data: res,
+      }
+    } catch (error) {
+      return {
+        code: 0,
+        message: '查询失败',
+      }
+    }
   }
 }

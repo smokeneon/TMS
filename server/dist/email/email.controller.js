@@ -9,21 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthService = void 0;
+exports.EmailController = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("../users/users.service");
-let AuthService = class AuthService {
-    constructor(userService) {
-        this.userService = userService;
+const swagger_1 = require("@nestjs/swagger");
+const email_service_1 = require("./email.service");
+let EmailController = class EmailController {
+    constructor(emailService) {
+        this.emailService = emailService;
     }
-    async validateUser(username, pass) {
-        const user = await this.userService.findOne(username);
-        return null;
+    async sendEmail() {
+        return await this.emailService.sendMail();
     }
 };
-AuthService = __decorate([
-    common_1.Injectable(),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
-], AuthService);
-exports.AuthService = AuthService;
-//# sourceMappingURL=auth.service.js.map
+__decorate([
+    common_1.Get(),
+    swagger_1.ApiOperation({ summary: '发送邮件' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], EmailController.prototype, "sendEmail", null);
+EmailController = __decorate([
+    common_1.Controller('email'),
+    __metadata("design:paramtypes", [email_service_1.EmailService])
+], EmailController);
+exports.EmailController = EmailController;
+//# sourceMappingURL=email.controller.js.map

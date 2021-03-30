@@ -15,7 +15,7 @@ class PageBody  {
   page: number;
   size: number;
 }
-@Controller('course')
+@Controller('v1/course')
 @ApiTags('course增删改查')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
@@ -43,5 +43,11 @@ export class CourseController {
   @ApiOperation({ summary: '查询所有课程列表' })
   async findAll(@Query() pagination: string) {
     return this.courseService.findAll(pagination) 
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: '根据课程id查询详情' })
+  async detail(@Param('id') id: string) {
+    return await this.courseService.findOne(id);
   }
 }

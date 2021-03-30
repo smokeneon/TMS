@@ -7,4 +7,5 @@ export declare class CourseController {
     remove(id: string): Promise<object>;
     update(id: number, body: Course): Promise<object>;
     findAll(pagination: string): Promise<Object>;
+    detail(id: string): Promise<object>;
 }

@@ -97,6 +97,22 @@ let CourseService = class CourseService {
             };
         }
     }
+    async findOne(id) {
+        try {
+            const res = await this.courseRepository.findOne(id);
+            return {
+                code: 0,
+                message: '查询成功',
+                data: res,
+            };
+        }
+        catch (error) {
+            return {
+                code: 0,
+                message: '查询失败',
+            };
+        }
+    }
 };
 CourseService = __decorate([
     common_1.Injectable(),
