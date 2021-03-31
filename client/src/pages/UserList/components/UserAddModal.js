@@ -1,14 +1,14 @@
-import React,{ useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 
 import { Form, Input, message, Modal, Select } from 'antd'
 import T from 'prop-types'
-import { addUser } from '../api'
+import { addUser, editUser } from '../api'
 
 const { Option } = Select;
 
 const addOrEditState = {
   add: '新建',
-  eidt: '编辑'
+  edit: '编辑'
 }
 
 const layout = {
@@ -18,34 +18,51 @@ const layout = {
 }
 
 const UserAddModal = props => {
-  const { addOrEdit, visable, hiddenModal } = props
-  const [selectItem, setSelectItem] = useState([])
+  const { addOrEdit, visable, hiddenModal, record, getList } = props
+  const [initValue, setInitValue] = useState(null)
   const [form] = Form.useForm();
-  const handleOk = () => {
-    form.validateFields().then(params => {
-      console.log(params);
-      const newParams = {
-        ...params,
-        stuNum: '123456'
-      }
-      addUser(newParams).then(res => {
-        if (res.status === 201) {
-          message.success('新建用户成功')
-          hiddenModal()
-          
-        } else {
-          message.error('新建用户失败')
-        }
-      })
-      // form.submit()
-    })
-  }
-  const handleCancel = () => {
+  const initModal = () => {
     hiddenModal()
   }
+  const handleOk = () => {
+    form.validateFields().then(params => {
+      const newParams = {
+        ...params,
+        identity: params.identity.toString(),
+        stuNum: '123456'
+      }
+      if (addOrEdit === 'add') {
+        addUser(newParams).then(res => {
+          console.log('res', res);
+          if (res.status === 201 && res.data.code === 0) {
+            message.success(res.data.message)
+            initModal()
+          } else {
+            message.error(res.data.message)
+          }
+        })
+      } else {
+        editUser(record.id, newParams).then(res => {
+          if (res.status === 201 && res.data.code === 0) {
+            message.success(res.data.message)
+            initModal()
+            getList()
+          } else {
+            message.error(res.data.message)
+          }
+      })
+    }
+  })
+  }   
+  const handleCancel = () => {
+    initModal()
+  }
+  useEffect(() => {
+   setInitValue(record)
+  }, [props])
   return (
-    <Modal title={addOrEditState[addOrEdit]} visible={visable} onOk={handleOk} onCancel={handleCancel}>
-     <Form {...layout} form={form}>
+    <Modal title={addOrEditState[addOrEdit]} visible={visable} onOk={handleOk} onCancel={handleCancel} destroyOnClose>
+     <Form {...layout} form={form} initialValues={initValue} preserve={false} >
         <Form.Item
           label="用户名"
           name="username"
@@ -57,6 +74,19 @@ const UserAddModal = props => {
           ]}
         >
          <Input placeholder="请输入用户名" />
+        </Form.Item>
+
+        <Form.Item
+          label="姓名"
+          name="realname"
+          rules={[
+            {
+              required: true,
+              message: '请输入姓名!',
+            },
+          ]}
+        >
+         <Input placeholder="请输入姓名" />
         </Form.Item>
 
         <Form.Item
@@ -112,5 +142,6 @@ UserAddModal.propTypes = {
 
 UserAddModal.defaultProps = {
   addOrEdit: 'add',
+  record: {},
 }
 export default UserAddModal

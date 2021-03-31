@@ -21,7 +21,7 @@ const Index = () => {
       >
         <UserList ref={getListRef} />
       </Card>
-      <UserAddModal visable={modalVisable} hiddenModal={hiddenModal} addOrEdit="add"/>
+      <UserAddModal visable={modalVisable} hiddenModal={hiddenModal} addOrEdit="add" />
     </PageContainer>
   )
 }

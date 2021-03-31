@@ -17,6 +17,7 @@ const SubjectList = forwardRef((props, ref) => {
   const [pagination, setPagination] = useState({})
   const [tableLoading, setTableLoading] = useState(true)
   const [searchLoading, setSearchLoading] = useState(false)
+  const [chooseItem, setChooseItem] = useState({})
   const requestParams = { page: 1, size: 10, search: null }
   const [form] = Form.useForm()
   const hiddenModal = () => {
@@ -24,22 +25,15 @@ const SubjectList = forwardRef((props, ref) => {
   }
   const getList = params => {
     setTableLoading(true)
-
-    setTableData([])
-    setPagination({})
-    setTableLoading(false)
-    getUserList().then(res => {
-      console.log('res', res)
+    getUserList(params).then(res => {
+      console.log('res',res);
       if (res.status === 200) {
-        setTableData(res.data)
+        const { page, size, data, total } = res.data
+        setTableData(data)
+        setPagination({page, size, total})
+        setTableLoading(false)
       }
     })
-    // getAppSubjectList(params).then(res => {
-    //   const { data, ...rest } = res || {}
-    //   setTableData(data || [])
-    //   setPagination(rest || {})
-    //   setTableLoading(false)
-    // })
   }
 
   useImperativeHandle(ref, () => ({
@@ -59,7 +53,6 @@ const SubjectList = forwardRef((props, ref) => {
     newRequestParma.search = values.searchText
     try {
       await getList(newRequestParma)
-      form.resetFields()
       setSearchLoading(false)
     } catch (error) {
       setSearchLoading(false)
@@ -71,7 +64,11 @@ const SubjectList = forwardRef((props, ref) => {
       getList(requestParams)
     })
   }
-
+  const openModal = record => () => {
+    console.log('record', record);
+    setModalVisable(true)
+    setChooseItem(record)
+  } 
   const columns = [
     {
       title: '用户名',
@@ -128,7 +125,7 @@ const SubjectList = forwardRef((props, ref) => {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <a onClick={() => setModalVisable(true)}>编辑</a>
+          <a onClick={openModal(record)}>编辑</a>
           <Popconfirm
             title="你确定删除此条吗?"
             onConfirm={deleteConfirm(record.id)}
@@ -162,15 +159,21 @@ const SubjectList = forwardRef((props, ref) => {
         dataSource={tableData}
         loading={tableLoading}
         rowKey="id"
-        // pagination={{
-        //   showSizeChanger: true,
-        //   total: pagination.totalCount,
-        //   pageSize: pagination.pageSize,
-        //   current: pagination.currentPage,
-        //   onChange: paginationOnChange,
-        // }}
+        pagination={{
+          showSizeChanger: true,
+          total: pagination.total,
+          pageSize: pagination.size,
+          current: pagination.page,
+          onChange: paginationOnChange,
+        }}
       />
-       <UserAddModal visable={modalVisable} hiddenModal={hiddenModal} addOrEdit="edit"/>
+      <UserAddModal 
+        visable={modalVisable} 
+        hiddenModal={hiddenModal} 
+        addOrEdit="edit" 
+        record={{...chooseItem}}
+        getList={getList}
+      />
     </div>
   )
 })

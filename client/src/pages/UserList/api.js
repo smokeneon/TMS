@@ -1,11 +1,24 @@
 import axios from 'axios'
-
-export const getUserList = () => {
-  return axios.get('/api/user')
+// 获得列表
+export const getUserList = (params) => {
+  console.log('params', params);
+  return axios.get(`/api/v1/user`, {
+    params: {
+      page: params.page || 1,
+      size: params.size || 10,
+      search: params.search,
+    }
+  })
 }
 
 export const addUser = params => {
-  return axios.post('/api/user', {
+  return axios.post('/api/v1/user/add', {
+    ...params
+  })
+}
+
+export const editUser = (id, params) => {
+  return axios.put(`/api/v1/user/add/${id}`, {
     ...params
   })
 }
