@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import ProForm, { ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useIntl, FormattedMessage } from 'umi';
 import styles from './index.less';
+import { connect } from 'umi';
 
 const LoginMessage = ({ content }) => (
   <Alert
@@ -26,14 +27,13 @@ const Login = (props) => {
   const intl = useIntl();
 
   const handleSubmit = (values) => {
-    // TODO 在这获取参数
+    // // TODO 在这获取参数
     console.log('values', values,props);
-    props.history.push('/welcome')
-    // const { dispatch } = props;
-    // dispatch({
-    //   type: 'login/login',
-    //   payload: { ...values, type },
-    // });
+    const { dispatch } = props;
+    dispatch({
+      type: 'login/login',
+      payload: { ...values, type },
+    });
   };
 
   return (
@@ -139,4 +139,7 @@ const Login = (props) => {
   );
 };
 
-export default Login
+export default connect(({ login, loading }) => ({
+  userLogin: login,
+  submitting: loading.effects['login/login'],
+}))(Login);

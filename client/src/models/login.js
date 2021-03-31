@@ -16,16 +16,17 @@ const Model = {
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
-
-      if (response.status === 'ok') {
+      console.log('response', response);
+      if (response.state === 'ok') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
+        console.log('params', params);
         message.success('🎉 🎉 🎉  登录成功！');
         let { redirect } = params;
-
+        console.log('redirect', redirect);
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
-
+          console.log('redirectUrlParams', redirectUrlParams);
           if (redirectUrlParams.origin === urlParams.origin) {
             redirect = redirect.substr(urlParams.origin.length);
 

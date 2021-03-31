@@ -23,6 +23,7 @@ const GlobalHeaderRight = (props) => {
     <div className={className}>
       <Avatar />
       {REACT_APP_ENV && (
+        // 显示当前运行环境
         <span>
           <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>
         </span>
