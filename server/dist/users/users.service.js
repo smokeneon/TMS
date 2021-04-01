@@ -22,7 +22,19 @@ let UsersService = class UsersService {
         this.usersRepository = usersRepository;
     }
     async create(user) {
-        await this.usersRepository.insert(user);
+        try {
+            await this.usersRepository.insert(user);
+            return {
+                code: 0,
+                message: '添加成功'
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '添加失败'
+            };
+        }
     }
     async remove(id) {
         await this.usersRepository.delete(id);
@@ -32,18 +44,37 @@ let UsersService = class UsersService {
         return true;
     }
     async findAll(pagination) {
-        const users = await typeorm_2.getRepository(users_entity_1.User)
-            .createQueryBuilder('user')
-            .skip((pagination.page - 1) * pagination.size || 0)
-            .take(pagination.size || 10)
-            .getManyAndCount();
-        return {
-            code: 0,
-            data: users[0],
-            page: pagination.page,
-            size: pagination.size,
-            total: users[1],
-        };
+        let user;
+        try {
+            if (pagination.search) {
+                user = await typeorm_2.getRepository(users_entity_1.User)
+                    .createQueryBuilder('user')
+                    .where("user.username like :username", { username: '%' + pagination.search + '%' })
+                    .skip((pagination.page - 1) * pagination.size || 0)
+                    .take(pagination.size || 10)
+                    .getManyAndCount();
+            }
+            else {
+                user = await typeorm_2.getRepository(users_entity_1.User)
+                    .createQueryBuilder('user')
+                    .skip((pagination.page - 1) * pagination.size || 0)
+                    .take(pagination.size || 10)
+                    .getManyAndCount();
+            }
+            return {
+                code: 0,
+                data: user[0],
+                page: pagination.page,
+                size: pagination.size,
+                total: user[1],
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败'
+            };
+        }
     }
     async findOne(id) {
         try {
@@ -60,6 +91,13 @@ let UsersService = class UsersService {
                 message: '查询失败',
             };
         }
+    }
+    async findOneByUsername(username) {
+        const user = await typeorm_2.getRepository(users_entity_1.User)
+            .createQueryBuilder('user')
+            .where("user.username = :username", { username: username })
+            .getOne();
+        return user;
     }
 };
 UsersService = __decorate([

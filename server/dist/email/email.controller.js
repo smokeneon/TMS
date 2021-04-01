@@ -29,7 +29,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], EmailController.prototype, "sendEmail", null);
 EmailController = __decorate([
-    common_1.Controller('email'),
+    common_1.Controller('/api/v1/email'),
     __metadata("design:paramtypes", [email_service_1.EmailService])
 ], EmailController);
 exports.EmailController = EmailController;

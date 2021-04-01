@@ -1,27 +1,27 @@
-/*
- * @Author: your name
- * @Date: 2021-03-15 16:47:32
- * @LastEditTime: 2021-03-15 16:48:09
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /tms-server/src/auth/local.strategy.ts
- */
+// 针对无身份的登陆用
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private authService: AuthService) {
+  constructor(private readonly authService: AuthService) {
     super();
   }
 
   async validate(username: string, password: string): Promise<any> {
-    const user = await this.authService.validateUser(username, password);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return user;
+    console.log('走到这里了');
+    
+    // tslint:disable-next-line
+    console.log(username, password)
+    return {username, password};
+    // const user = await this.authService.validateUser(username, password);
+    // if (!user) {
+    //   throw new HttpException(
+    //     { message: 'authorized failed', error: 'please try again later.' },
+    //     HttpStatus.BAD_REQUEST);
+    // }
+    // return user;
   }
 }

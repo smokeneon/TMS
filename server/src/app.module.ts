@@ -9,8 +9,6 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { Connection } from 'typeorm';
 import { StatusMonitorModule} from 'nest-status-monitor'
 import statusMonitorConfig  from './config/statusMonitor'
-// import { AuthModule } from './auth/auth.module';
-import { LoginModule } from './login/login.module';
 import { CourseModule } from './course/course.module';
 import { EmailModule } from './email/email.module'
 
@@ -44,8 +42,6 @@ import { EmailModule } from './email/email.module'
     }),
     EmailModule,
     UsersModule,
-    // AuthModule,
-    LoginModule,
     CourseModule,
   ],
   controllers: [AppController],

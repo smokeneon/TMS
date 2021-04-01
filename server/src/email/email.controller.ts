@@ -2,7 +2,7 @@ import { Controller, Get } from "@nestjs/common";
 import { ApiOperation } from "@nestjs/swagger";
 import { EmailService } from "./email.service";
 
-@Controller('email')
+@Controller('/api/v1/email')
 export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 

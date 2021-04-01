@@ -33,12 +33,13 @@ let UsersController = class UsersController {
         return await this.usersService.edit(id, body);
     }
     async findAll(pagination) {
-        console.log('query', pagination);
-        const data = await this.usersService.findAll(pagination);
         return await this.usersService.findAll(pagination);
     }
     async detail(id) {
         return await this.usersService.findOne(id);
+    }
+    async findOneByUsername(username) {
+        return await this.usersService.findOneByUsername(username);
     }
 };
 __decorate([
@@ -81,8 +82,16 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "detail", null);
+__decorate([
+    common_1.Get('/username/:username'),
+    swagger_1.ApiOperation({ summary: '根据用户名查找用户' }),
+    __param(0, common_1.Param('username')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "findOneByUsername", null);
 UsersController = __decorate([
-    common_1.Controller('v1/user'),
+    common_1.Controller('/api/v1/user'),
     swagger_1.ApiTags('user增删改查'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);

@@ -10,8 +10,20 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async create(user: User): Promise<void> {
-    await this.usersRepository.insert(user);
+  async create(user: User): Promise<any> {
+    try {
+      await this.usersRepository.insert(user);
+      return {
+        code: 0,
+        message: '添加成功'
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '添加失败'
+      }
+    }
+    
   }
 
   async remove(id: string): Promise<void> {
@@ -25,19 +37,41 @@ export class UsersService {
   }
   // 分页查询接口
   async findAll(pagination): Promise<Object> {
-    const users = await getRepository(User)
-    // createQueryBuilder 创建一个查询构建器 可用于查询
-      .createQueryBuilder('user')
-      .skip((pagination.page-1)*pagination.size || 0)
-      .take(pagination.size || 10)
-      .getManyAndCount()
-    return {
-      code: 0,
-      data: users[0],
-      page: pagination.page,
-      size: pagination.size,
-      total: users[1],
+    let user;
+    try {
+      if (pagination.search) {
+        user = await getRepository(User)
+          .createQueryBuilder('user')
+          .where("user.username like :username", { username: '%' + pagination.search + '%' })
+          .skip((pagination.page-1)*pagination.size || 0)
+          .take(pagination.size || 10)
+          .getManyAndCount()
+      } else {
+        user = await getRepository(User)
+        // createQueryBuilder 创建一个查询构建器 可用于查询
+          .createQueryBuilder('user')
+          .skip((pagination.page-1)*pagination.size || 0)
+          .take(pagination.size || 10)
+          .getManyAndCount()
+      }
+
+      return {
+        code: 0,
+        data: user[0],
+        page: pagination.page,
+        size: pagination.size,
+        total: user[1],
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败'
+      }
     }
+    
+    
+    
+   
   }
 
   async findOne(id: string): Promise<object> {
@@ -55,4 +89,15 @@ export class UsersService {
       }
     }
   }
+
+  async findOneByUsername(username: string): Promise<User> {
+    const user = await getRepository(User)
+      .createQueryBuilder('user')
+      .where("user.username = :username", { username: username })
+      .getOne()
+    return user
+  }
+  // async findOneUnique(username: string): Promise<any> {
+  //   return this.usersRepository.find(user => user.username === username);
+  // }
 }

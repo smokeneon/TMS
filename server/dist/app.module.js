@@ -21,7 +21,6 @@ const pug_adapter_1 = require("@nestjs-modules/mailer/dist/adapters/pug.adapter"
 const typeorm_2 = require("typeorm");
 const nest_status_monitor_1 = require("nest-status-monitor");
 const statusMonitor_1 = require("./config/statusMonitor");
-const login_module_1 = require("./login/login.module");
 const course_module_1 = require("./course/course.module");
 const email_module_1 = require("./email/email.module");
 let AppModule = class AppModule {
@@ -60,7 +59,6 @@ AppModule = __decorate([
             }),
             email_module_1.EmailModule,
             users_module_1.UsersModule,
-            login_module_1.LoginModule,
             course_module_1.CourseModule,
         ],
         controllers: [app_controller_1.AppController],

@@ -15,7 +15,7 @@ class PageBody  {
   page: number;
   size: number;
 }
-@Controller('v1/user')
+@Controller('/api/v1/user')
 @ApiTags('user增删改查')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -41,22 +41,19 @@ export class UsersController {
   @Get()
   @ApiOperation({ summary: '查询用户列表' })
   async findAll(@Query() pagination: string) {
-    console.log('query', pagination);
-    const data = await this.usersService.findAll(pagination)
-    
     return await this.usersService.findAll(pagination);
-    // const user = await this.usersService.findAll()
-    // return {
-    //   data: user,
-    //   page: 1,
-    //   size: 10,
-    // }
   }
 
   @Get(':id')
   @ApiOperation({ summary: '根据用户id查询详情' })
   async detail(@Param('id') id: string) {
     return await this.usersService.findOne(id);
+  }
+
+  @Get('/username/:username')
+  @ApiOperation({ summary: '根据用户名查找用户' })
+  async findOneByUsername(@Param('username') username: string) {
+    return await this.usersService.findOneByUsername(username)
   }
   // @Query 从req的query获取东西 @Params 从req的params获取东西
 

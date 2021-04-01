@@ -8,7 +8,7 @@
 export default {
   dev: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'https://8.136.5.2:3000/api/v1',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -17,7 +17,7 @@ export default {
   },
   test: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'https://8.136.5.2:3000/api/v1',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -26,7 +26,7 @@ export default {
   },
   pre: {
     '/api/': {
-      target: 'your pre url',
+      target: 'https://8.136.5.2:3000/api/v1',
       changeOrigin: true,
       pathRewrite: {
         '^': '',

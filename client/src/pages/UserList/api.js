@@ -2,7 +2,7 @@ import axios from 'axios'
 // 获得列表
 export const getUserList = (params) => {
   console.log('params', params);
-  return axios.get(`/api/v1/user`, {
+  return axios.get(`/api/user`, {
     params: {
       page: params.page || 1,
       size: params.size || 10,
@@ -12,13 +12,13 @@ export const getUserList = (params) => {
 }
 
 export const addUser = params => {
-  return axios.post('/api/v1/user/add', {
+  return axios.post('/api/user/add', {
     ...params
   })
 }
 
 export const editUser = (id, params) => {
-  return axios.put(`/api/v1/user/add/${id}`, {
+  return axios.put(`/api/user/add/${id}`, {
     ...params
   })
 }

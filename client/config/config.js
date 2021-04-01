@@ -11,8 +11,9 @@ export default defineConfig({
     hmr: true,
   },
   history: {
-    type: 'browser',
+    type: 'hash',
   },
+  // exportStatic: {},
   locale: {
     // default zh-CN
     default: 'zh-CN',
@@ -36,7 +37,7 @@ export default defineConfig({
   ignoreMomentLocale: true,
   proxy: {
     '/api': {
-      target: 'http://localhost:3000',
+      target: 'http://localhost:3000/api/v1',
       pathRewrite: { '^/api': '' },
       changeOrigin: true
     }

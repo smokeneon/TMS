@@ -20,10 +20,17 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "id", void 0);
 __decorate([
-    swagger_1.ApiProperty({ description: '用户名', example: '张三' }),
+    swagger_1.ApiProperty({ description: '用户名', example: 'zhangsan' }),
     typeorm_1.Column('varchar'),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '姓名', example: '张三' }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "realname", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '密码', example: 'ceshi123mima' }),
     typeorm_1.Column('varchar'),
@@ -31,7 +38,9 @@ __decorate([
 ], User.prototype, "password", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '编号', example: '234567' }),
-    typeorm_1.Column('varchar'),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "stuNum", void 0);
 __decorate([

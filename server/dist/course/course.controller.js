@@ -80,7 +80,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "detail", null);
 CourseController = __decorate([
-    common_1.Controller('v1/course'),
+    common_1.Controller('/api/v1/course'),
     swagger_1.ApiTags('course增删改查'),
     __metadata("design:paramtypes", [course_service_1.CourseService])
 ], CourseController);

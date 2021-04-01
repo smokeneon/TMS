@@ -15,7 +15,7 @@ class PageBody  {
   page: number;
   size: number;
 }
-@Controller('v1/course')
+@Controller('/api/v1/course')
 @ApiTags('course增删改查')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}

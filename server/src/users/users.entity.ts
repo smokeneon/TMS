@@ -16,16 +16,26 @@ export class User {
   // @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @ApiProperty({ description: '用户名', example: '张三' })
+  @ApiProperty({ description: '用户名', example: 'zhangsan' })
   @Column('varchar')
   username: string;
+
+  
+
+  @ApiProperty({ description: '姓名', example: '张三' })
+  @Column({
+    nullable: true,
+  })
+  realname: string;
 
   @ApiProperty({ description: '密码', example: 'ceshi123mima' })
   @Column('varchar')
   password: string;
 
   @ApiProperty({ description: '编号', example: '234567' })
-  @Column('varchar')
+  @Column({
+    nullable: true,
+  })
   stuNum: string;
 
   @ApiProperty({ description: '身份', example: 'stu' })
