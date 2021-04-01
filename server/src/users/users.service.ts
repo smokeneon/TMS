@@ -79,8 +79,8 @@ export class UsersService {
       return {
         code: 0,
         data: user[0],
-        page: pagination.page,
-        size: pagination.size,
+        page: parseInt(pagination.page),
+        size: parseInt(pagination.size),
         total: user[1],
       }
     } catch (error) {
