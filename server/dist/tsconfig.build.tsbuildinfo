@@ -3037,13 +3037,13 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "77579ff1137f191912b4de7f318b9fda88d79d5224ae772fcf83d7100e1cc19e",
-        "signature": "e71696104a6db042801704d78a20f51bf8fa3b5722a07ed9efe8a398397e912e",
+        "version": "176a9c128fca7ce6f0ec5ce99842b403db8ef5ef2cb628b7a302dff71c480e01",
+        "signature": "a7fa0b31efdea2dc32d92e35fdb0ab7bd832a5e79fff28b439e58717072c7862",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
         "version": "2c7a33ef1f94da2e9ff61dde66f23e98913c2f2160fe26c5f751e0332db68bc1",
-        "signature": "d989ff4b5558b346c6589ce7b749e622cb24fd70d1e9d3856ad8aa154c99f453",
+        "signature": "ad3b448556f649bc081c6107e4a4d68b939047d96c98f3573d9070021320d611",
         "affectsGlobalScope": false
       },
       "../src/users/users.module.ts": {

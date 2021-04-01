@@ -37,11 +37,34 @@ let UsersService = class UsersService {
         }
     }
     async remove(id) {
-        await this.usersRepository.delete(id);
+        try {
+            await this.usersRepository.delete(id);
+            return {
+                code: 0,
+                message: '删除成功'
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '删除失败'
+            };
+        }
     }
     async edit(id, user) {
-        const res = await this.usersRepository.update(id, user);
-        return true;
+        try {
+            await this.usersRepository.update(id, user);
+            return {
+                code: 0,
+                message: '更新成功'
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '更新失败'
+            };
+        }
     }
     async findAll(pagination) {
         let user;

@@ -4,7 +4,7 @@ import { SearchOutlined } from '@ant-design/icons'
 import Moment from 'moment'
 import UserAddModal from './UserAddModal'
 
-import { deleteSubjectItem, getUserList } from '../api'
+import { deleteItem, getUserList } from '../api'
 
 const formItemLayout = {
   labelCol: { span: 1 },
@@ -20,13 +20,10 @@ const SubjectList = forwardRef((props, ref) => {
   const [chooseItem, setChooseItem] = useState({})
   const requestParams = { page: 1, size: 10, search: null }
   const [form] = Form.useForm()
-  const hiddenModal = () => {
-    setModalVisable(false)
-  }
+ 
   const getList = params => {
     setTableLoading(true)
     getUserList(params).then(res => {
-      console.log('res',res);
       if (res.status === 200) {
         const { page, size, data, total } = res.data
         setTableData(data)
@@ -58,17 +55,21 @@ const SubjectList = forwardRef((props, ref) => {
       setSearchLoading(false)
     }
   }
-  const deleteConfirm = subjectId => () => {
-    deleteSubjectItem(subjectId).then(res => {
-      message.success(res)
+  const deleteConfirm = id => () => {
+    console.log('这个id', id);
+    deleteItem(id).then(res => {
+      message.success(res.data.message)
       getList(requestParams)
     })
   }
   const openModal = record => () => {
-    console.log('record', record);
+    setChooseItem({...record})
     setModalVisable(true)
-    setChooseItem(record)
   } 
+  const hiddenModal = () => {
+    setModalVisable(false)
+    getList(requestParams)
+  }
   const columns = [
     {
       title: '用户名',
@@ -171,7 +172,7 @@ const SubjectList = forwardRef((props, ref) => {
         visable={modalVisable} 
         hiddenModal={hiddenModal} 
         addOrEdit="edit" 
-        record={{...chooseItem}}
+        record={chooseItem}
         getList={getList}
       />
     </div>

@@ -26,14 +26,35 @@ export class UsersService {
     
   }
 
-  async remove(id: string): Promise<void> {
-    await this.usersRepository.delete(id);
+  async remove(id: string): Promise<any> {
+    try {
+      await this.usersRepository.delete(id);
+      return {
+        code: 0,
+        message: '删除成功'
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '删除失败'
+      }
+    }
+    
   }
 
-  async edit(id: number, user: User): Promise<boolean> {
-    const res = await this.usersRepository.update(id, user);
-    return true;
-    // return await this.usersRepository.update();
+  async edit(id: number, user: User): Promise<any> {
+    try {
+      await this.usersRepository.update(id, user);
+      return {
+        code: 0,
+        message: '更新成功'
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '更新失败'
+      }
+    }
   }
   // 分页查询接口
   async findAll(pagination): Promise<Object> {

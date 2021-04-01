@@ -50,7 +50,7 @@ export default [
                 ],
               },
               {
-                name: '用户管理(总)',
+                name: '用户管理A',
                 icon: 'table',
                 path: '/user-list',
                 component: './UserList',

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Card, Button } from 'antd'
+import { Card, Button, Modal } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { PageContainer } from '@ant-design/pro-layout';
 import UserList from './components/UserList'
