@@ -56,6 +56,12 @@ export default [
                 component: './UserList',
               },
               {
+                name: '课程管理A',
+                icon: 'table',
+                path: '/course',
+                component: './Course',
+              },
+              {
                 name: '参训者管理',
                 icon: 'table',
                 path: '/student',
@@ -66,12 +72,6 @@ export default [
                 icon: 'table',
                 path: '/teacher',
                 component: './Teacher',
-              },
-              {
-                name: '课程管理(总)',
-                icon: 'table',
-                path: '/course',
-                component: './Course',
               },
               {
                 name: '课程管理(我的)',

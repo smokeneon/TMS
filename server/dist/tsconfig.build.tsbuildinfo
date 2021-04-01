@@ -3377,7 +3377,7 @@
         "affectsGlobalScope": false
       },
       "../src/course/course.service.ts": {
-        "version": "add6f82ba565f647a1d756026b11a91d6e7be2c9294df04d9ef1ebcd99724ffc",
+        "version": "4a8d36fde03d7014205ad9297ff6e451afe379a033a033346b720a5631b5393b",
         "signature": "345f481e13fa06e69e1ad9ef3d6ec4769941d30bbcf261edcc293d85df686bb2",
         "affectsGlobalScope": false
       },

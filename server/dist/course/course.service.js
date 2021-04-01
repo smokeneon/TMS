@@ -75,17 +75,28 @@ let CourseService = class CourseService {
         }
     }
     async findAll(pagination) {
+        let course;
         try {
-            const users = await typeorm_2.getRepository(course_entity_1.Course)
-                .createQueryBuilder('course')
-                .skip((pagination.page - 1) * pagination.size || 0)
-                .take(pagination.size || 10)
-                .getManyAndCount();
+            if (pagination.search) {
+                course = await typeorm_2.getRepository(course_entity_1.Course)
+                    .createQueryBuilder('course')
+                    .where("course.courseName like :courseName", { courseName: '%' + pagination.search + '%' })
+                    .skip((pagination.page - 1) * pagination.size || 0)
+                    .take(pagination.size || 10)
+                    .getManyAndCount();
+            }
+            else {
+                course = await typeorm_2.getRepository(course_entity_1.Course)
+                    .createQueryBuilder('course')
+                    .skip((pagination.page - 1) * pagination.size || 0)
+                    .take(pagination.size || 10)
+                    .getManyAndCount();
+            }
             return {
                 code: 0,
                 message: '查询成功',
-                data: users[0],
-                total: users[1],
+                data: course[0],
+                total: course[1],
                 page: pagination.page,
                 size: pagination.size,
             };
