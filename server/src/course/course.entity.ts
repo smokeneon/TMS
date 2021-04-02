@@ -1,12 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Apply } from '../apply/apply.entity'
+import { User } from '../users/users.entity'
 @Entity()
 export class Course {
   @ApiProperty({ description: '课程id（前台生成）', example: 2 })
   @PrimaryGeneratedColumn()
   // @PrimaryGeneratedColumn('uuid')
-  id: number;
+  courseId: number;
 
   @ApiProperty({ description: '课程名 必填', example: '物理学概况' })
   @Column({
@@ -40,7 +41,7 @@ export class Course {
   @Column({
     nullable: false,
   })
-  courseByTeaId: number;
+  userId: number;
 
   @ApiProperty({ description: '开课状态 默认0 0:未开课，1:进行中，2:已完结', example: 0 })
   @Column({
@@ -48,20 +49,25 @@ export class Course {
   })
   openState: number;
 
-  @ApiProperty({ description: '申报状态状态 默认0 0:未申报，1:已申报', example: 0 })
+  @ApiProperty({ description: '审批状态状态 默认0 0:未提交 1:审批中 2: 审批成功 3:审批失败', example: 0 })
   @Column({
     default: 0,
   })
-  applyState: number;
+  approvalState: number;
 
-  @ApiProperty({ description: '申报人id', example: '12' })
-  @Column({
-    nullable: true,
-  })
-  applicantId: number;
+  // @ManyToOne(type => User, user => user.courses)
+  // user: User;
+  @OneToMany(() => Apply, (apply) => apply.course) // note: we will create author property in the Photo class below
+  applys: Apply[];
 
-  @ApiProperty({ description: '申报人用户名', example: 'heihei' })
-  @Column('varchar')
-  applicantUsername: number;
+  // @ApiProperty({ description: '申报人id', example: '12' })
+  // @Column({
+  //   nullable: true,
+  // })
+  // applicantId: number;
+
+  // @ApiProperty({ description: '申报人用户名', example: 'heihei' })
+  // @Column('varchar')
+  // applicantUsername: number;
 
 }

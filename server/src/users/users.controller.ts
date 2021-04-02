@@ -11,12 +11,13 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { User } from './users.entity';
+
 class PageBody  {
   page: number;
   size: number;
 }
 @Controller('/api/v1/user')
-@ApiTags('user增删改查')
+@ApiTags('用户增删改查')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

@@ -92,7 +92,7 @@ __decorate([
 ], UsersController.prototype, "findOneByUsername", null);
 UsersController = __decorate([
     common_1.Controller('/api/v1/user'),
-    swagger_1.ApiTags('user增删改查'),
+    swagger_1.ApiTags('用户增删改查'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
 exports.UsersController = UsersController;

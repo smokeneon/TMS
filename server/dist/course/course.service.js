@@ -22,7 +22,7 @@ let CourseService = class CourseService {
         this.courseRepository = courseRepository;
     }
     async create(course) {
-        if (course.courseName === undefined || course.courseByTeaId === undefined) {
+        if (course.courseName === undefined) {
             return {
                 code: 1,
                 message: '缺少课程名或者所属教师id字段'
@@ -42,9 +42,9 @@ let CourseService = class CourseService {
             };
         }
     }
-    async remove(id) {
+    async remove(courseId) {
         try {
-            const res = await this.courseRepository.delete(id);
+            const res = await this.courseRepository.delete(courseId);
             if (res.affected === 1) {
                 return {
                     code: 0,
@@ -97,8 +97,8 @@ let CourseService = class CourseService {
                 message: '查询成功',
                 data: course[0],
                 total: course[1],
-                page: pagination.page,
-                size: pagination.size,
+                page: pagination.page || 1,
+                size: pagination.size || 10,
             };
         }
         catch (error) {
@@ -122,6 +122,22 @@ let CourseService = class CourseService {
                 code: 0,
                 message: '查询失败',
             };
+        }
+    }
+    async getList() {
+        try {
+            console.log('zdddd');
+            const res = await this.courseRepository
+                .createQueryBuilder('course')
+                .getMany();
+            console.log('走到这里了');
+            console.log('res', res);
+            return {
+                code: 0,
+                okkk: 'ccc',
+            };
+        }
+        catch (error) {
         }
     }
 };

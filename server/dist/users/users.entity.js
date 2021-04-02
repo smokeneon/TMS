@@ -12,15 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
+const class_validator_1 = require("class-validator");
 let User = class User {
 };
 __decorate([
     swagger_1.ApiProperty({ description: '用户id', example: '123' }),
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], User.prototype, "userId", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '用户名', example: 'zhangsan' }),
+    class_validator_1.IsNotEmpty({ message: '请填写用户名' }),
     typeorm_1.Column('varchar'),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
@@ -34,6 +36,7 @@ __decorate([
 __decorate([
     swagger_1.ApiProperty({ description: '密码', example: 'ceshi123mima' }),
     typeorm_1.Column('varchar'),
+    class_validator_1.IsNotEmpty({ message: '请填写密码' }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
@@ -46,10 +49,12 @@ __decorate([
 __decorate([
     swagger_1.ApiProperty({ description: '身份', example: 'stu' }),
     typeorm_1.Column('varchar'),
+    class_validator_1.IsNotEmpty({ message: '请填写身份' }),
     __metadata("design:type", String)
 ], User.prototype, "identity", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '邮箱', example: '123@qq.com' }),
+    class_validator_1.IsNotEmpty({ message: '请填写邮箱' }),
     typeorm_1.Column('varchar'),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);

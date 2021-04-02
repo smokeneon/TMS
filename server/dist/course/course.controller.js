@@ -23,11 +23,14 @@ let CourseController = class CourseController {
     constructor(courseService) {
         this.courseService = courseService;
     }
+    async getList() {
+        return await this.courseService.getList();
+    }
     async create(course) {
         return await this.courseService.create(course);
     }
-    async remove(id) {
-        return await this.courseService.remove(id);
+    async remove(courseId) {
+        return await this.courseService.remove(courseId);
     }
     async update(id, body) {
         return await this.courseService.edit(id, body);
@@ -40,6 +43,13 @@ let CourseController = class CourseController {
     }
 };
 __decorate([
+    common_1.Get('/list'),
+    swagger_1.ApiOperation({ summary: '左连接申报表查询' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getList", null);
+__decorate([
     common_1.Post('/add'),
     swagger_1.ApiOperation({ summary: '增加一门课程' }),
     __param(0, common_1.Body()),
@@ -48,9 +58,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "create", null);
 __decorate([
-    common_1.Delete(':id'),
+    common_1.Delete(':courseId'),
     swagger_1.ApiOperation({ summary: '删除一门课程' }),
-    __param(0, common_1.Param('id')),
+    __param(0, common_1.Param('courseId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
@@ -81,7 +91,7 @@ __decorate([
 ], CourseController.prototype, "detail", null);
 CourseController = __decorate([
     common_1.Controller('/api/v1/course'),
-    swagger_1.ApiTags('course增删改查'),
+    swagger_1.ApiTags('课程增删改查'),
     __metadata("design:paramtypes", [course_service_1.CourseService])
 ], CourseController);
 exports.CourseController = CourseController;

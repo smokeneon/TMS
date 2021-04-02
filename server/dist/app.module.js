@@ -23,6 +23,7 @@ const nest_status_monitor_1 = require("nest-status-monitor");
 const statusMonitor_1 = require("./config/statusMonitor");
 const course_module_1 = require("./course/course.module");
 const email_module_1 = require("./email/email.module");
+const apply_module_1 = require("./apply/apply.module");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -60,6 +61,7 @@ AppModule = __decorate([
             email_module_1.EmailModule,
             users_module_1.UsersModule,
             course_module_1.CourseModule,
+            apply_module_1.ApplyModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

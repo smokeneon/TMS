@@ -21,7 +21,6 @@ let LocalStrategy = class LocalStrategy extends passport_1.PassportStrategy(pass
     }
     async validate(username, password) {
         console.log('走到这里了');
-        console.log(username, password);
         return { username, password };
     }
 };

@@ -26,12 +26,18 @@ export class UsersService {
     
   }
 
-  async remove(id: string): Promise<any> {
+  async remove(userId: string): Promise<any> {
     try {
-      await this.usersRepository.delete(id);
+      const res = await this.usersRepository.delete(userId);
+      if (res.affected === 1) {
+        return {
+          code: 0,
+          message: '删除成功'
+        }
+      }
       return {
-        code: 0,
-        message: '删除成功'
+        code: 1,
+        message: '删除失败'
       }
     } catch (error) {
       return {
@@ -69,18 +75,21 @@ export class UsersService {
           .getManyAndCount()
       } else {
         user = await getRepository(User)
-        // createQueryBuilder 创建一个查询构建器 可用于查询
-          .createQueryBuilder('user')
-          .skip((pagination.page-1)*pagination.size || 0)
-          .take(pagination.size || 10)
-          .getManyAndCount()
+          .find({
+            relations: ['courses']
+          })
+          // .createQueryBuilder('user')
+          // .leftJoinAndSelect("user.userId = course.userId", "course")
+          // .skip((pagination.page-1)*pagination.size || 0)
+          // .take(pagination.size || 10)
+          // .getManyAndCount()
       }
 
       return {
         code: 0,
         data: user[0],
-        page: parseInt(pagination.page),
-        size: parseInt(pagination.size),
+        page: parseInt(pagination.page) || 1,
+        size: parseInt(pagination.size) || 10,
         total: user[1],
       }
     } catch (error) {

@@ -16,9 +16,15 @@ class PageBody  {
   size: number;
 }
 @Controller('/api/v1/course')
-@ApiTags('course增删改查')
+@ApiTags('课程增删改查')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
+
+  @Get('/list')
+  @ApiOperation({ summary: '左连接申报表查询' })
+  async getList() {
+    return await this.courseService.getList();
+  }
 
   @Post('/add')
   @ApiOperation({ summary: '增加一门课程' })
@@ -27,10 +33,10 @@ export class CourseController {
   }
 
 
-  @Delete(':id')
+  @Delete(':courseId')
   @ApiOperation({ summary: '删除一门课程' })
-  async remove(@Param('id') id: string) {
-    return await this.courseService.remove(id);
+  async remove(@Param('courseId') courseId: string) {
+    return await this.courseService.remove(courseId);
   }
   
   @Put(':id')
@@ -50,4 +56,6 @@ export class CourseController {
   async detail(@Param('id') id: string) {
     return await this.courseService.findOne(id);
   }
+
+  
 }

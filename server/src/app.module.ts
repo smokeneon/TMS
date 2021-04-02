@@ -11,6 +11,7 @@ import { StatusMonitorModule} from 'nest-status-monitor'
 import statusMonitorConfig  from './config/statusMonitor'
 import { CourseModule } from './course/course.module';
 import { EmailModule } from './email/email.module'
+import { ApplyModule } from './apply/apply.module'
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { EmailModule } from './email/email.module'
     EmailModule,
     UsersModule,
     CourseModule,
+    ApplyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -21,7 +21,6 @@ let AuthController = class AuthController {
         this.authService = authService;
     }
     async login(req) {
-        console.log('req', req);
         return this.authService.login(req.user);
     }
     getProfile(req) {

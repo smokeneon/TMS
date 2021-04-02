@@ -36,12 +36,18 @@ let UsersService = class UsersService {
             };
         }
     }
-    async remove(id) {
+    async remove(userId) {
         try {
-            await this.usersRepository.delete(id);
+            const res = await this.usersRepository.delete(userId);
+            if (res.affected === 1) {
+                return {
+                    code: 0,
+                    message: '删除成功'
+                };
+            }
             return {
-                code: 0,
-                message: '删除成功'
+                code: 1,
+                message: '删除失败'
             };
         }
         catch (error) {
@@ -79,16 +85,15 @@ let UsersService = class UsersService {
             }
             else {
                 user = await typeorm_2.getRepository(users_entity_1.User)
-                    .createQueryBuilder('user')
-                    .skip((pagination.page - 1) * pagination.size || 0)
-                    .take(pagination.size || 10)
-                    .getManyAndCount();
+                    .find({
+                    relations: ['courses']
+                });
             }
             return {
                 code: 0,
                 data: user[0],
-                page: parseInt(pagination.page),
-                size: parseInt(pagination.size),
+                page: parseInt(pagination.page) || 1,
+                size: parseInt(pagination.size) || 10,
                 total: user[1],
             };
         }

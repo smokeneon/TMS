@@ -1,14 +1,14 @@
+import { Apply } from '../apply/apply.entity';
 export declare class Course {
-    id: number;
+    courseId: number;
     courseName: string;
     subject: string;
     coureseBackground: string;
     courseTarget: string;
     courseFramework: string;
     teacher: string;
-    courseByTeaId: number;
+    userId: number;
     openState: number;
-    applyState: number;
-    applicantId: number;
-    applicantUsername: number;
+    approvalState: number;
+    applys: Apply[];
 }

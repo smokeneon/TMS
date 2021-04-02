@@ -11,7 +11,8 @@ export class CourseService {
   ) {}
 
   async create(course: Course): Promise<object> {
-    if (course.courseName === undefined || course.courseByTeaId === undefined) {
+    // if (course.courseName === undefined || course.courseByTeaId === undefined) {
+    if (course.courseName === undefined) {
       return {
         code: 1,
         message: '缺少课程名或者所属教师id字段'
@@ -34,9 +35,9 @@ export class CourseService {
    
   }
 
-  async remove(id: string): Promise<object> {
+  async remove(courseId: string): Promise<object> {
     try {
-      const res = await this.courseRepository.delete(id);
+      const res = await this.courseRepository.delete(courseId);
       if (res.affected === 1) {
         return {
           code: 0,
@@ -90,8 +91,8 @@ export class CourseService {
         message: '查询成功',
         data: course[0],
         total: course[1],
-        page: pagination.page,
-        size: pagination.size,
+        page: pagination.page || 1,
+        size: pagination.size || 10,
       }
     } catch (error) {
       return {
@@ -114,6 +115,28 @@ export class CourseService {
         code: 0,
         message: '查询失败',
       }
+    }
+  }
+
+  async getList(): Promise<any> {
+    try {
+      console.log('zdddd');
+      const res = await this.courseRepository
+        .createQueryBuilder('course')
+        // .le ftJoinAndSelect('course.applys', 'course.courseId')
+        .getMany()
+      console.log('走到这里了');
+      
+      console.log('res', res);
+      
+      return {
+        code: 0,
+        okkk: 'ccc',
+        // data: res
+      }
+      
+    } catch (error) {
+      
     }
   }
 }

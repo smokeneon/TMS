@@ -9,9 +9,7 @@ export class AuthController {
   // 登录测试
   @UseGuards(AuthGuard('local'))
   @Post('/auth/login')
-  async login(@Request() req) {
-    console.log('req', req);
-    
+  async login(@Request() req) { 
     return this.authService.login(req.user);
   }
   // 测试登录后才可访问的接口，在需要的地方使用守卫，可保证必须携带token才能访问

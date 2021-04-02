@@ -14,7 +14,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     console.log('走到这里了');
     
     // tslint:disable-next-line
-    console.log(username, password)
     return {username, password};
     // const user = await this.authService.validateUser(username, password);
     // if (!user) {
