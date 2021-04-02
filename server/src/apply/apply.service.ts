@@ -10,16 +10,6 @@ export class ApplyService {
     @InjectRepository(Apply)
     private applyRepository: Repository<Apply>,
   ) {}
-  // TODO 没写完
-  // async getApplyAndCourse(): Promise<any> {
-  //   try {
-  //     let applys = await this.applyRepository
-  //       .createQueryBuilder('apply')
-  //       .leftJoinAndSelect("apply.applyId", "album")
-  //   } catch (error) {
-      
-  //   }
-  // }
   async create(apply: Apply): Promise<object> {
     try {
       await this.applyRepository.insert(apply);
@@ -33,8 +23,6 @@ export class ApplyService {
         message: '创建失败'
       }
     }
-   
-   
   }
 
   async remove(id: string): Promise<object> {
@@ -69,14 +57,14 @@ export class ApplyService {
     }
   }
 
-    // 分页查询接口
+    // 分页查询接口 联查课程
   async findAll(pagination): Promise<Object> {
-    let course;
     let apply;
     try {
       if (pagination.search) {
-        course = await getRepository(Apply)
-          .createQueryBuilder('course')
+        apply = await getRepository(Apply)
+          .createQueryBuilder('apply')
+          .leftJoinAndSelect("apply.course", "course")
           .where("apply.applyNumber like :applyNumber", { applyNumber: '%' + pagination.search + '%' })
           .skip((pagination.page-1)*pagination.size || 0)
           .take(pagination.size || 10)
@@ -85,32 +73,20 @@ export class ApplyService {
         apply = await getRepository(Apply)
         .createQueryBuilder("apply")
         .leftJoinAndSelect("apply.course", "course")
-        .getMany()
-        console.log(apply);
-        
-        // course = await getRepository(Course)
-        //   .createQueryBuilder('course')
-        //   .leftJoinAndSelect("course.applys", "applys")
-        //   // .skip((pagination.page-1)*pagination.size || 0)
-        //   // .take(pagination.size || 10)
-        //   // .printSql()
-        //   .getManyAndCount()
-        // console.log('course', course);
-        
+        .skip((pagination.page-1)*pagination.size || 0)
+        .take(pagination.size || 10)
+        .getManyAndCount()
       }
 
       return {
         code: 0,
         message: '查询成功',
-        data: course[0],
-        total: course[1],
+        data: apply[0],
+        total: apply[1],
         page: pagination.page || 1,
         size: pagination.size || 10,
       }
     } catch (error) {
-
-      console.log('error', error);
-      
       return {
         code: 1,
         message: '查询失败',
@@ -120,11 +96,15 @@ export class ApplyService {
 
   async findOne(id: string): Promise<object> {
     try {
-      const res = await this.applyRepository.findOne(id);
+      const res = await getRepository(Apply)
+      .createQueryBuilder("apply")
+      .where("apply.applyNumber = :applyNumber", { applyNumber: id })
+      .leftJoinAndSelect("apply.course", "course")
+      .getOne()
       return {
         code: 0,
         message: '查询成功',
-        data: res,
+        data: res || {},
       }
     } catch (error) {
       return {

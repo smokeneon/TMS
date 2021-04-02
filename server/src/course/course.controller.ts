@@ -22,8 +22,8 @@ export class CourseController {
 
   @Get('/list')
   @ApiOperation({ summary: '左连接申报表查询' })
-  async getList() {
-    return await this.courseService.getList();
+  async getList(@Query() pagination: string) {
+    return await this.courseService.getList(pagination);
   }
 
   @Post('/add')

@@ -11,11 +11,6 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { User } from './users.entity';
-
-class PageBody  {
-  page: number;
-  size: number;
-}
 @Controller('/api/v1/user')
 @ApiTags('用户增删改查')
 export class UsersController {
@@ -52,9 +47,28 @@ export class UsersController {
   }
 
   @Get('/username/:username')
-  @ApiOperation({ summary: '根据用户名查找用户' })
+  @ApiOperation({ summary: '根据用户名查找用户 查询' })
   async findOneByUsername(@Param('username') username: string) {
-    return await this.usersService.findOneByUsername(username)
+    try {
+      const res = await this.usersService.findOneByUsername(username)
+      if (res === undefined) {
+        return {
+          code: 0,
+          message: '该用户名可用'
+        }
+      } else {
+        return {
+          code: 1,
+          message: '用户名已存在'
+        }
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败'
+      }
+    }
+    return 
   }
   // @Query 从req的query获取东西 @Params 从req的params获取东西
 

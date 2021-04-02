@@ -85,9 +85,10 @@ let UsersService = class UsersService {
             }
             else {
                 user = await typeorm_2.getRepository(users_entity_1.User)
-                    .find({
-                    relations: ['courses']
-                });
+                    .createQueryBuilder('user')
+                    .skip((pagination.page - 1) * pagination.size || 0)
+                    .take(pagination.size || 10)
+                    .getManyAndCount();
             }
             return {
                 code: 0,

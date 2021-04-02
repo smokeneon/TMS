@@ -50,7 +50,7 @@ __decorate([
         nullable: true,
     }),
     __metadata("design:type", Number)
-], Apply.prototype, "applicantId", void 0);
+], Apply.prototype, "score", void 0);
 Apply = __decorate([
     typeorm_1.Entity()
 ], Apply);

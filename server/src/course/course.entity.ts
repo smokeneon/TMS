@@ -6,7 +6,6 @@ import { User } from '../users/users.entity'
 export class Course {
   @ApiProperty({ description: '课程id（前台生成）', example: 2 })
   @PrimaryGeneratedColumn()
-  // @PrimaryGeneratedColumn('uuid')
   courseId: number;
 
   @ApiProperty({ description: '课程名 必填', example: '物理学概况' })
@@ -32,16 +31,6 @@ export class Course {
   @Column('varchar')
   courseFramework: string;
 
-  @ApiProperty({ description: '开课教师', example: '老王' })
-  @Column('varchar')
-  teacher: string;
-
-
-  @ApiProperty({ description: '所属教师用户id 必填', example: 23 })
-  @Column({
-    nullable: false,
-  })
-  userId: number;
 
   @ApiProperty({ description: '开课状态 默认0 0:未开课，1:进行中，2:已完结', example: 0 })
   @Column({
@@ -55,19 +44,7 @@ export class Course {
   })
   approvalState: number;
 
-  // @ManyToOne(type => User, user => user.courses)
-  // user: User;
   @OneToMany(() => Apply, (apply) => apply.course) // note: we will create author property in the Photo class below
   applys: Apply[];
-
-  // @ApiProperty({ description: '申报人id', example: '12' })
-  // @Column({
-  //   nullable: true,
-  // })
-  // applicantId: number;
-
-  // @ApiProperty({ description: '申报人用户名', example: 'heihei' })
-  // @Column('varchar')
-  // applicantUsername: number;
 
 }

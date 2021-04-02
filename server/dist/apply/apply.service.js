@@ -70,12 +70,12 @@ let ApplyService = class ApplyService {
         }
     }
     async findAll(pagination) {
-        let course;
         let apply;
         try {
             if (pagination.search) {
-                course = await typeorm_2.getRepository(apply_entity_1.Apply)
-                    .createQueryBuilder('course')
+                apply = await typeorm_2.getRepository(apply_entity_1.Apply)
+                    .createQueryBuilder('apply')
+                    .leftJoinAndSelect("apply.course", "course")
                     .where("apply.applyNumber like :applyNumber", { applyNumber: '%' + pagination.search + '%' })
                     .skip((pagination.page - 1) * pagination.size || 0)
                     .take(pagination.size || 10)
@@ -85,20 +85,20 @@ let ApplyService = class ApplyService {
                 apply = await typeorm_2.getRepository(apply_entity_1.Apply)
                     .createQueryBuilder("apply")
                     .leftJoinAndSelect("apply.course", "course")
-                    .getMany();
-                console.log(apply);
+                    .skip((pagination.page - 1) * pagination.size || 0)
+                    .take(pagination.size || 10)
+                    .getManyAndCount();
             }
             return {
                 code: 0,
                 message: '查询成功',
-                data: course[0],
-                total: course[1],
+                data: apply[0],
+                total: apply[1],
                 page: pagination.page || 1,
                 size: pagination.size || 10,
             };
         }
         catch (error) {
-            console.log('error', error);
             return {
                 code: 1,
                 message: '查询失败',
@@ -107,11 +107,15 @@ let ApplyService = class ApplyService {
     }
     async findOne(id) {
         try {
-            const res = await this.applyRepository.findOne(id);
+            const res = await typeorm_2.getRepository(apply_entity_1.Apply)
+                .createQueryBuilder("apply")
+                .where("apply.applyNumber = :applyNumber", { applyNumber: id })
+                .leftJoinAndSelect("apply.course", "course")
+                .getOne();
             return {
                 code: 0,
                 message: '查询成功',
-                data: res,
+                data: res || {},
             };
         }
         catch (error) {

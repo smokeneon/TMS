@@ -17,14 +17,13 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const apply_service_1 = require("./apply.service");
 const apply_entity_1 = require("./apply.entity");
-class PageBody {
-}
 let ApplyController = class ApplyController {
     constructor(applyService) {
         this.applyService = applyService;
     }
-    async create(course) {
-        return await this.applyService.create(course);
+    async create(apply) {
+        console.log('apply', apply);
+        return await this.applyService.create(apply);
     }
     async remove(id) {
         return await this.applyService.remove(id);
@@ -44,7 +43,7 @@ __decorate([
     swagger_1.ApiOperation({ summary: '添加一个申报' }),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [apply_entity_1.Apply]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ApplyController.prototype, "create", null);
 __decorate([

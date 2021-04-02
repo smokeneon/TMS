@@ -17,8 +17,6 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const users_service_1 = require("./users.service");
 const users_entity_1 = require("./users.entity");
-class PageBody {
-}
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -39,7 +37,28 @@ let UsersController = class UsersController {
         return await this.usersService.findOne(id);
     }
     async findOneByUsername(username) {
-        return await this.usersService.findOneByUsername(username);
+        try {
+            const res = await this.usersService.findOneByUsername(username);
+            if (res === undefined) {
+                return {
+                    code: 0,
+                    message: '该用户名可用'
+                };
+            }
+            else {
+                return {
+                    code: 1,
+                    message: '用户名已存在'
+                };
+            }
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败'
+            };
+        }
+        return;
     }
 };
 __decorate([
@@ -84,7 +103,7 @@ __decorate([
 ], UsersController.prototype, "detail", null);
 __decorate([
     common_1.Get('/username/:username'),
-    swagger_1.ApiOperation({ summary: '根据用户名查找用户' }),
+    swagger_1.ApiOperation({ summary: '根据用户名查找用户 查询' }),
     __param(0, common_1.Param('username')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

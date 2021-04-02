@@ -6,8 +6,6 @@ export declare class Course {
     coureseBackground: string;
     courseTarget: string;
     courseFramework: string;
-    teacher: string;
-    userId: number;
     openState: number;
     approvalState: number;
     applys: Apply[];

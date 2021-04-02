@@ -75,14 +75,10 @@ export class UsersService {
           .getManyAndCount()
       } else {
         user = await getRepository(User)
-          .find({
-            relations: ['courses']
-          })
-          // .createQueryBuilder('user')
-          // .leftJoinAndSelect("user.userId = course.userId", "course")
-          // .skip((pagination.page-1)*pagination.size || 0)
-          // .take(pagination.size || 10)
-          // .getManyAndCount()
+          .createQueryBuilder('user')
+          .skip((pagination.page-1)*pagination.size || 0)
+          .take(pagination.size || 10)
+          .getManyAndCount()
       }
 
       return {

@@ -5,5 +5,5 @@ export declare class Apply {
     userId: string;
     course: Course;
     approvalState: number;
-    applicantId: number;
+    score: number;
 }

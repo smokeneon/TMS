@@ -15,22 +15,10 @@ export class Apply {
   })
   applyNumber: string;
 
-  // @ApiProperty({ description: '所属学科', example: '物理学' })
-  // @Column('varchar')
-  // subject: string;
-
   @ApiProperty({ description: '参训者id', example: '23' })
   @Column('varchar')
   userId: string;
 
-  // @ApiProperty({ description: '参训者姓名', example: '张三'})
-  // @Col() umn('varchar')
-  // realname: string;
-
-
-  // @ApiProperty({ description: '课程id', example: '34' })
-  // @Column('varchar')
-  // courseId: number;
   @ManyToOne(() => Course, (course) => course.applys)
   course: Course
 
@@ -44,9 +32,6 @@ export class Apply {
   @Column({
     nullable: true,
   })
-  applicantId: number;
+  score: number;
   
-
-  // @ManyToOne((type) => Course, (course) => course.courses)
-  // course: Course;
 }

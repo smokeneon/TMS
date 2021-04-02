@@ -3,7 +3,7 @@ import { Course } from './course.entity';
 export declare class CourseController {
     private readonly courseService;
     constructor(courseService: CourseService);
-    getList(): Promise<any>;
+    getList(pagination: string): Promise<any>;
     create(course: Course): Promise<object>;
     remove(courseId: string): Promise<object>;
     update(id: number, body: Course): Promise<object>;

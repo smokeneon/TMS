@@ -23,8 +23,8 @@ let CourseController = class CourseController {
     constructor(courseService) {
         this.courseService = courseService;
     }
-    async getList() {
-        return await this.courseService.getList();
+    async getList(pagination) {
+        return await this.courseService.getList(pagination);
     }
     async create(course) {
         return await this.courseService.create(course);
@@ -45,8 +45,9 @@ let CourseController = class CourseController {
 __decorate([
     common_1.Get('/list'),
     swagger_1.ApiOperation({ summary: '左连接申报表查询' }),
+    __param(0, common_1.Query()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "getList", null);
 __decorate([

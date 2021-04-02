@@ -124,17 +124,22 @@ let CourseService = class CourseService {
             };
         }
     }
-    async getList() {
+    async getList(pagination) {
+        let course;
         try {
-            console.log('zdddd');
-            const res = await this.courseRepository
+            course = await typeorm_2.getRepository(course_entity_1.Course)
                 .createQueryBuilder('course')
-                .getMany();
-            console.log('走到这里了');
-            console.log('res', res);
+                .leftJoinAndSelect("course.applys", "applys")
+                .skip((pagination.page - 1) * pagination.size || 0)
+                .take(pagination.size || 10)
+                .getManyAndCount();
             return {
                 code: 0,
-                okkk: 'ccc',
+                message: '查询成功',
+                data: course[0],
+                total: course[1],
+                page: pagination.page || 1,
+                size: pagination.size || 10,
             };
         }
         catch (error) {
