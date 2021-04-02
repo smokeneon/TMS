@@ -4,7 +4,9 @@ export const OpenState = {
   2: '已完结',
 }
 
-export const ApplyState = {
-  0: '未申报',
-  1: '已申报'
+export const ApprovalState = {
+  0: '未提交',
+  1: '审批中',
+  2: '审批成功',
+  3: '审批失败',
 }

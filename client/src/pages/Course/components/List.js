@@ -3,7 +3,7 @@ import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Dra
 import { SearchOutlined } from '@ant-design/icons'
 import Moment from 'moment'
 import AddModal from './AddModal'
-import { OpenState, ApplyState } from '../../../common/const'
+import { OpenState, ApprovalState } from '../../../common/const'
 import DrawerContent from './DrawerContent'
 
 import { deleteItem, getUserList } from '../api'
@@ -123,10 +123,10 @@ const SubjectList = forwardRef((props, ref) => {
       render: text => OpenState[text],
     },
     {
-      title: '申请状态',
-      dataIndex: 'applyState',
-      key: 'applyState',
-      render: text => ApplyState[text]
+      title: '审批状态',
+      dataIndex: 'approvalState',
+      key: 'approvalState',
+      render: text => ApprovalState[text]
     },
     // {
     //   title: '操作时间',
@@ -138,12 +138,13 @@ const SubjectList = forwardRef((props, ref) => {
     {
       title: '操作',
       key: 'action',
+      fixed: 'right',
       render: (text, record) => (
         <Space size="middle">
           <a onClick={openModal(record)}>编辑</a>
           <Popconfirm
             title="你确定删除此条吗?"
-            onConfirm={deleteConfirm(record.id)}
+            onConfirm={deleteConfirm(record.courseId)}
             okText="是"
             cancelText="否"
           >

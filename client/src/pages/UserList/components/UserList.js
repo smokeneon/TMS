@@ -56,7 +56,6 @@ const SubjectList = forwardRef((props, ref) => {
     }
   }
   const deleteConfirm = id => () => {
-    console.log('这个id', id);
     deleteItem(id).then(res => {
       message.success(res.data.message)
       getList(requestParams)
@@ -82,17 +81,17 @@ const SubjectList = forwardRef((props, ref) => {
         </Typography.Text>
       ),
     },
-    {
-      title: '密码',
-      dataIndex: 'password',
-      key: 'password',
-      width: 160,
-      render: (text) => (
-        <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
-          {text}
-        </Typography.Text>
-      ),
-    },
+    // {
+    //   title: '密码',
+    //   dataIndex: 'password',
+    //   key: 'password',
+    //   width: 160,
+    //   render: (text) => (
+    //     <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
+    //       {text}
+    //     </Typography.Text>
+    //   ),
+    // },
     {
       title: '学号',
       dataIndex: 'stuNum',
@@ -124,12 +123,13 @@ const SubjectList = forwardRef((props, ref) => {
     {
       title: '操作',
       key: 'action',
+      fixed: 'right',
       render: (text, record) => (
         <Space size="middle">
           <a onClick={openModal(record)}>编辑</a>
           <Popconfirm
             title="你确定删除此条吗?"
-            onConfirm={deleteConfirm(record.id)}
+            onConfirm={deleteConfirm(record.userId)}
             okText="是"
             cancelText="否"
           >

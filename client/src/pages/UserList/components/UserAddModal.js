@@ -41,7 +41,7 @@ const UserAddModal = props => {
           }
         })
       } else {
-        editUser(record.id, newParams).then(res => {
+        editUser(record.userId, newParams).then(res => {
           if (res.status === 200 && res.data.code === 0) {
             message.success(res.data.message)
             initModal()

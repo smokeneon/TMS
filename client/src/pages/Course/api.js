@@ -11,18 +11,18 @@ export const getUserList = (params) => {
 }
 
 export const addUser = params => {
-  return axios.post('/api/user/add', {
+  return axios.post('/api/course/add', {
     ...params
   })
 }
 
 export const editUser = (id, params) => {
-  return axios.put(`/api/user/${id}`, {
+  return axios.put(`/api/course/${id}`, {
     ...params
   })
 }
 
 
 export const deleteItem = id => {
-  return axios.delete(`/api/user/${id}`)
+  return axios.delete(`/api/course/${id}`)
 }
