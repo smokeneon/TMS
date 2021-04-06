@@ -19,6 +19,7 @@ const Model = {
       if (response.state === 'ok') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
+        sessionStorage.setItem("isLogin", "true");
         message.success('🎉 🎉 🎉  登录成功！');
         let { redirect } = params;
         if (redirect) {
@@ -58,6 +59,7 @@ const Model = {
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
+      console.log('payload', payload, payload.currentAuthority);
       setAuthority(payload.currentAuthority);
       return { ...state, status: payload.status, type: payload.type };
     },

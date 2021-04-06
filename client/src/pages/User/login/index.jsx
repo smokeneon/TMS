@@ -1,11 +1,15 @@
 import {
   LockOutlined,
   UserOutlined,
+  MailOutlined,
+  SolutionOutlined,
+  KeyOutlined
 } from '@ant-design/icons';
-import { Alert, } from 'antd';
+
+import { Alert, Tabs, message } from 'antd';
 import React, { useState } from 'react';
-import ProForm, { ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
-import { useIntl, FormattedMessage } from 'umi';
+import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
+import { FormattedMessage } from 'umi';
 import styles from './index.less';
 import { connect } from 'umi';
 
@@ -23,17 +27,21 @@ const LoginMessage = ({ content }) => (
 const Login = (props) => {
   const { userLogin = {}, submitting } = props;
   const { status, type: loginType } = userLogin;
-  const [type] = useState('account');
-  const intl = useIntl();
+  const [type, setType] = useState('account');
 
   const handleSubmit = (values) => {
-    // // TODO 在这获取参数
-    console.log('values', values,props);
-    const { dispatch } = props;
-    dispatch({
-      type: 'login/login',
-      payload: { ...values, type },
-    });
+    console.log('type', type);
+    if (type === 'account') {
+      const { dispatch } = props;
+      dispatch({
+        type: 'login/login',
+        payload: { ...values, type },
+      });
+    }
+    if (type === 'register') {
+      message.success('注册成功')
+    }
+   
   };
 
   return (
@@ -43,6 +51,9 @@ const Login = (props) => {
           autoLogin: true,
         }}
         submitter={{
+          searchConfig: {
+            submitText: '登录 / 注册',
+          },
           render: (_, dom) => dom.pop(),
           submitButtonProps: {
             loading: submitting,
@@ -57,13 +68,20 @@ const Login = (props) => {
           return Promise.resolve();
         }}
       >
+         <Tabs activeKey={type} onChange={setType}>
+          <Tabs.TabPane
+            key="account"
+            tab="登陆"
+          />
+          <Tabs.TabPane
+            key="register"
+            tab="注册"
+          />
+        </Tabs>
 
         {status === 'error' && loginType === 'account' && !submitting && (
           <LoginMessage
-            content={intl.formatMessage({
-              id: 'pages.login.accountLogin.errorMessage',
-              defaultMessage: '账户或密码错误（admin/ant.design)',
-            })}
+            content="账户或密码错误"
           />
         )}
         {type === 'account' && (
@@ -74,19 +92,11 @@ const Login = (props) => {
                 size: 'large',
                 prefix: <UserOutlined className={styles.prefixIcon} />,
               }}
-              placeholder={intl.formatMessage({
-                id: 'pages.login.username.placeholder',
-                defaultMessage: '用户名: admin or user',
-              })}
+              placeholder="用户名: 测试账号admin"
               rules={[
                 {
                   required: true,
-                  message: (
-                    <FormattedMessage
-                      id="pages.login.username.required"
-                      defaultMessage="请输入用户名!"
-                    />
-                  ),
+                  message: "用户名不能为空"
                 },
               ]}
             />
@@ -96,44 +106,127 @@ const Login = (props) => {
                 size: 'large',
                 prefix: <LockOutlined className={styles.prefixIcon} />,
               }}
-              placeholder={intl.formatMessage({
-                id: 'pages.login.password.placeholder',
-                defaultMessage: '密码: ant.design',
-              })}
+              placeholder="密码: 测试账号admin"
               rules={[
                 {
                   required: true,
-                  message: (
-                    <FormattedMessage
-                      id="pages.login.password.required"
-                      defaultMessage="请输入密码！"
-                    />
-                  ),
+                  message: "密码不能为空"
                 },
               ]}
             />
+            <div
+              style={{
+                marginBottom: 24,
+              }}
+            >
+              <ProFormCheckbox noStyle name="autoLogin">
+                <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
+              </ProFormCheckbox>
+              <a
+                style={{
+                  float: 'right',
+                }}
+              >
+                <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
+              </a>
+            </div>
+          </>
+        )}
+
+        {type === 'register' && (
+          <>
+           <ProFormText
+              name="userName"
+              fieldProps={{
+                size: 'large',
+                prefix: <UserOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder="请输入用户名"
+              rules={[
+                {
+                  required: true,
+                  message: "用户名不能为空",
+                },
+              ]}
+            />
+             <ProFormText
+              name="realName"
+              fieldProps={{
+                size: 'large',
+                prefix: <SolutionOutlined  className={styles.prefixIcon} />,
+              }}
+              placeholder="请输入真实姓名"
+              rules={[
+                {
+                  required: true,
+                  message: "真实姓名不能为空"
+                },
+              ]}
+            />
+             <ProFormText.Password
+              name="password"
+              fieldProps={{
+                size: 'large',
+                prefix: <LockOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder="请输入密码"
+              rules={[
+                {
+                  required: true,
+                  message: "密码不能为空",
+                },
+              ]}
+            />
+            <ProFormText
+              fieldProps={{
+                size: 'large',
+                prefix: <MailOutlined className={styles.prefixIcon} />,
+              }}
+              name="email"
+              placeholder="邮箱"
+              rules={[
+                {
+                  required: true,
+                  message: "请输入邮箱",
+                },
+                {
+                  pattern: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$$/,
+                  message: '邮箱格式错误',
+                },
+              ]}
+            />
+            <ProFormCaptcha
+            fieldProps={{
+              size: 'large',
+              prefix: <KeyOutlined className={styles.prefixIcon} />,
+            }}
+            captchaProps={{
+              size: 'large',
+            }}
+            phoneName="email"
+            name="code"
+            rules={[
+              {
+                required: true,
+                message: '请输入验证码',
+              },
+            ]}
+            placeholder="请输入验证码"
+            onGetCaptcha={(email) => {
+              // await waitTime(1000);
+              setTimeout(() => {
+                message.success(`邮箱 ${email} 验证码发送成功!`);
+              }, 1000);
+             
+            }}
+          />
           </>
         )}
 
         {status === 'error' && loginType === 'mobile' && !submitting && (
           <LoginMessage content="验证码错误" />
         )}
-        <div
-          style={{
-            marginBottom: 24,
-          }}
-        >
-          <ProFormCheckbox noStyle name="autoLogin">
-            <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
-          </ProFormCheckbox>
-          <a
-            style={{
-              float: 'right',
-            }}
-          >
-            <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
-          </a>
-        </div>
+       
       </ProForm>
     </div>
   );

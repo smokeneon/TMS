@@ -62,6 +62,12 @@ export default [
                 component: './Course',
               },
               {
+                name: '申报管理A',
+                icon: 'table',
+                path: '/apply',
+                component: './Apply',
+              },
+              {
                 name: '参训者管理',
                 icon: 'table',
                 path: '/student',
