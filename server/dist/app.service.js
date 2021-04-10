@@ -6,21 +6,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CourseModule = void 0;
+exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const course_controller_1 = require("./course.controller");
-const course_service_1 = require("./course.service");
-const course_entity_1 = require("./course.entity");
-let CourseModule = class CourseModule {
+let AppService = class AppService {
+    getHello() {
+        return 'Hello World!';
+    }
 };
-CourseModule = __decorate([
-    common_1.Module({
-        imports: [typeorm_1.TypeOrmModule.forFeature([course_entity_1.Course])],
-        controllers: [course_controller_1.CourseController],
-        providers: [course_service_1.CourseService],
-        exports: [course_service_1.CourseService],
-    })
-], CourseModule);
-exports.CourseModule = CourseModule;
-//# sourceMappingURL=course.module.js.map
+AppService = __decorate([
+    common_1.Injectable()
+], AppService);
+exports.AppService = AppService;
+//# sourceMappingURL=app.service.js.map
