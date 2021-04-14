@@ -20,8 +20,11 @@ let LocalStrategy = class LocalStrategy extends passport_1.PassportStrategy(pass
         this.authService = authService;
     }
     async validate(username, password) {
-        console.log('走到这里了');
-        return { username, password };
+        const user = await this.authService.validateUser(username, password);
+        if (!user) {
+            throw new common_1.UnauthorizedException();
+        }
+        return user;
     }
 };
 LocalStrategy = __decorate([

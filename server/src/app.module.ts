@@ -12,6 +12,9 @@ import statusMonitorConfig  from './config/statusMonitor'
 import { CourseModule } from './course/course.module';
 import { EmailModule } from './email/email.module'
 import { ApplyModule } from './apply/apply.module'
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
+import { UsersController } from './users/users.controller';
 
 @Module({
   imports: [
@@ -45,8 +48,9 @@ import { ApplyModule } from './apply/apply.module'
     UsersModule,
     CourseModule,
     ApplyModule,
+    AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule {

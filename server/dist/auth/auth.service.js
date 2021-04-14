@@ -8,43 +8,77 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
+const users_service_1 = require("../users/users.service");
 const jwt_1 = require("@nestjs/jwt");
+const cryptogram_1 = require("../utils/cryptogram");
 let AuthService = class AuthService {
-    constructor(jwtService) {
+    constructor(usersService, jwtService) {
+        this.usersService = usersService;
         this.jwtService = jwtService;
     }
-    async validateUser(username, pass) {
-        const user = { name: 'leon', password: '123' };
-        if (user && user.password) {
-            const { password } = user, result = __rest(user, ["password"]);
-            return result;
+    async validateUser(username, password) {
+        console.log('username', username);
+        console.log('JWT验证 - Step 2: 校验用户信息');
+        const user = await this.usersService.findOneByUsername(username);
+        console.log('user', user);
+        if (user) {
+            const hashedPassword = user.password;
+            const salt = user.pwd_salt;
+            const hashPassword = cryptogram_1.encryptPassword(password, salt);
+            if (hashedPassword === hashPassword) {
+                return {
+                    code: 0,
+                    message: '密码正确',
+                    user,
+                };
+            }
+            else {
+                return {
+                    code: 1,
+                    message: '密码错误',
+                    user: null,
+                };
+            }
         }
-        return null;
-    }
-    async login(user) {
-        const payload = { username: user.username, sub: user.userId };
         return {
-            access_token: this.jwtService.sign(payload),
+            code: 2,
+            message: '查无此人',
+            user: null,
         };
+    }
+    async certificate(user) {
+        const payload = {
+            username: user.username,
+            sub: user.userId,
+            realName: user.realName,
+            role: user.role,
+        };
+        console.log('JWT验证 - Step 3: 处理 jwt 签证');
+        try {
+            const token = this.jwtService.sign(payload);
+            return {
+                code: 0,
+                data: {
+                    token,
+                },
+                msg: `登录成功`,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                msg: `账号或密码错误`,
+            };
+        }
     }
 };
 AuthService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [jwt_1.JwtService])
+    __metadata("design:paramtypes", [users_service_1.UsersService,
+        jwt_1.JwtService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

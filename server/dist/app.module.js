@@ -24,6 +24,8 @@ const statusMonitor_1 = require("./config/statusMonitor");
 const course_module_1 = require("./course/course.module");
 const email_module_1 = require("./email/email.module");
 const apply_module_1 = require("./apply/apply.module");
+const auth_module_1 = require("./auth/auth.module");
+const users_controller_1 = require("./users/users.controller");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -62,8 +64,9 @@ AppModule = __decorate([
             users_module_1.UsersModule,
             course_module_1.CourseModule,
             apply_module_1.ApplyModule,
+            auth_module_1.AuthModule,
         ],
-        controllers: [app_controller_1.AppController],
+        controllers: [app_controller_1.AppController, users_controller_1.UsersController],
         providers: [app_service_1.AppService],
     }),
     __metadata("design:paramtypes", [typeorm_2.Connection])

@@ -16,7 +16,9 @@ exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const users_service_1 = require("./users.service");
+const auth_service_1 = require("../auth/auth.service");
 const users_entity_1 = require("./users.entity");
+const passport_1 = require("@nestjs/passport");
 class LoginDto {
 }
 __decorate([
@@ -28,11 +30,28 @@ __decorate([
     __metadata("design:type", String)
 ], LoginDto.prototype, "password", void 0);
 let UsersController = class UsersController {
-    constructor(usersService) {
+    constructor(usersService, authService) {
         this.usersService = usersService;
+        this.authService = authService;
     }
-    async login(loginDto) {
-        return await this.usersService.toLogin(loginDto);
+    async login(loginParmas) {
+        console.log('loginParmas', loginParmas);
+        console.log('JWT验证 - Step 1: 用户请求登录');
+        const authResult = await this.authService.validateUser(loginParmas.username, loginParmas.password);
+        switch (authResult.code) {
+            case 0:
+                return this.authService.certificate(authResult.user);
+            case 1:
+                return {
+                    code: 1,
+                    message: `账号或密码不正确`,
+                };
+            default:
+                return {
+                    code: 1,
+                    message: `查无此人`,
+                };
+        }
     }
     async create(user) {
         return await this.usersService.create(user);
@@ -52,18 +71,7 @@ let UsersController = class UsersController {
     async findOneByUsername(username) {
         try {
             const res = await this.usersService.findOneByUsername(username);
-            if (res === undefined) {
-                return {
-                    code: 0,
-                    message: '该用户名可用'
-                };
-            }
-            else {
-                return {
-                    code: 1,
-                    message: '用户名已存在'
-                };
-            }
+            return res;
         }
         catch (error) {
             return {
@@ -71,15 +79,17 @@ let UsersController = class UsersController {
                 message: '查询失败'
             };
         }
-        return;
+    }
+    async register(user) {
+        return await this.usersService.register(user);
     }
 };
 __decorate([
     common_1.Post('/login'),
-    swagger_1.ApiOperation({ summary: '用户登陆' }),
+    swagger_1.ApiOperation({ summary: '登陆一个用户' }),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [LoginDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "login", null);
 __decorate([
@@ -108,6 +118,7 @@ __decorate([
 ], UsersController.prototype, "update", null);
 __decorate([
     common_1.Get(),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
     swagger_1.ApiOperation({ summary: '查询用户列表' }),
     __param(0, common_1.Query()),
     __metadata("design:type", Function),
@@ -130,10 +141,19 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "findOneByUsername", null);
+__decorate([
+    common_1.Post('/register'),
+    swagger_1.ApiOperation({ summary: '注册一个用户' }),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [users_entity_1.User]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "register", null);
 UsersController = __decorate([
     common_1.Controller('/api/v1/user'),
     swagger_1.ApiTags('用户增删改查'),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    __metadata("design:paramtypes", [users_service_1.UsersService,
+        auth_service_1.AuthService])
 ], UsersController);
 exports.UsersController = UsersController;
 //# sourceMappingURL=users.controller.js.map

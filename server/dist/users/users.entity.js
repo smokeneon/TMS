@@ -40,6 +40,13 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    swagger_1.ApiProperty({ description: '密码盐', example: '前端无需填写' }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "pwd_salt", void 0);
+__decorate([
     swagger_1.ApiProperty({ description: '编号', example: '234567' }),
     typeorm_1.Column({
         nullable: true,

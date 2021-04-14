@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getRepository, Repository } from 'typeorm';
 import { User } from './users.entity';
+import { makeSalt, encryptPassword } from '../utils/cryptogram'
 
 @Injectable()
 export class UsersService {
@@ -130,6 +131,37 @@ export class UsersService {
   // async findOneUnique(username: string): Promise<any> {
   //   return this.usersRepository.find(user => user.username === username);
   // }
+  async register(user: User): Promise<any> {
+    const hasUser = await this.findOneByUsername(user.username);
+    if (hasUser) {
+      return {
+        code: 1,
+        status: 400,
+        message: '用户已存在',
+      };
+    }
+
+    const salt = makeSalt(); // 制作密码盐
+    const hashPwd = encryptPassword(user.password, salt);  // 加密密码
+    
+    let newUser = {
+      ...user,
+      password: hashPwd,
+      pwd_salt: salt,
+    }
+    try {
+      await this.usersRepository.insert(newUser);
+      return {
+        code: 0,
+        message: '注册成功'
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '注册失败'
+      }
+    }
+  }
 
   async toLogin(login): Promise<any> {
     

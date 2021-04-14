@@ -35,6 +35,12 @@ export class User {
   @IsNotEmpty({ message: '请填写密码' })
   password: string;
 
+  @ApiProperty({ description: '密码盐', example: '前端无需填写'})
+  @Column({
+    nullable: true,
+  })
+  pwd_salt: string;
+
   @ApiProperty({ description: '编号', example: '234567' })
   @Column({
     nullable: true,

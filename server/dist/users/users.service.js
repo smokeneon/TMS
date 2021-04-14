@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const users_entity_1 = require("./users.entity");
+const cryptogram_1 = require("../utils/cryptogram");
 let UsersService = class UsersService {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
@@ -130,6 +131,32 @@ let UsersService = class UsersService {
             .where("user.username = :username", { username: username })
             .getOne();
         return user;
+    }
+    async register(user) {
+        const hasUser = await this.findOneByUsername(user.username);
+        if (hasUser) {
+            return {
+                code: 1,
+                status: 400,
+                message: '用户已存在',
+            };
+        }
+        const salt = cryptogram_1.makeSalt();
+        const hashPwd = cryptogram_1.encryptPassword(user.password, salt);
+        let newUser = Object.assign(Object.assign({}, user), { password: hashPwd, pwd_salt: salt });
+        try {
+            await this.usersRepository.insert(newUser);
+            return {
+                code: 0,
+                message: '注册成功'
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '注册失败'
+            };
+        }
     }
     async toLogin(login) {
         try {

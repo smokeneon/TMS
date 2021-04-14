@@ -1,22 +1,33 @@
 import { UsersService } from './users.service';
+import { AuthService } from '../auth/auth.service';
 import { User } from './users.entity';
-declare class LoginDto {
-    username: String;
-    password: String;
-}
 export declare class UsersController {
     private readonly usersService;
-    constructor(usersService: UsersService);
-    login(loginDto: LoginDto): Promise<any>;
+    private readonly authService;
+    constructor(usersService: UsersService, authService: AuthService);
+    login(loginParmas: any): Promise<{
+        code: number;
+        data: {
+            token: string;
+        };
+        msg: string;
+    } | {
+        code: number;
+        msg: string;
+        data?: undefined;
+    } | {
+        code: number;
+        message: string;
+    }>;
     create(user: User): Promise<any>;
     remove(id: string): Promise<any>;
     update(id: number, body: User): Promise<any>;
     findAll(pagination: string): Promise<Object>;
     x: any;
     detail(id: string): Promise<object>;
-    findOneByUsername(username: string): Promise<{
+    findOneByUsername(username: string): Promise<User | {
         code: number;
         message: string;
     }>;
+    register(user: User): Promise<any>;
 }
-export {};

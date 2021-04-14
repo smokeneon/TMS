@@ -3,6 +3,7 @@ export declare class User {
     username: string;
     realname: string;
     password: string;
+    pwd_salt: string;
     stuNum: string;
     identity: string;
     email: string;
