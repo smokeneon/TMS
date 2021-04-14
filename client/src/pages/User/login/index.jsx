@@ -30,7 +30,6 @@ const Login = (props) => {
   const [type, setType] = useState('account');
 
   const handleSubmit = (values) => {
-    console.log('type', type);
     if (type === 'account') {
       const { dispatch } = props;
       dispatch({
@@ -87,7 +86,7 @@ const Login = (props) => {
         {type === 'account' && (
           <>
             <ProFormText
-              name="userName"
+              name="username"
               fieldProps={{
                 size: 'large',
                 prefix: <UserOutlined className={styles.prefixIcon} />,

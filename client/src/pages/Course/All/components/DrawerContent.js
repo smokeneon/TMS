@@ -1,6 +1,6 @@
 import React from 'react'
 import { Descriptions } from 'antd';
-import { OpenState, ApprovalState } from '../../../common/const'
+import { OpenState, ApprovalState } from '../../../../common/const'
 const DrawerContent = props => {
   const { record }  = props
   return (

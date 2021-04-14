@@ -3,7 +3,7 @@ import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Dra
 import { SearchOutlined } from '@ant-design/icons'
 import Moment from 'moment'
 import AddModal from './AddModal'
-import { OpenState, ApprovalState } from '../../../common/const'
+import { OpenState, ApprovalState } from '../../../../common/const'
 import DrawerContent from './DrawerContent'
 
 import { deleteItem, getUserList } from '../api'

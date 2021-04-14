@@ -126,4 +126,44 @@ export class UsersService {
   // async findOneUnique(username: string): Promise<any> {
   //   return this.usersRepository.find(user => user.username === username);
   // }
+
+  async toLogin(login): Promise<any> {
+    
+    try {
+      const findUser = await getRepository(User)
+      .createQueryBuilder('user')
+      .where("user.username = :username", { username: login.username })
+      .getOne()
+
+      if (typeof(findUser) === 'undefined' ) {
+        return {
+          code: 1,
+          message: '用户不存在',
+          state: 'userNotFound',
+        }
+      } else {
+        if(login.password === findUser.password) {
+          delete findUser.password;
+          return {
+            code: 0,
+            message: '登陆成功',
+            state: 'ok',
+            data: findUser
+          } 
+        } else {
+          return {
+            code: 1,
+            message: '用户名或密码错误',
+            state: 'passwordError'
+          }
+        }
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '登陆失败',
+      }
+    }
+
+  }
 }

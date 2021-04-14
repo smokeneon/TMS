@@ -3,7 +3,7 @@ import React from 'react'
 const index = () => {
   return (
     <div>
-      申报管理
+      进行中的申报
     </div>
   )
 }

@@ -128,6 +128,45 @@ let UsersService = class UsersService {
             .getOne();
         return user;
     }
+    async toLogin(login) {
+        try {
+            const findUser = await typeorm_2.getRepository(users_entity_1.User)
+                .createQueryBuilder('user')
+                .where("user.username = :username", { username: login.username })
+                .getOne();
+            if (typeof (findUser) === 'undefined') {
+                return {
+                    code: 1,
+                    message: '用户不存在',
+                    state: 'userNotFound',
+                };
+            }
+            else {
+                if (login.password === findUser.password) {
+                    delete findUser.password;
+                    return {
+                        code: 0,
+                        message: '登陆成功',
+                        state: 'ok',
+                        data: findUser
+                    };
+                }
+                else {
+                    return {
+                        code: 1,
+                        message: '用户名或密码错误',
+                        state: 'passwordError'
+                    };
+                }
+            }
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '登陆失败',
+            };
+        }
+    }
 };
 UsersService = __decorate([
     common_1.Injectable(),

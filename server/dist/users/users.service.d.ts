@@ -9,4 +9,5 @@ export declare class UsersService {
     findAll(pagination: any): Promise<Object>;
     findOne(id: string): Promise<object>;
     findOneByUsername(username: string): Promise<User>;
+    toLogin(login: any): Promise<any>;
 }

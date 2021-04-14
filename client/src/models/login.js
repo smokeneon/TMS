@@ -1,6 +1,6 @@
 import { stringify } from 'querystring';
 import { history } from 'umi';
-import { fakeAccountLogin } from '@/services/login';
+import { AccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import { message } from 'antd';
@@ -11,12 +11,15 @@ const Model = {
   },
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(AccountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
-      if (response.state === 'ok') {
+      if (response.code === 1) {
+        message.error(response.message)
+      }
+      if (response.code === 0) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         sessionStorage.setItem("isLogin", "true");
@@ -24,6 +27,7 @@ const Model = {
         let { redirect } = params;
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
+          console.log('redirectUrlParams.origin urlParams.origin', redirectUrlParams.origin, urlParams.origin);
           if (redirectUrlParams.origin === urlParams.origin) {
             redirect = redirect.substr(urlParams.origin.length);
 
@@ -59,9 +63,8 @@ const Model = {
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
-      console.log('payload', payload, payload.currentAuthority);
-      setAuthority(payload.currentAuthority);
-      return { ...state, status: payload.status, type: payload.type };
+      setAuthority(payload.data.identity);
+      return { ...state, status: payload.state, userData: payload.data };
     },
   },
 };

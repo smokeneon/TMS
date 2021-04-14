@@ -17,9 +17,22 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const users_service_1 = require("./users.service");
 const users_entity_1 = require("./users.entity");
+class LoginDto {
+}
+__decorate([
+    swagger_1.ApiProperty({ description: '用户id', example: '123' }),
+    __metadata("design:type", String)
+], LoginDto.prototype, "username", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '用户密码', example: '123' }),
+    __metadata("design:type", String)
+], LoginDto.prototype, "password", void 0);
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
+    }
+    async login(loginDto) {
+        return await this.usersService.toLogin(loginDto);
     }
     async create(user) {
         return await this.usersService.create(user);
@@ -61,6 +74,14 @@ let UsersController = class UsersController {
         return;
     }
 };
+__decorate([
+    common_1.Post('/login'),
+    swagger_1.ApiOperation({ summary: '用户登陆' }),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [LoginDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "login", null);
 __decorate([
     common_1.Post('/add'),
     swagger_1.ApiOperation({ summary: '增加一个用户' }),

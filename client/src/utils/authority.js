@@ -5,7 +5,6 @@ export function getAuthority(str) {
     typeof str === 'undefined' && localStorage ? localStorage.getItem('antd-pro-authority') : str; // authorityString could be admin, "admin", ["admin"]
 
   let authority;
-
   try {
     if (authorityString) {
       authority = JSON.parse(authorityString);
@@ -26,6 +25,7 @@ export function getAuthority(str) {
   return authority;
 }
 export function setAuthority(authority) {
+  console.log('authority', authority);
   const proAuthority = typeof authority === 'string' ? [authority] : authority;
   localStorage.setItem('antd-pro-authority', JSON.stringify(proAuthority)); // auto reload
 

@@ -8,13 +8,27 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { User } from './users.entity';
+
+class LoginDto {
+  @ApiProperty({ description: '用户id', example: '123' })
+  username: String
+
+  @ApiProperty({ description: '用户密码', example: '123' })
+  password: String
+}
 @Controller('/api/v1/user')
 @ApiTags('用户增删改查')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Post('/login')
+  @ApiOperation({ summary: '用户登陆'})
+  async login(@Body() loginDto: LoginDto) {
+    return await this.usersService.toLogin(loginDto)
+  }
 
   @Post('/add')
   @ApiOperation({ summary: '增加一个用户' })

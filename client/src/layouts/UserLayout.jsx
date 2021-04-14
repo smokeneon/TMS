@@ -56,12 +56,12 @@ const UserLayout = (props) => {
           {children}
         </div>
         <DefaultFooter
-          copyright={`${new Date().getFullYear()} By leondon.cn`}
+          copyright={`${new Date().getFullYear()} By tms.leondon.cn`}
           links={[
             {
               key: 'TMS',
               title: '中小学教育信息化培训者培训管理系统',
-              href: 'http://www.leondon.cn',
+              href: 'http://www.tms.leondon.cn',
               blankTarget: true,
             },
           ]}
