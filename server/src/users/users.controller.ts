@@ -53,7 +53,8 @@ export class UsersController {
   async findAll(@Query() pagination: string) {
     return await this.usersService.findAll(pagination);
   }
-
+  
+x
   @Get(':id')
   @ApiOperation({ summary: '根据用户id查询详情' })
   async detail(@Param('id') id: string) {

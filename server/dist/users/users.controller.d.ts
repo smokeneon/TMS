@@ -12,6 +12,7 @@ export declare class UsersController {
     remove(id: string): Promise<any>;
     update(id: number, body: User): Promise<any>;
     findAll(pagination: string): Promise<Object>;
+    x: any;
     detail(id: string): Promise<object>;
     findOneByUsername(username: string): Promise<{
         code: number;

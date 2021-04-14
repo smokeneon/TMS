@@ -66,16 +66,20 @@ export class UsersService {
   async findAll(pagination): Promise<Object> {
     let user;
     try {
+      console.log('pagination', pagination);
+      
       if (pagination.search) {
         user = await getRepository(User)
           .createQueryBuilder('user')
-          .where("user.username like :username", { username: '%' + pagination.search + '%' })
+          .where("user.identity like :identity", { identity: pagination.type || '%%'})
+          .andWhere("user.username like :username", { username: '%' + pagination.search + '%' || '%%' })
           .skip((pagination.page-1)*pagination.size || 0)
           .take(pagination.size || 10)
           .getManyAndCount()
       } else {
         user = await getRepository(User)
           .createQueryBuilder('user')
+          .where("user.identity like :identity", { identity: pagination.type || '%%'})
           .skip((pagination.page-1)*pagination.size || 0)
           .take(pagination.size || 10)
           .getManyAndCount()

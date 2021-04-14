@@ -10,3 +10,9 @@ export const ApprovalState = {
   2: '审批成功',
   3: '审批失败',
 }
+
+export const identityState = {
+  'tea': '专家',
+  'stu': '参训者',
+  'admin': '管理员'
+}

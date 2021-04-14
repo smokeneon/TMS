@@ -1,10 +1,11 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { Table, Space, Typography, Form, Input, Button, Popconfirm, message } from 'antd'
+import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Tag } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import Moment from 'moment'
 import UserAddModal from './UserAddModal'
 
 import { deleteItem, getUserList } from '../api'
+import { identityState } from '../../../../common/const'
 
 const formItemLayout = {
   labelCol: { span: 1 },
@@ -107,6 +108,9 @@ const SubjectList = forwardRef((props, ref) => {
       title: '身份',
       dataIndex: 'identity',
       key: 'identity',
+      render: (text) => (
+        <Tag>{identityState[text]}</Tag>
+      )
     },
     {
       title: '邮箱',

@@ -44,6 +44,10 @@ export class Course {
   })
   approvalState: number;
 
+  // @ApiProperty({ description: '创建时间', example: '2021-04-14T17:57:59.844Z'})
+  // @Column('varchar')
+  // createTime: string;
+
   @OneToMany(() => Apply, (apply) => apply.course) // note: we will create author property in the Photo class below
   applys: Apply[];
 

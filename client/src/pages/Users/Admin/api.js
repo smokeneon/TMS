@@ -7,7 +7,7 @@ export const getUserList = (params) => {
       page: params.page || 1,
       size: params.size || 10,
       search: params.search,
-      type: 'tea'
+      type: 'admin'
     }
   })
 }
