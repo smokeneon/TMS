@@ -14,14 +14,6 @@ import { UsersService } from './users.service';
 import { AuthService } from '../auth/auth.service';
 import { User } from './users.entity';
 import { AuthGuard } from '@nestjs/passport';
-
-class LoginDto {
-  @ApiProperty({ description: '用户id', example: '123' })
-  username: string
-
-  @ApiProperty({ description: '用户密码', example: '123' })
-  password: string
-}
 @Controller('/api/v1/user')
 @ApiTags('用户增删改查')
 export class UsersController {
@@ -30,18 +22,10 @@ export class UsersController {
     private readonly authService: AuthService,
   ) {}
 
-  // @Post('/login')
-  // @ApiOperation({ summary: '用户登陆'})
-  // async login(@Body() loginDto: LoginDto) {
-  //   return await this.usersService.toLogin(loginDto)
-  // }
-
    // JWT验证 - Step 1: 用户请求登录
   @Post('/login')
   @ApiOperation({ summary: '登陆一个用户' })
   async login(@Body() loginParmas: any) {
-    console.log('loginParmas', loginParmas);
-    
     console.log('JWT验证 - Step 1: 用户请求登录');
     const authResult = await this.authService.validateUser(
       loginParmas.username,
@@ -64,18 +48,21 @@ export class UsersController {
   }
 
   @Post('/add')
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '增加一个用户' })
   async create(@Body() user: User) {
     return await this.usersService.create(user);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '删除一个用户' })
   async remove(@Param('id') id: string) {
     return await this.usersService.remove(id);
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '编辑一个用户' })
   async update(@Param('id') id: number, @Body() body: User) {
     return await this.usersService.edit(id, body);
@@ -88,7 +75,8 @@ export class UsersController {
     return await this.usersService.findAll(pagination);
   }
   
-x
+
+x// 这个接口给登陆用
   @Get(':id')
   @ApiOperation({ summary: '根据用户id查询详情' })
   async detail(@Param('id') id: string) {
@@ -96,6 +84,7 @@ x
   }
 
   @Get('/username/:username')
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '根据用户名查找用户 查询' })
   async findOneByUsername(@Param('username') username: string) {
     try {

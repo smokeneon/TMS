@@ -23,8 +23,20 @@ let UsersService = class UsersService {
         this.usersRepository = usersRepository;
     }
     async create(user) {
+        const hasUser = await this.findOneByUsername(user.username);
+        if (hasUser) {
+            return {
+                code: 1,
+                status: 400,
+                message: '用户已存在',
+            };
+        }
+        const salt = cryptogram_1.makeSalt();
+        const hashPwd = cryptogram_1.encryptPassword(user.password, salt);
+        let d = new Date();
+        let newUser = Object.assign(Object.assign({}, user), { stuNum: d.getTime().toString(), password: hashPwd, pwd_salt: salt });
         try {
-            await this.usersRepository.insert(user);
+            await this.usersRepository.insert(newUser);
             return {
                 code: 0,
                 message: '添加成功'
@@ -76,7 +88,6 @@ let UsersService = class UsersService {
     async findAll(pagination) {
         let user;
         try {
-            console.log('pagination', pagination);
             if (pagination.search) {
                 user = await typeorm_2.getRepository(users_entity_1.User)
                     .createQueryBuilder('user')
@@ -143,7 +154,8 @@ let UsersService = class UsersService {
         }
         const salt = cryptogram_1.makeSalt();
         const hashPwd = cryptogram_1.encryptPassword(user.password, salt);
-        let newUser = Object.assign(Object.assign({}, user), { password: hashPwd, pwd_salt: salt });
+        let d = new Date();
+        let newUser = Object.assign(Object.assign({}, user), { stuNum: d.getTime().toString(), password: hashPwd, pwd_salt: salt });
         try {
             await this.usersRepository.insert(newUser);
             return {

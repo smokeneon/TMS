@@ -5,6 +5,7 @@ export async function query() {
 export async function queryCurrent() {
   let userId = localStorage.getItem('userId')
   return request(`/api/user/${userId}`);
+
 }
 export async function queryNotices() {
   return request('/api/notices');

@@ -19,23 +19,12 @@ const users_service_1 = require("./users.service");
 const auth_service_1 = require("../auth/auth.service");
 const users_entity_1 = require("./users.entity");
 const passport_1 = require("@nestjs/passport");
-class LoginDto {
-}
-__decorate([
-    swagger_1.ApiProperty({ description: '用户id', example: '123' }),
-    __metadata("design:type", String)
-], LoginDto.prototype, "username", void 0);
-__decorate([
-    swagger_1.ApiProperty({ description: '用户密码', example: '123' }),
-    __metadata("design:type", String)
-], LoginDto.prototype, "password", void 0);
 let UsersController = class UsersController {
     constructor(usersService, authService) {
         this.usersService = usersService;
         this.authService = authService;
     }
     async login(loginParmas) {
-        console.log('loginParmas', loginParmas);
         console.log('JWT验证 - Step 1: 用户请求登录');
         const authResult = await this.authService.validateUser(loginParmas.username, loginParmas.password);
         switch (authResult.code) {
@@ -94,6 +83,7 @@ __decorate([
 ], UsersController.prototype, "login", null);
 __decorate([
     common_1.Post('/add'),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
     swagger_1.ApiOperation({ summary: '增加一个用户' }),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
@@ -102,6 +92,7 @@ __decorate([
 ], UsersController.prototype, "create", null);
 __decorate([
     common_1.Delete(':id'),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
     swagger_1.ApiOperation({ summary: '删除一个用户' }),
     __param(0, common_1.Param('id')),
     __metadata("design:type", Function),
@@ -110,6 +101,7 @@ __decorate([
 ], UsersController.prototype, "remove", null);
 __decorate([
     common_1.Put(':id'),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
     swagger_1.ApiOperation({ summary: '编辑一个用户' }),
     __param(0, common_1.Param('id')), __param(1, common_1.Body()),
     __metadata("design:type", Function),
@@ -135,6 +127,7 @@ __decorate([
 ], UsersController.prototype, "detail", null);
 __decorate([
     common_1.Get('/username/:username'),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
     swagger_1.ApiOperation({ summary: '根据用户名查找用户 查询' }),
     __param(0, common_1.Param('username')),
     __metadata("design:type", Function),

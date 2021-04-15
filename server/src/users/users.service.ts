@@ -12,8 +12,26 @@ export class UsersService {
   ) {}
 
   async create(user: User): Promise<any> {
+    const hasUser = await this.findOneByUsername(user.username);
+    if (hasUser) {
+      return {
+        code: 1,
+        status: 400,
+        message: '用户已存在',
+      };
+    }
+
+    const salt = makeSalt(); // 制作密码盐
+    const hashPwd = encryptPassword(user.password, salt);  // 加密密码
+    let d = new Date()
+    let newUser = {
+      ...user,
+      stuNum: d.getTime().toString(),
+      password: hashPwd,
+      pwd_salt: salt,
+    }
     try {
-      await this.usersRepository.insert(user);
+      await this.usersRepository.insert(newUser);
       return {
         code: 0,
         message: '添加成功'
@@ -67,7 +85,6 @@ export class UsersService {
   async findAll(pagination): Promise<Object> {
     let user;
     try {
-      console.log('pagination', pagination);
       
       if (pagination.search) {
         user = await getRepository(User)
@@ -143,9 +160,10 @@ export class UsersService {
 
     const salt = makeSalt(); // 制作密码盐
     const hashPwd = encryptPassword(user.password, salt);  // 加密密码
-    
+    let d = new Date()
     let newUser = {
       ...user,
+      stuNum: d.getTime().toString(),
       password: hashPwd,
       pwd_salt: salt,
     }

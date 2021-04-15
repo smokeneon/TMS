@@ -31,6 +31,8 @@ const SubjectList = forwardRef((props, ref) => {
         setPagination({page, size, total})
         setTableLoading(false)
       }
+    }).catch(err => {
+        message.error(err.message)
     })
   }
 
@@ -147,9 +149,6 @@ const SubjectList = forwardRef((props, ref) => {
   useEffect(() => {
     getList(requestParams)
   }, [])
-  useEffect(() => {
-    console.log('pagination',pagination);
-  }, [pagination])
   return (
     <div>
       <div style={{padding: '0px 0 24px 0'}}>

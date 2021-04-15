@@ -16,7 +16,7 @@ export class AuthService {
     
     console.log('JWT验证 - Step 2: 校验用户信息');
     const user = await this.usersService.findOneByUsername(username);
-    console.log('user', user);
+    // console.log('user', user);
     
     if (user) {
       const hashedPassword = user.password;
