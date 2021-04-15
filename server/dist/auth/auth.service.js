@@ -54,15 +54,17 @@ let AuthService = class AuthService {
             username: user.username,
             sub: user.userId,
             realName: user.realName,
-            role: user.role,
+            role: user.identity,
         };
         console.log('JWT验证 - Step 3: 处理 jwt 签证');
         try {
             const token = this.jwtService.sign(payload);
+            let newUser = Object.assign(Object.assign({}, user), { password: '', pwd_salt: '' });
             return {
                 code: 0,
                 data: {
                     token,
+                    user: newUser,
                 },
                 msg: `登录成功`,
             };

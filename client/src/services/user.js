@@ -3,7 +3,8 @@ export async function query() {
   return request('/api/users');
 }
 export async function queryCurrent() {
-  return request('/api/user/1');
+  let userId = localStorage.getItem('userId')
+  return request(`/api/user/${userId}`);
 }
 export async function queryNotices() {
   return request('/api/notices');

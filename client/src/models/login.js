@@ -16,6 +16,8 @@ const Model = {
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
+
+      console.log('login response', response);
       if (response.code === 1) {
         message.error(response.message)
       }
@@ -23,11 +25,12 @@ const Model = {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         sessionStorage.setItem("isLogin", "true");
+        localStorage.setItem("token", response.data.token)
+        localStorage.setItem("userId", response.data.user.userId)
         message.success('🎉 🎉 🎉  登录成功！');
         let { redirect } = params;
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
-          console.log('redirectUrlParams.origin urlParams.origin', redirectUrlParams.origin, urlParams.origin);
           if (redirectUrlParams.origin === urlParams.origin) {
             redirect = redirect.substr(urlParams.origin.length);
 
@@ -63,7 +66,7 @@ const Model = {
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.data.identity);
+      setAuthority(payload.data.user.identity);
       return { ...state, status: payload.state, userData: payload.data };
     },
   },

@@ -9,6 +9,7 @@ export declare class UsersController {
         code: number;
         data: {
             token: string;
+            user: any;
         };
         msg: string;
     } | {

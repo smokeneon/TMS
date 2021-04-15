@@ -3952,8 +3952,8 @@
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "1f827ed6185a41092c6711f68c63b9e1aecf4d3916801a668b53b99b473dd4dd",
-        "signature": "ac3a658a0b88066b88778c72ab2470fa25db66847e49f58cd179f08190f556f4",
+        "version": "0c95295330ec974812ce216ae6f1578ad6e199320b27af73a075ac2148c929fb",
+        "signature": "906a22debf06e7de8e9b95cc122b616a9c52503555944909d8b7018cbc87f50f",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": {
@@ -4053,7 +4053,7 @@
       },
       "../src/users/users.controller.ts": {
         "version": "c74e5873c3c32b388ca2de7c34e4c2e55ac3107b0c35f4ab31803701d74077c4",
-        "signature": "a73154b217330e58329ec79f26c6b6c9d0ebaf4e140afc16c9130a88e1208a1e",
+        "signature": "0204892b7e7bdfdca454dc51a5c6679c1566f7a1e15f0262b57a1513e2dc4950",
         "affectsGlobalScope": false
       },
       "../src/users/users.module.ts": {
