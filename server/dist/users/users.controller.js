@@ -72,6 +72,29 @@ let UsersController = class UsersController {
     async register(user) {
         return await this.usersService.register(user);
     }
+    async RegisterUsername(username) {
+        try {
+            const res = await this.usersService.findOneByUsername(username);
+            if (typeof (res) === 'undefined') {
+                return {
+                    code: 0,
+                    message: '用户名可用'
+                };
+            }
+            else {
+                return {
+                    code: 2,
+                    message: '用户名已占用'
+                };
+            }
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败'
+            };
+        }
+    }
 };
 __decorate([
     common_1.Post('/login'),
@@ -142,6 +165,14 @@ __decorate([
     __metadata("design:paramtypes", [users_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "register", null);
+__decorate([
+    common_1.Get('/register/:username'),
+    swagger_1.ApiOperation({ summary: '根据用户名查找用户 查询' }),
+    __param(0, common_1.Param('username')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "RegisterUsername", null);
 UsersController = __decorate([
     common_1.Controller('/api/v1/user'),
     swagger_1.ApiTags('用户增删改查'),

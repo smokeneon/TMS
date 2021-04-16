@@ -16,18 +16,29 @@ let EmailService = class EmailService {
     constructor(mailerService) {
         this.mailerService = mailerService;
     }
-    async sendMail() {
+    async sendMail(email) {
+        let out;
+        do
+            out = Math.floor(Math.random() * 10000);
+        while (out < 1000);
         try {
             await this.mailerService.sendMail({
-                to: 'leon@hooc.top',
+                to: email,
                 from: 'leonbeau@qq.com',
-                subject: 'leon love u',
-                template: 'welcome',
+                subject: '欢迎注册中小学教育信息化培训者培训管理系统',
+                html: `欢迎使用TMS，您的注册验证码是${out}`
             });
-            return 'ok';
+            return {
+                code: 0,
+                message: `${email}邮件发送成功`,
+                VerificationCode: out,
+            };
         }
         catch (error) {
-            return 'error';
+            return {
+                code: 1,
+                message: `${email}邮件发送失败`
+            };
         }
     }
 };

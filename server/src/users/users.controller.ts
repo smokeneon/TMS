@@ -83,6 +83,8 @@ x// 这个接口给登陆用
     return await this.usersService.findOne(id);
   }
 
+  
+
   @Get('/username/:username')
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '根据用户名查找用户 查询' })
@@ -90,17 +92,6 @@ x// 这个接口给登陆用
     try {
       const res = await this.usersService.findOneByUsername(username)
       return res
-      // if (res === undefined) {
-      //   return {
-      //     code: 0,
-      //     message: '该用户名可用'
-      //   }
-      // } else {
-      //   return {
-      //     code: 1,
-      //     message: '用户名已存在'
-      //   }
-      // }
     } catch (error) {
       return {
         code: 1,
@@ -113,6 +104,31 @@ x// 这个接口给登陆用
   @ApiOperation({ summary: '注册一个用户' })
   async register(@Body() user: User) {
     return await this.usersService.register(user);
+  }
+
+  // 注册时用户名校验
+  @Get('/register/:username')
+  @ApiOperation({ summary: '根据用户名查找用户 查询' })
+  async RegisterUsername(@Param('username') username: string) {
+    try {
+      const res = await this.usersService.findOneByUsername(username)
+      if (typeof(res) === 'undefined' ) {
+        return {
+          code: 0,
+          message: '用户名可用'
+        }
+      } else {
+        return {
+          code: 2,
+          message: '用户名已占用'
+        }
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败'
+      }
+    }
   }
   // @Query 从req的query获取东西 @Params 从req的params获取东西
 

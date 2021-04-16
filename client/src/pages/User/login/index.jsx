@@ -3,15 +3,18 @@ import {
   UserOutlined,
   MailOutlined,
   SolutionOutlined,
-  KeyOutlined
+  KeyOutlined,
+  RobotOutlined
 } from '@ant-design/icons';
 
 import { Alert, Tabs, message } from 'antd';
 import React, { useState } from 'react';
-import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
+import { Form } from 'antd';
+import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText, ProFormSelect } from '@ant-design/pro-form';
 import { FormattedMessage } from 'umi';
 import styles from './index.less';
 import { connect } from 'umi';
+import axios from 'axios'
 
 const LoginMessage = ({ content }) => (
   <Alert
@@ -25,12 +28,15 @@ const LoginMessage = ({ content }) => (
 );
 
 const Login = (props) => {
+  const [verifiedCode, setVerifiedCode] = useState(null)
   const { userLogin = {}, submitting } = props;
   const { status, type: loginType } = userLogin;
   const [type, setType] = useState('account');
+  const [form] = Form.useForm();
 
   const handleSubmit = (values) => {
     if (type === 'account') {
+      console.log('login values', values);
       const { dispatch } = props;
       dispatch({
         type: 'login/login',
@@ -38,7 +44,21 @@ const Login = (props) => {
       });
     }
     if (type === 'register') {
-      message.success('注册成功')
+      console.log('props', props);
+      axios.post('/api/user/register', {
+        ...values
+      }).then(res => {
+        if (res.data.code === 0) {
+          message.success(res.data.message)
+          form.resetFields();
+          setType('account')
+        } 
+        if (res.data.code === 2) {
+          message.warning(res.data.message)
+        }
+      }).catch(err => {
+        message.error('注册失败')
+      })
     }
    
   };
@@ -49,6 +69,7 @@ const Login = (props) => {
         initialValues={{
           autoLogin: true,
         }}
+        form={form}
         submitter={{
           searchConfig: {
             submitText: '登录 / 注册',
@@ -118,12 +139,13 @@ const Login = (props) => {
                 marginBottom: 24,
               }}
             >
-              <ProFormCheckbox noStyle name="autoLogin">
+              {/* <ProFormCheckbox noStyle name="autoLogin">
                 <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
-              </ProFormCheckbox>
+              </ProFormCheckbox> */}
               <a
                 style={{
                   float: 'right',
+                  padding: '0 0 24px 0'
                 }}
               >
                 <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
@@ -135,21 +157,31 @@ const Login = (props) => {
         {type === 'register' && (
           <>
            <ProFormText
-              name="userName"
+              name="username"
               fieldProps={{
                 size: 'large',
                 prefix: <UserOutlined className={styles.prefixIcon} />,
               }}
               placeholder="请输入用户名"
               rules={[
-                {
-                  required: true,
-                  message: "用户名不能为空",
-                },
+                ({ getFieldValue }) => ({
+                  async validator(_, value) {
+                    if (typeof value === 'undefined' || value.trim() === '')
+                      return Promise.reject(new Error('字符不能为空'))
+                      let res = await axios.get(`/api/user/register/${value}`)
+                      if (res.data.code === 0) {
+                        return Promise.resolve(res.data.message)
+                      }
+                      if ( res.data.code === 2) {
+                        return Promise.reject(new Error(res.data.message))
+                      }
+                      return Promse.reject(new Error(res.data.message))
+                  },
+                }),
               ]}
             />
              <ProFormText
-              name="realName"
+              name="realname"
               fieldProps={{
                 size: 'large',
                 prefix: <SolutionOutlined  className={styles.prefixIcon} />,
@@ -205,20 +237,54 @@ const Login = (props) => {
             phoneName="email"
             name="code"
             rules={[
-              {
-                required: true,
-                message: '请输入验证码',
-              },
+              ({ getFieldValue }) => ({
+                async validator(_, value) {
+                  if (typeof value === 'undefined' || value.trim() === '')
+                    return Promise.reject(new Error('验证码不能为空'))
+                    if (value != verifiedCode) {
+                      return Promise.reject(new Error('验证码不正确'))
+                    } else {
+                      return Promise.resolve('验证码正确')
+                    }
+                },
+              }),
             ]}
             placeholder="请输入验证码"
-            onGetCaptcha={(email) => {
-              // await waitTime(1000);
-              setTimeout(() => {
-                message.success(`邮箱 ${email} 验证码发送成功!`);
-              }, 1000);
-             
+            onGetCaptcha={async (email) => {
+              let res = await axios.get(`/api/email/${email}`)
+              if (res.data.code === 0) {
+                setVerifiedCode(res.data.VerificationCode)
+                message.success(res.data.message)
+              }
+              if (res.data.code === 1) {
+                message.error(res.data.message+',请检查邮箱是否正确')
+              }
             }}
           />
+          <ProFormSelect
+             fieldProps={{
+              size: 'large',
+              prefix: <RobotOutlined className={styles.prefixIcon} />,
+            }}
+              options={[
+                {
+                  value: 'tea',
+                  label: '专家',
+                },
+                {
+                  value: 'stu',
+                  label: '参训者'
+                }
+              ]}
+              name="identity"
+              placeholder="请选择角色"
+              rules={[
+                {
+                  required: true,
+                  message: "角色不能为空",
+                },
+              ]}
+            />
           </>
         )}
 

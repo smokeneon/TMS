@@ -31,4 +31,8 @@ export declare class UsersController {
         message: string;
     }>;
     register(user: User): Promise<any>;
+    RegisterUsername(username: string): Promise<{
+        code: number;
+        message: string;
+    }>;
 }

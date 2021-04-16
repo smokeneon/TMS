@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 import { ApiOperation } from "@nestjs/swagger";
 import { EmailService } from "./email.service";
 
@@ -6,9 +6,9 @@ import { EmailService } from "./email.service";
 export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 
-  @Get()
+  @Get(':email')
   @ApiOperation({ summary: '发送邮件' })
-  async sendEmail(): Promise<string> {
-    return await this.emailService.sendMail();
+  async sendEmail(@Param('email') email: string): Promise<any> {
+    return await this.emailService.sendMail(email);
   }
 }

@@ -2,5 +2,5 @@ import { EmailService } from "./email.service";
 export declare class EmailController {
     private readonly emailService;
     constructor(emailService: EmailService);
-    sendEmail(): Promise<string>;
+    sendEmail(email: string): Promise<any>;
 }
