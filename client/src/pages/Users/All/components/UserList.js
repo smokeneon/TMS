@@ -58,8 +58,13 @@ const SubjectList = forwardRef((props, ref) => {
       setSearchLoading(false)
     }
   }
-  const deleteConfirm = id => () => {
-    deleteItem(id).then(res => {
+  const deleteConfirm = record => () => {
+    let currentUserId = localStorage.getItem('userId');
+    if (currentUserId === record.userId.toString()) {
+      console.log('daozhel');
+      return message.warning('您不能删除自己')
+    }
+    deleteItem(record.id).then(res => {
       message.success(res.data.message)
       getList(requestParams)
     })
@@ -135,7 +140,7 @@ const SubjectList = forwardRef((props, ref) => {
           <a onClick={openModal(record)}>编辑</a>
           <Popconfirm
             title="你确定删除此条吗?"
-            onConfirm={deleteConfirm(record.userId)}
+            onConfirm={deleteConfirm(record)}
             okText="是"
             cancelText="否"
           >

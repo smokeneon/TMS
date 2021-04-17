@@ -22,17 +22,17 @@ const UserAddModal = props => {
   const [form] = Form.useForm();
   const initModal = () => {
     hiddenModal()
+    form.resetFields()
   }
   const handleOk = () => {
     form.validateFields().then(params => {
       const newParams = {
         ...params,
         identity: params.identity.toString(),
-        stuNum: '123456'
       }
       if (addOrEdit === 'add') {
         addUser(newParams).then(res => {
-          console.log('res', res);
+          // console.log('res', res);
           if (res.status === 201 && res.data.code === 0) {
             message.success(res.data.message)
             initModal()

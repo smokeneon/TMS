@@ -10,6 +10,7 @@ const Index = () => {
   const getListRef = useRef(null)
   const hiddenModal = () => {
     setModalVisable(false)
+    getListRef.current.getSubjectList()
   }
   return (
     <PageContainer>

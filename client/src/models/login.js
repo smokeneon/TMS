@@ -55,6 +55,7 @@ const Model = {
       const { redirect } = getPageQuery(); // Note: There may be security issues, please note
 
       if (window.location.pathname !== '/user/login' && !redirect) {
+        localStorage.clear()
         history.replace({
           pathname: '/user/login',
           search: stringify({
