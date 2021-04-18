@@ -34,7 +34,9 @@ __decorate([
     __metadata("design:type", String)
 ], Apply.prototype, "userId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(() => course_entity_1.Course, (course) => course.applys),
+    typeorm_1.ManyToOne(() => course_entity_1.Course, (course) => course.applys, {
+        eager: true,
+    }),
     __metadata("design:type", course_entity_1.Course)
 ], Apply.prototype, "course", void 0);
 __decorate([

@@ -58,7 +58,9 @@ export class Course {
   @OneToMany(() => Apply, (apply) => apply.course) // note: we will create author property in the Photo class below
   applys: Apply[];
 
-  @ManyToMany(() => User)
+  @ManyToMany(() => User, {
+    eager: true
+  })
   @JoinTable()
   users: User[];
 

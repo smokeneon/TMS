@@ -29,18 +29,6 @@ export class CourseController {
     return await this.courseService.getList(pagination);
   }
 
-  // @Get('/getCourse')
-  // @ApiOperation({ summary: '查询所有课程 连接user表'})
-  // async getCouseList(@Query() pagination: )
-
-  // @Post('/add')
-  // // @Transaction()
-  // @ApiOperation({ summary: '增加一门课程' })
-  // // @UseGuards(AuthGuard('jwt'))
-  // async create(@Body() course: Course) {
-  //   return await this.courseService.create(course);
-  // }
-
   @Post('/add')
   @Transaction()
   @ApiOperation({ summary: '增加一门课程' })

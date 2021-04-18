@@ -19,7 +19,9 @@ export class Apply {
   @Column('varchar')
   userId: string;
 
-  @ManyToOne(() => Course, (course) => course.applys)
+  @ManyToOne(() => Course, (course) => course.applys, {
+    eager: true,
+  })
   course: Course
 
   @ApiProperty({ description: '申报状态 默认0 0:未提交 1:审批中 2: 申报成功 3:申报失败 4:进行中 5.已完结', example: 0 })

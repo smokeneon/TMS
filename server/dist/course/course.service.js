@@ -90,40 +90,6 @@ let CourseService = class CourseService {
             };
         }
     }
-    async findAll(pagination) {
-        let course;
-        try {
-            if (pagination.search) {
-                course = await typeorm_2.getRepository(course_entity_1.Course)
-                    .createQueryBuilder('course')
-                    .where("course.courseName like :courseName", { courseName: '%' + pagination.search + '%' })
-                    .skip((pagination.page - 1) * pagination.size || 0)
-                    .take(pagination.size || 10)
-                    .getManyAndCount();
-            }
-            else {
-                course = await typeorm_2.getRepository(course_entity_1.Course)
-                    .createQueryBuilder('course')
-                    .skip((pagination.page - 1) * pagination.size || 0)
-                    .take(pagination.size || 10)
-                    .getManyAndCount();
-            }
-            return {
-                code: 0,
-                message: '查询成功',
-                data: course[0],
-                total: course[1],
-                page: pagination.page || 1,
-                size: pagination.size || 10,
-            };
-        }
-        catch (error) {
-            return {
-                code: 1,
-                message: '查询失败'
-            };
-        }
-    }
     async findOne(id) {
         try {
             const res = await this.courseRepository.findOne(id);
@@ -141,10 +107,41 @@ let CourseService = class CourseService {
         }
     }
     async getList(pagination) {
+        let search = pagination.search || '';
+        let course;
+        try {
+            course = await this.courseRepository.findAndCount({
+                where: {
+                    courseName: typeorm_2.Like("%" + search + "%"),
+                },
+                relations: ["users", "applys"],
+                skip: (pagination.page - 1) * pagination.size || 0,
+                take: pagination.size || 10,
+            });
+            return {
+                code: 0,
+                message: '查询成功',
+                data: course[0],
+                total: course[1],
+                page: pagination.page || 1,
+                size: pagination.size || 10,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error
+            };
+        }
+    }
+    async findAll(pagination) {
+        let search = pagination.search || '';
         let course;
         try {
             course = await typeorm_2.getRepository(course_entity_1.Course)
                 .createQueryBuilder('course')
+                .where("course.courseName like :courseName", { courseName: '%' + search + '%' || '%%' })
                 .leftJoinAndSelect("course.applys", "applys")
                 .leftJoinAndSelect("course.users", "users")
                 .skip((pagination.page - 1) * pagination.size || 0)
@@ -160,6 +157,11 @@ let CourseService = class CourseService {
             };
         }
         catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error
+            };
         }
     }
 };

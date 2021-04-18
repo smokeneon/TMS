@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Like, Repository } from 'typeorm';
 import { Course } from './course.entity'
-import { CourseTea } from './course_tea.entity'
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -87,40 +86,7 @@ export class CourseService {
     }
   }
 
-    // 分页查询接口
-  async findAll(pagination): Promise<Object> {
-    let course;
-    try {
-      if (pagination.search) {
-        course = await getRepository(Course)
-          .createQueryBuilder('course')
-          .where("course.courseName like :courseName", { courseName: '%' + pagination.search + '%' })
-          .skip((pagination.page-1)*pagination.size || 0)
-          .take(pagination.size || 10)
-          .getManyAndCount()
-      } else {
-        course = await getRepository(Course)
-          .createQueryBuilder('course')
-          .skip((pagination.page-1)*pagination.size || 0)
-          .take(pagination.size || 10)
-          .getManyAndCount()
-      }
-
-      return {
-        code: 0,
-        message: '查询成功',
-        data: course[0],
-        total: course[1],
-        page: pagination.page || 1,
-        size: pagination.size || 10,
-      }
-    } catch (error) {
-      return {
-        code: 1,
-        message: '查询失败'
-      }
-    }
-  }
+   
 
   async findOne(id: string): Promise<object> {
     try {
@@ -140,16 +106,17 @@ export class CourseService {
 
   // 查询列表以及连带的申请表
   async getList(pagination): Promise<any> {
+    let search = pagination.search || '';
     let course;
     try {
-       course = await getRepository(Course)
-          .createQueryBuilder('course')
-          .leftJoinAndSelect("course.applys", "applys")
-          .leftJoinAndSelect("course.users", "users")
-          .skip((pagination.page-1)*pagination.size || 0)
-          .take(pagination.size || 10)
-          .getManyAndCount()
-      
+        course = await this.courseRepository.findAndCount({ 
+          where: {
+            courseName: Like("%"+search+"%"),
+          },
+          relations: ["users","applys"],
+          skip: (pagination.page-1)*pagination.size || 0,
+          take: pagination.size || 10,
+        })
       return {
         code: 0,
         message: '查询成功',
@@ -160,7 +127,44 @@ export class CourseService {
       }
       
     } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error
+      }
+    }
+  }
+
+
+
+   // 分页查询接口
+   async findAll(pagination): Promise<Object> {
+    let search = pagination.search || '';
+    let course;
+    try {
+        course = await getRepository(Course)
+        .createQueryBuilder('course')
+        .where("course.courseName like :courseName", { courseName: '%' + search + '%' || '%%'})
+        .leftJoinAndSelect("course.applys", "applys")
+        .leftJoinAndSelect("course.users", "users")
+        .skip((pagination.page-1)*pagination.size || 0)
+        .take(pagination.size || 10)
+        .getManyAndCount()
+      return {
+        code: 0,
+        message: '查询成功',
+        data: course[0],
+        total: course[1],
+        page: pagination.page || 1,
+        size: pagination.size || 10,
+      }
       
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error
+      }
     }
   }
 }

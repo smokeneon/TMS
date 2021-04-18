@@ -68,7 +68,9 @@ __decorate([
     __metadata("design:type", Array)
 ], Course.prototype, "applys", void 0);
 __decorate([
-    typeorm_1.ManyToMany(() => users_entity_1.User),
+    typeorm_1.ManyToMany(() => users_entity_1.User, {
+        eager: true
+    }),
     typeorm_1.JoinTable(),
     __metadata("design:type", Array)
 ], Course.prototype, "users", void 0);

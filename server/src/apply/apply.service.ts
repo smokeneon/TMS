@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from 'src/course/course.entity';
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, getTreeRepository, Like } from 'typeorm';
 import { Apply } from './apply.entity'
 
 @Injectable()
@@ -59,30 +59,23 @@ export class ApplyService {
 
     // 分页查询接口 联查课程
   async findAll(pagination): Promise<Object> {
-    let apply;
+    let search = pagination.search || '';
+    let res;
     try {
-      if (pagination.search) {
-        apply = await getRepository(Apply)
-          .createQueryBuilder('apply')
-          .leftJoinAndSelect("apply.course", "course")
-          .where("apply.applyNumber like :applyNumber", { applyNumber: '%' + pagination.search + '%' })
-          .skip((pagination.page-1)*pagination.size || 0)
-          .take(pagination.size || 10)
-          .getManyAndCount()
-      } else {
-        apply = await getRepository(Apply)
-        .createQueryBuilder("apply")
-        .leftJoinAndSelect("apply.course", "course")
-        .skip((pagination.page-1)*pagination.size || 0)
-        .take(pagination.size || 10)
-        .getManyAndCount()
-      }
+      res = await this.applyRepository.findAndCount({ 
+        where: {
+          applyNumber: Like("%"+search+"%"),
+        },
+        relations: ["course"],
+        skip: (pagination.page-1)*pagination.size || 0,
+        take: pagination.size || 10,
+      })
 
       return {
         code: 0,
         message: '查询成功',
-        data: apply[0],
-        total: apply[1],
+        data: res[0],
+        total: res[1],
         page: pagination.page || 1,
         size: pagination.size || 10,
       }
@@ -90,6 +83,7 @@ export class ApplyService {
       return {
         code: 1,
         message: '查询失败',
+        error
       }
     }
   }

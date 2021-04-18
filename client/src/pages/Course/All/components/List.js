@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Drawer, Card } from 'antd'
+import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Drawer, Card, Tag } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import Moment from 'moment'
 import AddModal from './AddModal'
@@ -120,13 +120,54 @@ const SubjectList = forwardRef((props, ref) => {
       title: '是否开放申请',
       dataIndex: 'openState',
       key: 'openState',
-      render: text => OpenState[text],
+      render: text => {
+        if (text === 0 ) {
+          return (
+            <Tag color="cyan">{OpenState[text]}</Tag>
+          )
+        }
+        if (text === 1) {
+          return (
+            <Tag color="volcano">{OpenState[text]}</Tag>
+          )
+        }
+        if (text === 2) {
+          return (
+            <Tag color="blue">{OpenState[text]}</Tag>
+          )
+        }
+      },
     },
     {
       title: '审批状态',
       dataIndex: 'approvalState',
       key: 'approvalState',
-      render: text => ApprovalState[text]
+      render: text => {
+        if (text === 0) {
+          return (
+            <Tag color="cyan">{ApprovalState[text]}</Tag>
+          )
+        }
+
+        if (text === 1) {
+          return (
+            <Tag color="orange">{ApprovalState[text]}</Tag>
+          )
+        }
+
+        if (text === 2) {
+          return (
+            <Tag color="green">{ApprovalState[text]}</Tag>
+          )
+        }
+
+        if (text === 3) {
+          return (
+            <Tag color="red">{ApprovalState[text]}</Tag>
+          )
+        }
+
+      }
     },
     // {
     //   title: '操作时间',

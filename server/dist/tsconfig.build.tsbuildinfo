@@ -3657,12 +3657,12 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.entity.ts": {
-        "version": "cee92153e4ef3eae40ea6ac7faaa090f16b6d1ffbc7b2b82bb32ba69d1db814a",
+        "version": "17271998cf5cb297bbb1c76263807ed612b1e4485d322f048eada7118eb1bfd3",
         "signature": "9546076846e7cc5f09d362f01c3208de6c1dd478d65c3a3eff66cc19be0dc4d0",
         "affectsGlobalScope": false
       },
       "../src/course/course.entity.ts": {
-        "version": "39a44fa54e76a842f33f6a46c364548657630b9888e6417bd52cc73f079d5491",
+        "version": "eee2d6c888dc5e5d6c13fb6115f81fcec2b03f6c81998d1c15e4052afbebe114",
         "signature": "fac95fcb9177be2543d6ce265f72baa0409aaf45e7de2fc568fd5d107e637038",
         "affectsGlobalScope": false
       },
@@ -4146,23 +4146,18 @@
         "signature": "5c472f1f17ce22bd858d79d86d62929be669953f6bf6a542804b296c6cdf1a68",
         "affectsGlobalScope": false
       },
-      "../src/course/course_tea.entity.ts": {
-        "version": "7169fc1d278ca21591ac67a656337007ba9a306a7cfef16bd94976d2ba252cc2",
-        "signature": "e2d50a7a6217c1638d72268a9f8f84f36b886c06647772be416fc53dfda2e3d7",
-        "affectsGlobalScope": false
-      },
       "../src/course/course.service.ts": {
-        "version": "efd068c500300044ea6d0f052305ca7a78359bc7b13c1db5ef96acf602fccd87",
-        "signature": "d0312c99f019587e97c995c79e58fab7f0dc4e1ae93f5db31bb002f16da74be8",
+        "version": "41bf9dbf11f9bfde2f963997c84adb986699bde6475ed329cd373a8d304fe2f6",
+        "signature": "a5afb356df53733eef81f74c5b55f27c88700d6df2da0094d7e8b7a71c5dc77b",
         "affectsGlobalScope": false
       },
       "../src/course/course.controller.ts": {
-        "version": "d797b855673a27b08810c61889228b86575b6c74f50886c44ea2f52afc7dce0b",
+        "version": "587d45b372f70aea7613ac009c5cca7ad89be13de933529cca9810d39e93ce93",
         "signature": "c3e04e552b25fbaa6c301045a5fc041b47785e27d58eca01753b54eac9547c24",
         "affectsGlobalScope": false
       },
       "../src/course/course.module.ts": {
-        "version": "caa34afabc3e7d29b84bdd2be2df7dcac7bb929c841de0d5f1bf0c27077f17b8",
+        "version": "e3a7b726370e9fb6240bee48e2ef4bd16204e974fdecb8575fee388f4bf691e8",
         "signature": "89ca1fd1c04411c4031a09748b91cd80315f78b180dc089f29d7d4ae7ec7773a",
         "affectsGlobalScope": false
       },
@@ -4237,7 +4232,7 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.service.ts": {
-        "version": "9c72c5d3c23e8df6013c31f7ec12c7993d53ed243c12c0c8d0461471b3bd9c71",
+        "version": "da8fad67b8f2371b4575acbb78fef0e2fc209b11cd881558c25e4f6deb07bc16",
         "signature": "6f00aca370731b4a53ba1895138bacd680b607f01e223f32da460f0d2ab627a4",
         "affectsGlobalScope": false
       },
@@ -8279,12 +8274,7 @@
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/course/course.entity.ts",
-        "../src/course/course_tea.entity.ts",
         "../src/users/users.service.ts"
-      ],
-      "../src/course/course_tea.entity.ts": [
-        "../node_modules/@nestjs/swagger/index.d.ts",
-        "../node_modules/typeorm/index.d.ts"
       ],
       "../src/email/email.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -12731,7 +12721,6 @@
       "../src/course/course.entity.ts",
       "../src/course/course.module.ts",
       "../src/course/course.service.ts",
-      "../src/course/course_tea.entity.ts",
       "../src/email/email.controller.ts",
       "../src/email/email.module.ts",
       "../src/email/email.service.ts",

@@ -8,7 +8,7 @@ export declare class CourseService {
     create(course: any, manager: any): Promise<any>;
     remove(courseId: string): Promise<object>;
     edit(id: number, course: Course): Promise<object>;
-    findAll(pagination: any): Promise<Object>;
     findOne(id: string): Promise<object>;
     getList(pagination: any): Promise<any>;
+    findAll(pagination: any): Promise<Object>;
 }
