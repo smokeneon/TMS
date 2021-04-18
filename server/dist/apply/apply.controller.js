@@ -17,13 +17,14 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const apply_service_1 = require("./apply.service");
 const apply_entity_1 = require("./apply.entity");
+const typeorm_1 = require("typeorm");
 let ApplyController = class ApplyController {
     constructor(applyService) {
         this.applyService = applyService;
     }
-    async create(apply) {
+    async create(apply, manager) {
         console.log('apply', apply);
-        return await this.applyService.create(apply);
+        return await this.applyService.create(apply, manager);
     }
     async remove(id) {
         return await this.applyService.remove(id);
@@ -41,9 +42,10 @@ let ApplyController = class ApplyController {
 __decorate([
     common_1.Post('/add'),
     swagger_1.ApiOperation({ summary: '添加一个申报' }),
-    __param(0, common_1.Body()),
+    typeorm_1.Transaction(),
+    __param(0, common_1.Body()), __param(1, typeorm_1.TransactionManager()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, typeorm_1.EntityManager]),
     __metadata("design:returntype", Promise)
 ], ApplyController.prototype, "create", null);
 __decorate([

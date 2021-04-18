@@ -18,22 +18,54 @@ const typeorm_1 = require("@nestjs/typeorm");
 const course_entity_1 = require("../course/course.entity");
 const typeorm_2 = require("typeorm");
 const apply_entity_1 = require("./apply.entity");
+const course_service_1 = require("../course/course.service");
+const users_service_1 = require("../users/users.service");
 let ApplyService = class ApplyService {
-    constructor(applyRepository) {
+    constructor(applyRepository, courseService, usersService) {
         this.applyRepository = applyRepository;
+        this.courseService = courseService;
+        this.usersService = usersService;
     }
-    async create(apply) {
+    async create(apply, manager) {
+        let course;
         try {
-            await this.applyRepository.insert(apply);
+            course = await this.courseService.findOne(apply.courseId);
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '添加申报时，查询课程失败'
+            };
+        }
+        let users = [];
+        for (let i = 0; i < apply.stuIds.length; i++) {
+            try {
+                let user = await this.usersService.findOne(apply.stuIds[i]);
+                users.push(user["data"]);
+            }
+            catch (error) {
+                return {
+                    code: 1,
+                    message: '添加申报时，查询用户失败'
+                };
+            }
+        }
+        let newApply = {
+            applyNumber: apply.applyNumber,
+            course: course["data"],
+            stu: users,
+        };
+        try {
+            await manager.save(apply_entity_1.Apply, newApply);
             return {
                 code: 0,
-                message: '创建成功'
+                message: '添加申报成功'
             };
         }
         catch (error) {
             return {
                 code: 1,
-                message: '创建失败'
+                message: '添加申报申报'
             };
         }
     }
@@ -122,7 +154,9 @@ let ApplyService = class ApplyService {
 ApplyService = __decorate([
     common_1.Injectable(),
     __param(0, typeorm_1.InjectRepository(apply_entity_1.Apply)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        course_service_1.CourseService,
+        users_service_1.UsersService])
 ], ApplyService);
 exports.ApplyService = ApplyService;
 //# sourceMappingURL=apply.service.js.map

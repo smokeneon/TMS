@@ -54,8 +54,13 @@ let UsersController = class UsersController {
     async findAll(pagination) {
         return await this.usersService.findAll(pagination);
     }
-    async findAllNoPagination() {
-        return await this.usersService.findAllNoPagination();
+    async findAllNoPagination1() {
+        let type = 'tea';
+        return await this.usersService.findAllNoPagination(type);
+    }
+    async findAllNoPagination2() {
+        let type = 'stu';
+        return await this.usersService.findAllNoPagination(type);
     }
     async detail(id) {
         return await this.usersService.findOne(id);
@@ -144,13 +149,21 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "findAll", null);
 __decorate([
-    common_1.Get('/userType'),
+    common_1.Get('/tea'),
     common_1.UseGuards(passport_1.AuthGuard('jwt')),
     swagger_1.ApiOperation({ summary: '查询教师列表 不带分页' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "findAllNoPagination", null);
+], UsersController.prototype, "findAllNoPagination1", null);
+__decorate([
+    common_1.Get('/stu'),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
+    swagger_1.ApiOperation({ summary: '查询教师列表 不带分页' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "findAllNoPagination2", null);
 __decorate([
     common_1.Get(':id'),
     swagger_1.ApiOperation({ summary: '根据用户id查询详情' }),

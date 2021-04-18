@@ -118,13 +118,13 @@ export class UsersService {
     } 
   }
 
-  async findAllNoPagination(): Promise<any> {
+  async findAllNoPagination(type): Promise<any> {
     
     let user;
     try {
       user = await getRepository(User)
           .createQueryBuilder('user')
-          .where("user.identity = 'tea'")
+          .where("user.identity = :type", {type: type || 'tea'})
           .getManyAndCount()
     return {
       code: 0,

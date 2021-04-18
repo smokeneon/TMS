@@ -8,6 +8,7 @@ export declare class CourseController {
     create(course: Course, manager: EntityManager): Promise<any>;
     remove(courseId: string): Promise<object>;
     update(id: number, body: Course): Promise<object>;
+    findAllWithNoPage(): Promise<any>;
     findAll(pagination: string): Promise<Object>;
     detail(id: string): Promise<object>;
 }

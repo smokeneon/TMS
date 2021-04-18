@@ -1,5 +1,6 @@
 import React from 'react'
-import { Descriptions, Table } from 'antd';
+import { Descriptions, Table, Typography } from 'antd';
+const { Title, } = Typography;
 import { OpenState, ApprovalState } from '../../../../common/const'
 const DrawerContent = props => {
   const { record }  = props
@@ -32,7 +33,12 @@ const DrawerContent = props => {
         <Descriptions.Item label="课程目标">{record.courseTarget}</Descriptions.Item>
         <Descriptions.Item label="课程架构">{record.courseFramework}</Descriptions.Item>
       </Descriptions>
-      <Table dataSource={record.applys} columns={columns} />
+      <div style={{
+        padding: '24px 0 0 0'
+      }}>
+        <Title level={5}>该课程申报信息</Title>
+        <Table dataSource={record.applys} columns={columns} pagination={false} />
+      </div>
     </div>
   )
 }

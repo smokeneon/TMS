@@ -75,11 +75,20 @@ export class UsersController {
     return await this.usersService.findAll(pagination);
   }
   
-  @Get('/userType')
+  @Get('/tea')
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '查询教师列表 不带分页' })
-  async findAllNoPagination() {
-    return await this.usersService.findAllNoPagination();
+  async findAllNoPagination1() {
+    let type = 'tea'
+    return await this.usersService.findAllNoPagination(type);
+  }
+
+  @Get('/stu')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ summary: '查询教师列表 不带分页' })
+  async findAllNoPagination2() {
+    let type = 'stu'
+    return await this.usersService.findAllNoPagination(type);
   }
 
 x// 这个接口给登陆用

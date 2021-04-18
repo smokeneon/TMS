@@ -120,12 +120,12 @@ let UsersService = class UsersService {
             };
         }
     }
-    async findAllNoPagination() {
+    async findAllNoPagination(type) {
         let user;
         try {
             user = await typeorm_2.getRepository(users_entity_1.User)
                 .createQueryBuilder('user')
-                .where("user.identity = 'tea'")
+                .where("user.identity = :type", { type: type || 'tea' })
                 .getManyAndCount();
             return {
                 code: 0,

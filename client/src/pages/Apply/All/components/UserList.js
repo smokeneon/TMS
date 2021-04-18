@@ -1,12 +1,10 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Drawer, Card, Tag } from 'antd'
+import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Tag } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import Moment from 'moment'
-import AddModal from './AddModal'
-import { OpenState, ApprovalState } from '../../../../common/const'
-import DrawerContent from './DrawerContent'
+import UserAddModal from './UserAddModal'
 
-import { deleteItem, getUserList } from '../api'
+import { deleteItem, getApplyList } from '../api'
 
 const formItemLayout = {
   labelCol: { span: 1 },
@@ -20,20 +18,20 @@ const SubjectList = forwardRef((props, ref) => {
   const [tableLoading, setTableLoading] = useState(true)
   const [searchLoading, setSearchLoading] = useState(false)
   const [chooseItem, setChooseItem] = useState({})
-  const [drawRecord, setDrawRecord] = useState({})
   const requestParams = { page: 1, size: 10, search: null }
-  const [drawerVisable, setDrawerVisable] = useState(false);
   const [form] = Form.useForm()
  
   const getList = params => {
     setTableLoading(true)
-    getUserList(params).then(res => {
+    getApplyList(params).then(res => {
       if (res.status === 200) {
         const { page, size, data, total } = res.data
         setTableData(data)
         setPagination({page, size, total})
         setTableLoading(false)
       }
+    }).catch(err => {
+        message.error(err.message)
     })
   }
 
@@ -59,8 +57,13 @@ const SubjectList = forwardRef((props, ref) => {
       setSearchLoading(false)
     }
   }
-  const deleteConfirm = id => () => {
-    deleteItem(id).then(res => {
+  const deleteConfirm = record => () => {
+    let currentUserId = localStorage.getItem('userId');
+    if (currentUserId === record.userId.toString()) {
+      console.log('daozhel');
+      return message.warning('您不能删除自己')
+    }
+    deleteItem(record.id).then(res => {
       message.success(res.data.message)
       getList(requestParams)
     })
@@ -73,31 +76,11 @@ const SubjectList = forwardRef((props, ref) => {
     setModalVisable(false)
     getList(requestParams)
   }
-  const showDrawer = (record) => ()=> {
-    setDrawRecord(record)
-    setDrawerVisable(true);
-  };
-  const closeDrawer = () => {
-    setDrawerVisable(false);
-  };
   const columns = [
     {
-      title: '课程名',
-      dataIndex: 'courseName',
-      key: 'courseName',
-      width: 160,
-      render: (text, record) => (
-        <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
-            <a onClick={showDrawer(record)}>
-            {text}
-            </a>
-        </Typography.Text>
-      ),
-    },
-    {
-      title: '所属学科',
-      dataIndex: 'subject',
-      key: 'subject',
+      title: '申报编号',
+      dataIndex: 'applyNumber',
+      key: 'applyNumber',
       width: 160,
       render: (text) => (
         <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
@@ -105,70 +88,29 @@ const SubjectList = forwardRef((props, ref) => {
         </Typography.Text>
       ),
     },
+    // {
+    //   title: '密码',
+    //   dataIndex: 'password',
+    //   key: 'password',
+    //   width: 160,
+    //   render: (text) => (
+    //     <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
+    //       {text}
+    //     </Typography.Text>
+    //   ),
+    // },
     {
-      title: '开课专家',
-      dataIndex: 'teacher',
-      key: 'teacher',
+      title: '申报课程名',
+      dataIndex: 'courseName',
+      key: 'owner',
       width: 160,
       render: (text, record) => (
         <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
-          {record.users[0] && record.users[0].realname + ' (' + record.users[0].username + ')'}
+          {record.course.courseName}
         </Typography.Text>
       ),
     },
-    {
-      title: '是否开放申请',
-      dataIndex: 'openState',
-      key: 'openState',
-      render: text => {
-        if (text === 0 ) {
-          return (
-            <Tag color="cyan">{OpenState[text]}</Tag>
-          )
-        }
-        if (text === 1) {
-          return (
-            <Tag color="volcano">{OpenState[text]}</Tag>
-          )
-        }
-        if (text === 2) {
-          return (
-            <Tag color="blue">{OpenState[text]}</Tag>
-          )
-        }
-      },
-    },
-    {
-      title: '审批状态',
-      dataIndex: 'approvalState',
-      key: 'approvalState',
-      render: text => {
-        if (text === 0) {
-          return (
-            <Tag color="cyan">{ApprovalState[text]}</Tag>
-          )
-        }
-
-        if (text === 1) {
-          return (
-            <Tag color="orange">{ApprovalState[text]}</Tag>
-          )
-        }
-
-        if (text === 2) {
-          return (
-            <Tag color="green">{ApprovalState[text]}</Tag>
-          )
-        }
-
-        if (text === 3) {
-          return (
-            <Tag color="red">{ApprovalState[text]}</Tag>
-          )
-        }
-
-      }
-    },
+  
     // {
     //   title: '操作时间',
     //   dataIndex: 'updatedTime',
@@ -185,7 +127,7 @@ const SubjectList = forwardRef((props, ref) => {
           <a onClick={openModal(record)}>编辑</a>
           <Popconfirm
             title="你确定删除此条吗?"
-            onConfirm={deleteConfirm(record.courseId)}
+            onConfirm={deleteConfirm(record)}
             okText="是"
             cancelText="否"
           >
@@ -199,9 +141,6 @@ const SubjectList = forwardRef((props, ref) => {
   useEffect(() => {
     getList(requestParams)
   }, [])
-  useEffect(() => {
-    console.log('pagination',pagination);
-  }, [pagination])
   return (
     <div>
       <div style={{padding: '0px 0 24px 0'}}>
@@ -227,37 +166,13 @@ const SubjectList = forwardRef((props, ref) => {
           onChange: paginationOnChange,
         }}
       />
-      <AddModal 
+      <UserAddModal 
         visable={modalVisable} 
         hiddenModal={hiddenModal} 
         addOrEdit="edit" 
         record={chooseItem}
         getList={getList}
       />
-       <Drawer
-        title={drawRecord.courseName + ' 详情'}
-        placement="bottom"
-        closable={false}
-        onClose={closeDrawer}
-        visible={drawerVisable}
-        height="75vh"
-        footer={
-          <div
-            style={{
-              textAlign: 'right',
-            }}
-          >
-            <Button onClick={closeDrawer} style={{ marginRight: 8 }}>
-              设置开放状态
-            </Button>
-            <Button onClick={closeDrawer} type="primary">
-              设置申报状态
-            </Button>
-          </div>
-        }
-      >
-        <DrawerContent record={drawRecord} />
-      </Drawer>
     </div>
   )
 })

@@ -11,6 +11,7 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ApplyService } from './apply.service';
 import { Apply } from './apply.entity';
+import { EntityManager, Transaction, TransactionManager } from 'typeorm';
 
 @Controller('/api/v1/apply')
 @ApiTags('申报增删改查')
@@ -19,10 +20,10 @@ export class ApplyController {
 
   @Post('/add')
   @ApiOperation({ summary: '添加一个申报' })
-  async create(@Body() apply: any) {
+  @Transaction()
+  async create(@Body() apply: any, @TransactionManager() manager: EntityManager) {
     console.log('apply', apply);
-    
-    return await this.applyService.create(apply);
+    return await this.applyService.create(apply, manager);
   }
 
 

@@ -37,6 +37,9 @@ let CourseController = class CourseController {
     async update(id, body) {
         return await this.courseService.edit(id, body);
     }
+    async findAllWithNoPage() {
+        return this.courseService.findAllWithNoPage();
+    }
     async findAll(pagination) {
         return this.courseService.findAll(pagination);
     }
@@ -77,6 +80,14 @@ __decorate([
     __metadata("design:paramtypes", [Number, course_entity_1.Course]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "update", null);
+__decorate([
+    common_1.Get('/list/no-page'),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
+    swagger_1.ApiOperation({ summary: '查询所有课程列表， 不带分页' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "findAllWithNoPage", null);
 __decorate([
     common_1.Get(),
     swagger_1.ApiOperation({ summary: '查询所有课程列表' }),

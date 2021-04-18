@@ -75,7 +75,7 @@ const UserAddModal = props => {
       if (res.data.code === 0) {
         setTeaList(res.data.data)
       }else{
-        message.error('教师列表获取失败')
+        message.error('专家列表获取失败')
       }
     })
   }, [])

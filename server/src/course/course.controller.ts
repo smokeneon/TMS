@@ -50,6 +50,13 @@ export class CourseController {
     return await this.courseService.edit(id, body)
   }
 
+  @Get('/list/no-page')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ summary: '查询所有课程列表， 不带分页'})
+  async findAllWithNoPage() {
+    return this.courseService.findAllWithNoPage()
+  }
+
   @Get()
   @ApiOperation({ summary: '查询所有课程列表' })
   @UseGuards(AuthGuard('jwt'))

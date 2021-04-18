@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Course } from '../course/course.entity'
+import { User } from '../users/users.entity'
 @Entity()
 export class Apply {
   @ApiProperty({ description: '申报id（自动增加生成）', example: 2 })
@@ -15,14 +16,21 @@ export class Apply {
   })
   applyNumber: string;
 
-  @ApiProperty({ description: '参训者id', example: '23' })
-  @Column('varchar')
-  userId: string;
+  // @ApiProperty({ description: '参训者id', example: '23' })
+  // @Column('varchar')
+  // userId: string;
 
   @ManyToOne(() => Course, (course) => course.applys, {
     eager: true,
   })
   course: Course
+
+  @ManyToMany(() => User, {
+    eager: true
+  })
+  @JoinTable()
+  stu: User[];
+
 
   @ApiProperty({ description: '申报状态 默认0 0:未提交 1:审批中 2: 申报成功 3:申报失败 4:进行中 5.已完结', example: 0 })
   @Column({
@@ -33,7 +41,9 @@ export class Apply {
   @ApiProperty({ description: '课程分数', example: '98' })
   @Column({
     nullable: true,
+    default: -1,
   })
   score: number;
+  
   
 }

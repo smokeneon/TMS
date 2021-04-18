@@ -10,5 +10,6 @@ export declare class CourseService {
     edit(id: number, course: Course): Promise<object>;
     findOne(id: string): Promise<object>;
     getList(pagination: any): Promise<any>;
+    findAllWithNoPage(): Promise<any>;
     findAll(pagination: any): Promise<Object>;
 }

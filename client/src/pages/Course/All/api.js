@@ -20,7 +20,7 @@ export const getUserList = (params) => {
 export const getTeaList = () => {
   return axios({
     method: 'get',
-    url: '/api/user/userType',
+    url: '/api/user/tea',
     headers: {
       'Authorization': 'Bearer ' + token
     }

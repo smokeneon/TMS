@@ -10,6 +10,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Course } from '../course/course.entity'
+import { Apply } from '../apply/apply.entity'
 @Entity()
 export class User {
   @ApiProperty({ description: '用户id', example: '123' })
@@ -59,6 +60,8 @@ export class User {
 
   @ManyToMany(() => Course, (course) => course.users)
   courses: Course[];
-  // @OneToMany(type => Course, course => course.user)
-  // courses: Course[];
+
+  @ManyToMany(() => Apply, (apply) => apply.stu)
+  applys: Apply[];
+
 }

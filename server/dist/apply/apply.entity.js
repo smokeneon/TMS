@@ -13,6 +13,7 @@ exports.Apply = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 const course_entity_1 = require("../course/course.entity");
+const users_entity_1 = require("../users/users.entity");
 let Apply = class Apply {
 };
 __decorate([
@@ -29,16 +30,18 @@ __decorate([
     __metadata("design:type", String)
 ], Apply.prototype, "applyNumber", void 0);
 __decorate([
-    swagger_1.ApiProperty({ description: '参训者id', example: '23' }),
-    typeorm_1.Column('varchar'),
-    __metadata("design:type", String)
-], Apply.prototype, "userId", void 0);
-__decorate([
     typeorm_1.ManyToOne(() => course_entity_1.Course, (course) => course.applys, {
         eager: true,
     }),
     __metadata("design:type", course_entity_1.Course)
 ], Apply.prototype, "course", void 0);
+__decorate([
+    typeorm_1.ManyToMany(() => users_entity_1.User, {
+        eager: true
+    }),
+    typeorm_1.JoinTable(),
+    __metadata("design:type", Array)
+], Apply.prototype, "stu", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '申报状态 默认0 0:未提交 1:审批中 2: 申报成功 3:申报失败 4:进行中 5.已完结', example: 0 }),
     typeorm_1.Column({
@@ -50,6 +53,7 @@ __decorate([
     swagger_1.ApiProperty({ description: '课程分数', example: '98' }),
     typeorm_1.Column({
         nullable: true,
+        default: -1,
     }),
     __metadata("design:type", Number)
 ], Apply.prototype, "score", void 0);

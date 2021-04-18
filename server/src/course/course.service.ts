@@ -12,6 +12,7 @@ export class CourseService {
     private readonly usersService: UsersService,
   ) {}
 
+
   async create(course, manager): Promise<any> {
 
     try {
@@ -87,7 +88,7 @@ export class CourseService {
   }
 
    
-
+  // 申报表调用
   async findOne(id: string): Promise<object> {
     try {
       const res = await this.courseRepository.findOne(id);
@@ -135,7 +136,25 @@ export class CourseService {
     }
   }
 
-
+  // 查询所有 无分页
+  async findAllWithNoPage(): Promise<any> {
+    let course;
+    try {
+      course = await getRepository(Course)
+      .createQueryBuilder('course')
+      .getMany()
+      return {
+        code: 0,
+        message: '查询成功',
+        data: course
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败'
+      }
+    }
+  }
 
    // 分页查询接口
    async findAll(pagination): Promise<Object> {

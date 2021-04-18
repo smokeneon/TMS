@@ -1,4 +1,5 @@
 import { Course } from '../course/course.entity';
+import { Apply } from '../apply/apply.entity';
 export declare class User {
     userId: number;
     username: string;
@@ -9,4 +10,5 @@ export declare class User {
     identity: string;
     email: string;
     courses: Course[];
+    applys: Apply[];
 }

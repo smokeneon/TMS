@@ -135,6 +135,25 @@ let CourseService = class CourseService {
             };
         }
     }
+    async findAllWithNoPage() {
+        let course;
+        try {
+            course = await typeorm_2.getRepository(course_entity_1.Course)
+                .createQueryBuilder('course')
+                .getMany();
+            return {
+                code: 0,
+                message: '查询成功',
+                data: course
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败'
+            };
+        }
+    }
     async findAll(pagination) {
         let search = pagination.search || '';
         let course;
