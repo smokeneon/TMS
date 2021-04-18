@@ -115,11 +115,29 @@ export class UsersService {
         code: 1,
         message: '查询失败'
       }
+    } 
+  }
+
+  async findAllNoPagination(): Promise<any> {
+    
+    let user;
+    try {
+      user = await getRepository(User)
+          .createQueryBuilder('user')
+          .where("user.identity = 'tea'")
+          .getManyAndCount()
+    return {
+      code: 0,
+      data: user[0],
+      message: '查询成功'
     }
-    
-    
-    
-   
+    } catch (error) {
+      return {
+        code: 1,
+        data: [],
+        message: '查询失败'
+      }
+    }
   }
 
   async findOne(id: string): Promise<object> {

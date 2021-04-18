@@ -17,28 +17,44 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const course_entity_1 = require("./course.entity");
+const users_service_1 = require("../users/users.service");
 let CourseService = class CourseService {
-    constructor(courseRepository) {
+    constructor(courseRepository, usersService) {
         this.courseRepository = courseRepository;
+        this.usersService = usersService;
     }
-    async create(course) {
-        if (course.courseName === undefined) {
-            return {
-                code: 1,
-                message: '缺少课程名或者所属教师id字段'
-            };
-        }
+    async create(course, manager) {
         try {
-            await this.courseRepository.insert(course);
+            let user = await this.usersService.findOne(course.teaId);
+            if (!user["data"]) {
+                return {
+                    code: 0,
+                    message: '该专家不存在'
+                };
+            }
+            let newCourse = Object.assign(Object.assign({}, course), { users: [user["data"]] });
+            try {
+                let saveCourse = await manager.save(course_entity_1.Course, newCourse);
+                if (!saveCourse) {
+                    throw new Error("insert error");
+                }
+            }
+            catch (error) {
+                return {
+                    code: 1,
+                    message: '添加课程失败',
+                    error,
+                };
+            }
             return {
                 code: 0,
-                message: '创建成功'
+                message: '新建课程成功'
             };
         }
         catch (error) {
             return {
                 code: 1,
-                message: '创建失败'
+                message: '新建课程失败'
             };
         }
     }
@@ -130,6 +146,7 @@ let CourseService = class CourseService {
             course = await typeorm_2.getRepository(course_entity_1.Course)
                 .createQueryBuilder('course')
                 .leftJoinAndSelect("course.applys", "applys")
+                .leftJoinAndSelect("course.users", "users")
                 .skip((pagination.page - 1) * pagination.size || 0)
                 .take(pagination.size || 10)
                 .getManyAndCount();
@@ -149,7 +166,8 @@ let CourseService = class CourseService {
 CourseService = __decorate([
     common_1.Injectable(),
     __param(0, typeorm_1.InjectRepository(course_entity_1.Course)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        users_service_1.UsersService])
 ], CourseService);
 exports.CourseService = CourseService;
 //# sourceMappingURL=course.service.js.map

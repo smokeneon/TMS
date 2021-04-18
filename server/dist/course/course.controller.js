@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const course_service_1 = require("./course.service");
 const course_entity_1 = require("./course.entity");
+const passport_1 = require("@nestjs/passport");
+const typeorm_1 = require("typeorm");
 class PageBody {
 }
 let CourseController = class CourseController {
@@ -26,8 +28,8 @@ let CourseController = class CourseController {
     async getList(pagination) {
         return await this.courseService.getList(pagination);
     }
-    async create(course) {
-        return await this.courseService.create(course);
+    async create(course, manager) {
+        return await this.courseService.create(course, manager);
     }
     async remove(courseId) {
         return await this.courseService.remove(courseId);
@@ -52,10 +54,11 @@ __decorate([
 ], CourseController.prototype, "getList", null);
 __decorate([
     common_1.Post('/add'),
+    typeorm_1.Transaction(),
     swagger_1.ApiOperation({ summary: '增加一门课程' }),
-    __param(0, common_1.Body()),
+    __param(0, common_1.Body()), __param(1, typeorm_1.TransactionManager()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [course_entity_1.Course]),
+    __metadata("design:paramtypes", [course_entity_1.Course, typeorm_1.EntityManager]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "create", null);
 __decorate([
@@ -77,6 +80,7 @@ __decorate([
 __decorate([
     common_1.Get(),
     swagger_1.ApiOperation({ summary: '查询所有课程列表' }),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
     __param(0, common_1.Query()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

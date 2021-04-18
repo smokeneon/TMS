@@ -13,6 +13,7 @@ exports.User = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
+const course_entity_1 = require("../course/course.entity");
 let User = class User {
 };
 __decorate([
@@ -65,6 +66,10 @@ __decorate([
     typeorm_1.Column('varchar'),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
+__decorate([
+    typeorm_1.ManyToMany(() => course_entity_1.Course, (course) => course.users),
+    __metadata("design:type", Array)
+], User.prototype, "courses", void 0);
 User = __decorate([
     typeorm_1.Entity()
 ], User);

@@ -1,3 +1,4 @@
+import { Course } from '../course/course.entity';
 export declare class User {
     userId: number;
     username: string;
@@ -7,4 +8,5 @@ export declare class User {
     stuNum: string;
     identity: string;
     email: string;
+    courses: Course[];
 }

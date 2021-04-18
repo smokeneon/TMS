@@ -7,10 +7,13 @@ import {
   Put,
   Get,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CourseService } from './course.service';
 import { Course } from './course.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { EntityManager, Transaction, TransactionManager } from 'typeorm';
 class PageBody  {
   page: number;
   size: number;
@@ -26,10 +29,24 @@ export class CourseController {
     return await this.courseService.getList(pagination);
   }
 
+  // @Get('/getCourse')
+  // @ApiOperation({ summary: '查询所有课程 连接user表'})
+  // async getCouseList(@Query() pagination: )
+
+  // @Post('/add')
+  // // @Transaction()
+  // @ApiOperation({ summary: '增加一门课程' })
+  // // @UseGuards(AuthGuard('jwt'))
+  // async create(@Body() course: Course) {
+  //   return await this.courseService.create(course);
+  // }
+
   @Post('/add')
+  @Transaction()
   @ApiOperation({ summary: '增加一门课程' })
-  async create(@Body() course: Course) {
-    return await this.courseService.create(course);
+  // @UseGuards(AuthGuard('jwt'))
+  async create(@Body() course: Course, @TransactionManager() manager: EntityManager) {
+    return await this.courseService.create(course, manager);
   }
 
 
@@ -47,6 +64,7 @@ export class CourseController {
 
   @Get()
   @ApiOperation({ summary: '查询所有课程列表' })
+  @UseGuards(AuthGuard('jwt'))
   async findAll(@Query() pagination: string) {
     return this.courseService.findAll(pagination) 
   }

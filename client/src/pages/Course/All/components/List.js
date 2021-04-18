@@ -112,7 +112,7 @@ const SubjectList = forwardRef((props, ref) => {
       width: 160,
       render: (text, record) => (
         <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
-          {text}
+          {record.users[0] && record.users[0].realname + ' (' + record.users[0].username + ')'}
         </Typography.Text>
       ),
     },

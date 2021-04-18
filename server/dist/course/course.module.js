@@ -12,11 +12,12 @@ const typeorm_1 = require("@nestjs/typeorm");
 const course_controller_1 = require("./course.controller");
 const course_service_1 = require("./course.service");
 const course_entity_1 = require("./course.entity");
+const users_module_1 = require("../users/users.module");
 let CourseModule = class CourseModule {
 };
 CourseModule = __decorate([
     common_1.Module({
-        imports: [typeorm_1.TypeOrmModule.forFeature([course_entity_1.Course])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([course_entity_1.Course]), users_module_1.UsersModule],
         controllers: [course_controller_1.CourseController],
         providers: [course_service_1.CourseService],
         exports: [course_service_1.CourseService],

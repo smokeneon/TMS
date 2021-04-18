@@ -120,6 +120,27 @@ let UsersService = class UsersService {
             };
         }
     }
+    async findAllNoPagination() {
+        let user;
+        try {
+            user = await typeorm_2.getRepository(users_entity_1.User)
+                .createQueryBuilder('user')
+                .where("user.identity = 'tea'")
+                .getManyAndCount();
+            return {
+                code: 0,
+                data: user[0],
+                message: '查询成功'
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                data: [],
+                message: '查询失败'
+            };
+        }
+    }
     async findOne(id) {
         try {
             const res = await this.usersRepository.findOne(id);

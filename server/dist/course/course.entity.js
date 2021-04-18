@@ -13,6 +13,7 @@ exports.Course = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 const apply_entity_1 = require("../apply/apply.entity");
+const users_entity_1 = require("../users/users.entity");
 let Course = class Course {
 };
 __decorate([
@@ -66,6 +67,11 @@ __decorate([
     typeorm_1.OneToMany(() => apply_entity_1.Apply, (apply) => apply.course),
     __metadata("design:type", Array)
 ], Course.prototype, "applys", void 0);
+__decorate([
+    typeorm_1.ManyToMany(() => users_entity_1.User),
+    typeorm_1.JoinTable(),
+    __metadata("design:type", Array)
+], Course.prototype, "users", void 0);
 Course = __decorate([
     typeorm_1.Entity()
 ], Course);

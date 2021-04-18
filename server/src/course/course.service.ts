@@ -2,37 +2,57 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getRepository, Repository } from 'typeorm';
 import { Course } from './course.entity'
+import { CourseTea } from './course_tea.entity'
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class CourseService {
   constructor(
     @InjectRepository(Course)
     private courseRepository: Repository<Course>,
+    private readonly usersService: UsersService,
   ) {}
 
-  async create(course: Course): Promise<object> {
-    // if (course.courseName === undefined || course.courseByTeaId === undefined) {
-    if (course.courseName === undefined) {
-      return {
-        code: 1,
-        message: '缺少课程名或者所属教师id字段'
-      }
-    } 
+  async create(course, manager): Promise<any> {
 
     try {
-      await this.courseRepository.insert(course);
+      // 上传的数据 一部分course  一部分 开课专家名字
+      // 1. 开课庄稼  --  User
+      // 2. course 一部分用上传的数据填充 users开课专家对象
+      // 3. save
+      let user = await this.usersService.findOne(course.teaId)
+      if (!user["data"]){
+        return {
+          code: 0,
+          message: '该专家不存在'
+        }
+      }
+      let newCourse = {
+        ...course,
+        users: [user["data"]],
+      }
+      try {
+        let saveCourse = await manager.save(Course, newCourse);
+        if (!saveCourse){
+          throw new Error("insert error")
+        }
+      } catch (error) {
+        return {
+          code: 1,
+          message: '添加课程失败',
+          error,
+        }
+      }
       return {
         code: 0,
-        message: '创建成功'
-      }
+        message: '新建课程成功'
+      }  
     } catch (error) {
       return {
         code: 1,
-        message: '创建失败'
+        message: '新建课程失败'
       }
     }
-   
-   
   }
 
   async remove(courseId: string): Promise<object> {
@@ -125,6 +145,7 @@ export class CourseService {
        course = await getRepository(Course)
           .createQueryBuilder('course')
           .leftJoinAndSelect("course.applys", "applys")
+          .leftJoinAndSelect("course.users", "users")
           .skip((pagination.page-1)*pagination.size || 0)
           .take(pagination.size || 10)
           .getManyAndCount()

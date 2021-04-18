@@ -7,7 +7,7 @@
  * @FilePath: /tms-server/src/users/users.entity.ts
  */
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Course } from '../course/course.entity'
 @Entity()
@@ -57,6 +57,8 @@ export class User {
   @Column('varchar')
   email: string;
 
+  @ManyToMany(() => Course, (course) => course.users)
+  courses: Course[];
   // @OneToMany(type => Course, course => course.user)
   // courses: Course[];
 }

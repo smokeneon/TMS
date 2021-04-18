@@ -54,6 +54,9 @@ let UsersController = class UsersController {
     async findAll(pagination) {
         return await this.usersService.findAll(pagination);
     }
+    async findAllNoPagination() {
+        return await this.usersService.findAllNoPagination();
+    }
     async detail(id) {
         return await this.usersService.findOne(id);
     }
@@ -134,12 +137,20 @@ __decorate([
 __decorate([
     common_1.Get(),
     common_1.UseGuards(passport_1.AuthGuard('jwt')),
-    swagger_1.ApiOperation({ summary: '查询用户列表' }),
+    swagger_1.ApiOperation({ summary: '查询用户列表 带分页' }),
     __param(0, common_1.Query()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "findAll", null);
+__decorate([
+    common_1.Get('/userType'),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
+    swagger_1.ApiOperation({ summary: '查询教师列表 不带分页' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "findAllNoPagination", null);
 __decorate([
     common_1.Get(':id'),
     swagger_1.ApiOperation({ summary: '根据用户id查询详情' }),

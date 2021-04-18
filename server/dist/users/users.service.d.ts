@@ -7,6 +7,7 @@ export declare class UsersService {
     remove(userId: string): Promise<any>;
     edit(id: number, user: User): Promise<any>;
     findAll(pagination: any): Promise<Object>;
+    findAllNoPagination(): Promise<any>;
     findOne(id: string): Promise<object>;
     findOneByUsername(username: string): Promise<User>;
     register(user: User): Promise<any>;

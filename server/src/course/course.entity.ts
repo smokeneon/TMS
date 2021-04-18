@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Apply } from '../apply/apply.entity'
 import { User } from '../users/users.entity'
 @Entity()
@@ -31,6 +31,12 @@ export class Course {
   @Column('varchar')
   courseFramework: string;
 
+  // @ApiProperty({ description: '专家id', example: '21' })
+  // @Column({
+  //   nullable: false,
+  // })
+  // teaId: number;
+
 
   @ApiProperty({ description: '开课状态 默认0 0:未开课，1:进行中，2:已完结', example: 0 })
   @Column({
@@ -44,11 +50,16 @@ export class Course {
   })
   approvalState: number;
 
+ 
   // @ApiProperty({ description: '创建时间', example: '2021-04-14T17:57:59.844Z'})
   // @Column('varchar')
   // createTime: string;
 
   @OneToMany(() => Apply, (apply) => apply.course) // note: we will create author property in the Photo class below
   applys: Apply[];
+
+  @ManyToMany(() => User)
+  @JoinTable()
+  users: User[];
 
 }
