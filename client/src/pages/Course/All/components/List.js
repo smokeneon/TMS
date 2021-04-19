@@ -120,22 +120,29 @@ const SubjectList = forwardRef((props, ref) => {
       title: '是否开放申请',
       dataIndex: 'openState',
       key: 'openState',
-      render: text => {
-        if (text === 0 ) {
+      render: (text, record) => {
+        if (record.approvalState === 2) {
+          if (text === 0 ) {
+            return (
+              <Tag color="cyan">{OpenState[text]}</Tag>
+            )
+          }
+          if (text === 1) {
+            return (
+              <Tag color="volcano">{OpenState[text]}</Tag>
+            )
+          }
+          if (text === 2) {
+            return (
+              <Tag color="blue">{OpenState[text]}</Tag>
+            )
+          }
+        } else {
           return (
-            <Tag color="cyan">{OpenState[text]}</Tag>
+            <Tag>审批状态不允许</Tag>
           )
         }
-        if (text === 1) {
-          return (
-            <Tag color="volcano">{OpenState[text]}</Tag>
-          )
-        }
-        if (text === 2) {
-          return (
-            <Tag color="blue">{OpenState[text]}</Tag>
-          )
-        }
+        
       },
     },
     {
