@@ -1,11 +1,13 @@
 import React,{ useState, useEffect } from 'react'
 
-import { Form, Input, message, Modal, Select } from 'antd'
+import { Form, Input, message, Modal, Select, DatePicker, Spin } from 'antd'
 import T from 'prop-types'
 import { addCourse, editUser, getTeaList } from '../api'
+import axios from 'axios';
 
 const { Option } = Select;
 const { TextArea } = Input;
+const { RangePicker } = DatePicker;
 
 const addOrEditState = {
   add: '新建',
@@ -18,9 +20,88 @@ const layout = {
   style: { padding: '12px 0 0 0' },
 }
 
+// const options = [
+//   {
+//     value: '西安市',
+//     label: '西安市',
+//     children: [
+//       {
+//         value: '雁塔区',
+//         label: '雁塔区',
+//         children: [
+//           {
+//             value: '西安市航空六一八中学',
+//             label: '西安市航空六一八中学',
+//           },
+//           {
+//             value: '西安市四十六中学',
+//             label: '西安市四十六中学',
+//           },
+//           {
+//             value: '西安市第52中学',
+//             label: '西安市第52中学',
+//           },
+//           {
+//             value: '西安市第54中学',
+//             label: '西安市第54中学',
+//           },
+//           {
+//             value: '西安博迪学校',
+//             label: '西安博迪学校',
+//           },
+//           {
+//             value: '西安高新第二学校',
+//             label: '西安高新第二学校',
+//           },
+//           {
+//             value: '西安交大二附中',
+//             label: '西安交大二附中',
+//           },
+//           {
+//             value: '西安市第八十五中学',
+//             label: '西安市第八十五中学',
+//           },
+//           {
+//             value: '西安市第九十八中学',
+//             label: '西安市第九十八中学'
+//           },
+//           {
+//             value: '西安市第二十六中学',
+//             label: '西安市第二十六中学',
+//           },
+//           {
+//             value: '西安建筑科技大学附属中学',
+//             label: '西安建筑科技大学附属中学'
+//           }, 
+//           {
+//             value: '西安市第六十七中学',
+//             label: '西安市第六十七中学'
+//           }, 
+//           {
+//             value: '西安市第六十一中学',
+//             label: '西安市第六十一中学',
+//           },
+//           {
+//             value: '西安高新国际学校',
+//             label: '西安高新国际学校'
+//           },
+//           {
+//             value: 'custom_address',
+//             label: '自定义'
+//           }
+//         ],
+//       },
+     
+//     ],
+//   },
+// ]
+let timer = null
 const UserAddModal = props => {
   const { addOrEdit, visable, hiddenModal, record, getList } = props
   const [teaList, setTeaList] = useState([])
+  const [address, setAddress] = useState([])
+  const [mapPicUrl, setMapPicUrl] = useState('')
+  const [isShowMap, setisShowMap] = useState(false)
   const [form] = Form.useForm();
   const initModal = () => {
     hiddenModal()
@@ -28,42 +109,56 @@ const UserAddModal = props => {
   const handleOk = () => {
     form.validateFields().then(params => {
       console.log('params', params);
-      if (addOrEdit === 'add') {
-        addCourse(params).then(res => {
-          if(res.data.code === 0){
-            message.success('课程添加成功')
-            initModal()
-          }else{
-            message.warning('课程添加失败')
-          }
-        }).catch(err => {
-          message.error('课程添加失败')
-        })
-      }
       // if (addOrEdit === 'add') {
       //   addCourse(params).then(res => {
-      //     // if (res.status === 201 && res.data.code === 0) {
-      //     //   message.success(res.data.message)
-      //     //   initModal()
-      //     } else {
-      //       message.error(res.data.message)
+      //     if(res.data.code === 0){
+      //       message.success('课程添加成功')
+      //       initModal()
+      //     }else{
+      //       message.warning('课程添加失败')
       //     }
+      //   }).catch(err => {
+      //     message.error('课程添加失败')
       //   })
-      // } 
-    //   else {
-    //     editUser(record.courseId, newParams).then(res => {
-    //       if (res.status === 200 && res.data.code === 0) {
-    //         message.success(res.data.message)
-    //         initModal()
-    //       } else {
-    //         message.error(res.data.message)
-    //       }
-    //   })
-    // }
+      // }
   })
   }   
   const handleCancel = () => {
     initModal()
+  }
+  
+  const handleSearch = (value) => {
+    if (timer) {
+      clearTimeout(timer)
+      timer = null
+    }
+    timer = setTimeout(() => {
+      axios.get(`https://restapi.amap.com/v3/assistant/inputtips?output=JSON&city=029&citylimit=true&keywords=${value}&key=c37598c7e2b37eea85e2c5b7a7b7b30c`)
+      .then(res => {
+        setAddress(res.data.tips)
+      })
+    }, 300)
+  }
+  const handleChange = (value) => {
+    setisShowMap(false)
+    axios.get(`https://restapi.amap.com/v3/staticmap?location=${value}&zoom=15&size=750*300&markers=mid,,A:116.481485,39.990464&key=c37598c7e2b37eea85e2c5b7a7b7b30c`, {
+      responseType: "arraybuffer",
+    })
+      .then(
+        response => {
+          　　return 'data:image/png;base64,' + btoa(
+          　　　　new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+          　　);
+        }
+      )
+      .then(data => {
+        setMapPicUrl(data)
+        setisShowMap(true)
+      })
+      .catch(error => {
+        console.log('获取地图静态图发生错误', error);
+      })
+    setisShowMap(true)
   }
   useEffect(() => {
     if (record !== undefined) {
@@ -78,6 +173,10 @@ const UserAddModal = props => {
         message.error('专家列表获取失败')
       }
     })
+    return () => {
+      clearTimeout(timer)
+      timer = null
+    }
   }, [])
   return (
     <Modal
@@ -171,7 +270,79 @@ const UserAddModal = props => {
             }
         </Select>
       </Form.Item>
+
+      <Form.Item
+        label="开课时间"
+        name="openingTime"
+        rules={[
+          {
+            required: true,
+            message: '请输入开课时间!',
+          },
+        ]}
+      >
+        <RangePicker style={{ width: '100%'}} />
+      </Form.Item>
+      {/* <Form.Item
+          label="开课地址"
+          name="address"
+          rules={[
+            {
+              required: true,
+              message: '请输入开课地址!',
+            },
+          ]}
+        >
+          <Input placeholder="请输入自定义地址" />
+      </Form.Item> */}
+
+    <Form.Item
+        label="开课地址"
+        name="address"
+        rules={[
+          {
+            required: true,
+            message: '请选择开课地址!',
+          },
+        ]}
+      >
+          <Select
+            allowClear
+            placeholder="请选择开课地址"
+            showSearch
+            defaultActiveFirstOption={false}
+            showArrow={false}
+            filterOption={false}
+            // onChange={handleChange}
+            onSearch={handleSearch}
+            onChange={handleChange}
+            notFoundContent={null}
+          >
+            {
+              address.map(item => (
+                <Option value={item.location}>{item.name + ' (' + item.district + ')'}</Option>
+              ))
+            }
+        </Select>
+      </Form.Item>
+     
     </Form>
+    {
+      isShowMap ? (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <img src={mapPicUrl} alt="地图加载中..." width="100%" height="200" />
+        </div>
+      ) : (
+        <div></div>
+      )
+    }
+    
+
+   
   </Modal>
   )
 }

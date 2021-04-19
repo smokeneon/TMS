@@ -9,6 +9,8 @@ export declare class Course {
     courseFramework: string;
     openState: number;
     approvalState: number;
+    openingTime: string;
+    address: string;
     applys: Apply[];
     users: User[];
 }

@@ -27,6 +27,7 @@ let AuthService = class AuthService {
             const hashedPassword = user.password;
             const salt = user.pwd_salt;
             const hashPassword = cryptogram_1.encryptPassword(password, salt);
+            console.log('hashedPassword, hasPassword', hashPassword, hashPassword);
             if (hashedPassword === hashPassword) {
                 return {
                     code: 0,

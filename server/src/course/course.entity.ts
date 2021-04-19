@@ -50,6 +50,18 @@ export class Course {
   })
   approvalState: number;
 
+  @ApiProperty({ description: '开课时间', example: 0 })
+  @Column({
+    nullable: true,
+  })
+  openingTime: string;
+
+  @ApiProperty({ description: '地址', example: 0 })
+  @Column({
+    nullable: true,
+  })
+  address: string;
+
  
   // @ApiProperty({ description: '创建时间', example: '2021-04-14T17:57:59.844Z'})
   // @Column('varchar')

@@ -64,6 +64,20 @@ __decorate([
     __metadata("design:type", Number)
 ], Course.prototype, "approvalState", void 0);
 __decorate([
+    swagger_1.ApiProperty({ description: '开课时间', example: 0 }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
+    __metadata("design:type", String)
+], Course.prototype, "openingTime", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '地址', example: 0 }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
+    __metadata("design:type", String)
+], Course.prototype, "address", void 0);
+__decorate([
     typeorm_1.OneToMany(() => apply_entity_1.Apply, (apply) => apply.course),
     __metadata("design:type", Array)
 ], Course.prototype, "applys", void 0);
