@@ -15,6 +15,7 @@ export class ApplyService {
     private readonly usersService: UsersService
   ) {}
   async create(apply, manager): Promise<any> {
+    
     let course
     try {
       course = await this.courseService.findOne(apply.courseId)
@@ -52,7 +53,7 @@ export class ApplyService {
     } catch (error) {
       return {
         code: 1,
-        message: '添加申报申报'
+        message: '添加申报失败'
       }
     }
     
@@ -100,6 +101,9 @@ export class ApplyService {
           applyNumber: Like("%"+search+"%"),
         },
         relations: ["course"],
+        order: {
+          applyId: "DESC"
+        },
         skip: (pagination.page-1)*pagination.size || 0,
         take: pagination.size || 10,
       })

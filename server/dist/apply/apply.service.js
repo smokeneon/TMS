@@ -65,7 +65,7 @@ let ApplyService = class ApplyService {
         catch (error) {
             return {
                 code: 1,
-                message: '添加申报申报'
+                message: '添加申报失败'
             };
         }
     }
@@ -110,6 +110,9 @@ let ApplyService = class ApplyService {
                     applyNumber: typeorm_2.Like("%" + search + "%"),
                 },
                 relations: ["course"],
+                order: {
+                    applyId: "DESC"
+                },
                 skip: (pagination.page - 1) * pagination.size || 0,
                 take: pagination.size || 10,
             });

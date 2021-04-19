@@ -142,6 +142,7 @@ export class CourseService {
     try {
       course = await getRepository(Course)
       .createQueryBuilder('course')
+      .where("course.openState = :state", { state: 1 })
       .getMany()
       return {
         code: 0,

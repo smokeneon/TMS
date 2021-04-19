@@ -4147,7 +4147,7 @@
         "affectsGlobalScope": false
       },
       "../src/course/course.service.ts": {
-        "version": "797e40aac779fe01dbcba0292a5affef784f250b70f68978f996f9e64bf63a17",
+        "version": "3c042eac10cbfbbbb311aa63b0508a3ca288b04b76cab3b36570cef8909c9e80",
         "signature": "d1938585faa3c7349136e2757d0c9de4dd352aedc7fc4bbd471ab47e0f83f0f0",
         "affectsGlobalScope": false
       },
@@ -4232,7 +4232,7 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.service.ts": {
-        "version": "fe91117bade7bf206350faeb0b77a2a6a9612f8dcb8359fe097a84bc110b0fd3",
+        "version": "61d221dd81b1bf801c3cfb1cda92c132ab4857183e33f65b300aaeced4a9314e",
         "signature": "1ae2408d73f77ca7c1fcd47599ec03bedf3d79a5c95619e6024d488adaa4a7d8",
         "affectsGlobalScope": false
       },

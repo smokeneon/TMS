@@ -140,6 +140,7 @@ let CourseService = class CourseService {
         try {
             course = await typeorm_2.getRepository(course_entity_1.Course)
                 .createQueryBuilder('course')
+                .where("course.openState = :state", { state: 1 })
                 .getMany();
             return {
                 code: 0,
