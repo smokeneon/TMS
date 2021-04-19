@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from 'react'
 
 import { Form, Input, message, Modal, Select } from 'antd'
 import T from 'prop-types'
-import { addApply, editUser, getStuList, getCourseList } from '../api'
+import { addApply, getStuList, getCourseList } from '../api'
 
 const { Option } = Select;
 
@@ -27,9 +27,16 @@ const UserAddModal = props => {
     form.resetFields()
   }
   const handleOk = () => {
+    let date = new Date()
     form.validateFields().then(params => {
+      let newParams = {
+        ...params,
+        applyNumber: date.getTime(),
+        stuIds: [params.stuIds]
+      }
+
       if (addOrEdit === 'add') {
-        addApply(params).then(res => {
+        addApply(newParams).then(res => {
           // console.log('res', res);
           if (res.status === 201 && res.data.code === 0) {
             message.success(res.data.message)
@@ -38,16 +45,7 @@ const UserAddModal = props => {
             message.error(res.data.message)
           }
         })
-      } else {
-        editUser(record.userId, newParams).then(res => {
-          if (res.status === 200 && res.data.code === 0) {
-            message.success(res.data.message)
-            initModal()
-          } else {
-            message.error(res.data.message)
-          }
-      })
-    }
+      } 
   })
   }   
   const handleCancel = () => {
@@ -83,19 +81,6 @@ const UserAddModal = props => {
     >
     <Form {...layout} form={form}>
       <Form.Item
-        label="申报编号"
-        name="applyNumber"
-        rules={[
-          {
-            required: true,
-            message: '请输入申报编号!',
-          },
-        ]}
-      >
-        <Input placeholder="请输入申报编号" />
-      </Form.Item>
-
-      <Form.Item
         label="申报课程"
         name="courseId"
         rules={[
@@ -125,7 +110,7 @@ const UserAddModal = props => {
           },
         ]}
       >
-          <Select mode="multiple" allowClear placeholder="请选择参训者">
+          <Select allowClear placeholder="请选择参训者">
             {
               stuList.map(item => (
                 <Option value={item.userId}>{item.realname + ' (' + item.username + ')'}</Option>

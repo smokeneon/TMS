@@ -78,6 +78,12 @@ const SubjectList = forwardRef((props, ref) => {
   }
   const columns = [
     {
+      title: '申报id',
+      dataIndex: 'applyId',
+      key: 'applyId',
+      render: (text) => text,
+    },
+    {
       title: '申报编号',
       dataIndex: 'applyNumber',
       key: 'applyNumber',
@@ -110,21 +116,35 @@ const SubjectList = forwardRef((props, ref) => {
         </Typography.Text>
       ),
     },
-  
-    // {
-    //   title: '操作时间',
-    //   dataIndex: 'updatedTime',
-    //   key: 'updatedTime',
-    //   width: 200,
-    //   render: time => Moment(time).format('YYYY-MM-DD HH:mm:ss'),
-    // },
+    {
+      title: '参训者',
+      dataIndex: 'realName',
+      key: 'realName',
+      width: 160,
+      render: (text, record) => (
+        <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
+          {record.stu[0] && record.stu[0].realname+' (' + record.stu[0].username + ')'}
+        </Typography.Text>
+      ),
+    },
+    {
+      title: '专家',
+      dataIndex: 'tea',
+      key: 'tea',
+      width: 160,
+      render: (text, record) => (
+        <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
+          {record.course && record.course.users[0] && record.course.users[0].realname+' (' + record.course.users[0].username + ')'}
+        </Typography.Text>
+      ),
+    },
     {
       title: '操作',
       key: 'action',
       fixed: 'right',
       render: (text, record) => (
         <Space size="middle">
-          <a onClick={openModal(record)}>编辑</a>
+          {/* <a onClick={openModal(record)}>编辑</a> */}
           <Popconfirm
             title="你确定删除此条吗?"
             onConfirm={deleteConfirm(record)}
@@ -146,7 +166,7 @@ const SubjectList = forwardRef((props, ref) => {
       <div style={{padding: '0px 0 24px 0'}}>
         <Form onFinish={onSearch} form={form} layout="inline">
           <Form.Item name="searchText" {...formItemLayout}>
-            <Input placeholder="请输入名称" style={{ width: 200 }} />
+            <Input placeholder="请输入申报编号" style={{ width: 200 }} />
           </Form.Item>
           <Button icon={<SearchOutlined />} loading={searchLoading} htmlType="submit">
             查询

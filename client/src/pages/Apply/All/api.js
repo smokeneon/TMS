@@ -49,19 +49,6 @@ export const addApply = params => {
   })
 }
 
-export const editUser = (id, params) => {
-  return axios({
-    method: 'put',
-    url: `/api/user/${id}`,
-    data: {
-      ...params
-    },
-    headers: {
-      'Authorization': 'Bearer ' + token
-    }
-  })
-}
-
 
 export const deleteItem = id => {
   return axios({
