@@ -101,6 +101,7 @@ const UserAddModal = props => {
   const [teaList, setTeaList] = useState([])
   const [address, setAddress] = useState([])
   const [mapPicUrl, setMapPicUrl] = useState('')
+  const [addressItem, setAddressItem] = useState('')
   const [isShowMap, setisShowMap] = useState(false)
   const [form] = Form.useForm();
   const initModal = () => {
@@ -141,6 +142,7 @@ const UserAddModal = props => {
   }
   const handleChange = (value) => {
     setisShowMap(false)
+    setAddressItem(value)
     axios.get(`https://restapi.amap.com/v3/staticmap?location=${value}&zoom=15&size=750*300&markers=mid,,A:116.481485,39.990464&key=c37598c7e2b37eea85e2c5b7a7b7b30c`, {
       responseType: "arraybuffer",
     })
@@ -328,21 +330,20 @@ const UserAddModal = props => {
      
     </Form>
     {
-      isShowMap ? (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <img src={mapPicUrl} alt="地图加载中..." width="100%" height="200" />
-        </div>
-      ) : (
-        <div></div>
+      addressItem && (
+        isShowMap ? (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <img src={mapPicUrl} alt="地图加载中..." width="100%" height="200" />
+          </div>
+        ) : (
+          <Spin />
+        )
       )
     }
-    
-
-   
   </Modal>
   )
 }
