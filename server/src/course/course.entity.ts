@@ -50,11 +50,17 @@ export class Course {
   })
   approvalState: number;
 
-  @ApiProperty({ description: '开课时间', example: 0 })
+  @ApiProperty({ description: '开课时间 起始', example: 0 })
   @Column({
     nullable: true,
   })
-  openingTime: string;
+  startDate: number;
+
+  @ApiProperty({ description: '开课时间 结束', example: 0 })
+  @Column({
+    nullable: true,
+  })
+  endDate: number;
 
   @ApiProperty({ description: '地址', example: 0 })
   @Column({

@@ -4,6 +4,7 @@ import { Form, Input, message, Modal, Select, DatePicker, Spin } from 'antd'
 import T from 'prop-types'
 import { addCourse, editUser, getTeaList } from '../api'
 import axios from 'axios';
+import moment from 'moment'
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -20,81 +21,7 @@ const layout = {
   style: { padding: '12px 0 0 0' },
 }
 
-// const options = [
-//   {
-//     value: '西安市',
-//     label: '西安市',
-//     children: [
-//       {
-//         value: '雁塔区',
-//         label: '雁塔区',
-//         children: [
-//           {
-//             value: '西安市航空六一八中学',
-//             label: '西安市航空六一八中学',
-//           },
-//           {
-//             value: '西安市四十六中学',
-//             label: '西安市四十六中学',
-//           },
-//           {
-//             value: '西安市第52中学',
-//             label: '西安市第52中学',
-//           },
-//           {
-//             value: '西安市第54中学',
-//             label: '西安市第54中学',
-//           },
-//           {
-//             value: '西安博迪学校',
-//             label: '西安博迪学校',
-//           },
-//           {
-//             value: '西安高新第二学校',
-//             label: '西安高新第二学校',
-//           },
-//           {
-//             value: '西安交大二附中',
-//             label: '西安交大二附中',
-//           },
-//           {
-//             value: '西安市第八十五中学',
-//             label: '西安市第八十五中学',
-//           },
-//           {
-//             value: '西安市第九十八中学',
-//             label: '西安市第九十八中学'
-//           },
-//           {
-//             value: '西安市第二十六中学',
-//             label: '西安市第二十六中学',
-//           },
-//           {
-//             value: '西安建筑科技大学附属中学',
-//             label: '西安建筑科技大学附属中学'
-//           }, 
-//           {
-//             value: '西安市第六十七中学',
-//             label: '西安市第六十七中学'
-//           }, 
-//           {
-//             value: '西安市第六十一中学',
-//             label: '西安市第六十一中学',
-//           },
-//           {
-//             value: '西安高新国际学校',
-//             label: '西安高新国际学校'
-//           },
-//           {
-//             value: 'custom_address',
-//             label: '自定义'
-//           }
-//         ],
-//       },
-     
-//     ],
-//   },
-// ]
+
 let timer = null
 const UserAddModal = props => {
   const { addOrEdit, visable, hiddenModal, record, getList } = props
@@ -104,24 +31,38 @@ const UserAddModal = props => {
   const [addressItem, setAddressItem] = useState('')
   const [isShowMap, setisShowMap] = useState(false)
   const [form] = Form.useForm();
+
   const initModal = () => {
+    form.resetFields()
     hiddenModal()
   }
+  let newParams
+  let  startDate;
+  let endDate;
   const handleOk = () => {
     form.validateFields().then(params => {
       console.log('params', params);
-      // if (addOrEdit === 'add') {
-      //   addCourse(params).then(res => {
-      //     if(res.data.code === 0){
-      //       message.success('课程添加成功')
-      //       initModal()
-      //     }else{
-      //       message.warning('课程添加失败')
-      //     }
-      //   }).catch(err => {
-      //     message.error('课程添加失败')
-      //   })
-      // }
+      startDate = moment(params.openingTime[0].format('YYYY-MM-DD')).unix()
+      endDate = moment(params.openingTime[1].format('YYYY-MM-DD')).unix()
+      console.log('start end', startDate, endDate);
+      delete params.openingTime
+      newParams = {
+        ...params,
+        startDate,
+        endDate
+      }
+      if (addOrEdit === 'add') {
+        addCourse(newParams).then(res => {
+          if(res.data.code === 0){
+            message.success('课程添加成功')
+            initModal()
+          }else{
+            message.warning('课程添加失败')
+          }
+        }).catch(err => {
+          message.error('课程添加失败')
+        })
+      }
   })
   }   
   const handleCancel = () => {
@@ -283,7 +224,7 @@ const UserAddModal = props => {
           },
         ]}
       >
-        <RangePicker style={{ width: '100%'}} />
+        <RangePicker style={{ width: '100%'}} format="YYYY-MM-DD" />
       </Form.Item>
       {/* <Form.Item
           label="开课地址"

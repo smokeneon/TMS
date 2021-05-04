@@ -64,12 +64,19 @@ __decorate([
     __metadata("design:type", Number)
 ], Course.prototype, "approvalState", void 0);
 __decorate([
-    swagger_1.ApiProperty({ description: '开课时间', example: 0 }),
+    swagger_1.ApiProperty({ description: '开课时间 起始', example: 0 }),
     typeorm_1.Column({
         nullable: true,
     }),
-    __metadata("design:type", String)
-], Course.prototype, "openingTime", void 0);
+    __metadata("design:type", Number)
+], Course.prototype, "startDate", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '开课时间 结束', example: 0 }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
+    __metadata("design:type", Number)
+], Course.prototype, "endDate", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '地址', example: 0 }),
     typeorm_1.Column({

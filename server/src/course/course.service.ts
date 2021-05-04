@@ -14,7 +14,7 @@ export class CourseService {
 
 
   async create(course, manager): Promise<any> {
-
+    
     try {
       // 上传的数据 一部分course  一部分 开课专家名字
       // 1. 开课庄稼  --  User
