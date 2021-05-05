@@ -39,8 +39,13 @@ export const addCourse = params => {
 }
 
 export const editUser = (id, params) => {
-  return axios.put(`/api/course/${id}`, {
-    ...params
+  return axios({
+    method: 'put',
+    url: `/api/course/${id}`,
+    data: params,
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
   })
 }
 

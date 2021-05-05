@@ -5,7 +5,7 @@ import Moment from 'moment'
 import AddModal from './AddModal'
 import { OpenState, ApprovalState } from '../../../../common/const'
 import DrawerContent from './DrawerContent'
-
+import axios from 'axios'
 import { deleteItem, getUserList } from '../api'
 
 const formItemLayout = {
@@ -61,12 +61,20 @@ const SubjectList = forwardRef((props, ref) => {
   }
   const deleteConfirm = id => () => {
     deleteItem(id).then(res => {
-      message.success(res.data.message)
-      getList(requestParams)
+      console.log('res', res);
+      if(res.data.code === 0 ) {
+        message.success(res.data.message)
+        getList(requestParams)
+      } else {
+        message.error(res.data.message)
+      }
+    }).catch(error => {
+      message.error('删除失败')
     })
   }
-  const openModal = record => () => {
-    setChooseItem({...record})
+  const openModal = record => async () => {
+    let res = await axios.get(`https://restapi.amap.com/v3/geocode/regeo?output=json&location=${record.address}&key=c37598c7e2b37eea85e2c5b7a7b7b30c&radius=1000&extensions=all`)
+    setChooseItem({...record, address: res.data.regeocode.formatted_address, coordinate: record.address })
     setModalVisable(true)
   } 
   const hiddenModal = () => {
@@ -228,9 +236,9 @@ const SubjectList = forwardRef((props, ref) => {
         rowKey="id"
         pagination={{
           showSizeChanger: true,
-          total: pagination.total,
-          pageSize: pagination.size,
-          current: pagination.page,
+          total: Number(pagination.total),
+          pageSize: Number(pagination.size),
+          current: Number(pagination.page),
           onChange: paginationOnChange,
         }}
       />

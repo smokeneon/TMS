@@ -34,8 +34,8 @@ let CourseController = class CourseController {
     async remove(courseId) {
         return await this.courseService.remove(courseId);
     }
-    async update(id, body) {
-        return await this.courseService.edit(id, body);
+    async update(id, body, manager) {
+        return await this.courseService.edit(id, body, manager);
     }
     async findAllWithNoPage() {
         return this.courseService.findAllWithNoPage();
@@ -74,10 +74,11 @@ __decorate([
 ], CourseController.prototype, "remove", null);
 __decorate([
     common_1.Put(':id'),
+    typeorm_1.Transaction(),
     swagger_1.ApiOperation({ summary: '编辑一门课程' }),
-    __param(0, common_1.Param('id')), __param(1, common_1.Body()),
+    __param(0, common_1.Param('id')), __param(1, common_1.Body()), __param(2, typeorm_1.TransactionManager()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, course_entity_1.Course]),
+    __metadata("design:paramtypes", [Number, course_entity_1.Course, typeorm_1.EntityManager]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "update", null);
 __decorate([

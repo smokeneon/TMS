@@ -30,7 +30,9 @@ const UserAddModal = props => {
   const [mapPicUrl, setMapPicUrl] = useState('')
   const [addressItem, setAddressItem] = useState('')
   const [isShowMap, setisShowMap] = useState(false)
+  const [confirmLoading, setConfirmLoading] = useState(false)
   const [form] = Form.useForm();
+ 
 
   const initModal = () => {
     form.resetFields()
@@ -41,26 +43,46 @@ const UserAddModal = props => {
   let endDate;
   const handleOk = () => {
     form.validateFields().then(params => {
-      console.log('params', params);
-      startDate = moment(params.openingTime[0].format('YYYY-MM-DD')).unix()
-      endDate = moment(params.openingTime[1].format('YYYY-MM-DD')).unix()
-      console.log('start end', startDate, endDate);
+      setConfirmLoading(true)
+      startDate = Number(params.openingTime[0]._d)
+      endDate = Number(params.openingTime[1]._d)
       delete params.openingTime
       newParams = {
         ...params,
         startDate,
-        endDate
+        endDate,
       }
       if (addOrEdit === 'add') {
         addCourse(newParams).then(res => {
           if(res.data.code === 0){
             message.success('课程添加成功')
+            setConfirmLoading(false);
             initModal()
           }else{
             message.warning('课程添加失败')
           }
         }).catch(err => {
           message.error('课程添加失败')
+        })
+      } else {
+        console.log('address', record.address);
+        let editParams = {
+          ...newParams,
+          address: record.coordinate,
+        }
+        // 把穿过来的坐标删除
+        delete editParams.coordinate
+        delete editParams.teaId
+        editUser(record.courseId, editParams).then(res => {
+          if(res.data.code === 0){
+            message.success('课程修改成功')
+            setConfirmLoading(false);
+            initModal()
+          } else {
+            message.warning('课程修改失败')
+          }
+        }).catch(err => {
+          message.error('课程修改失败')
         })
       }
   })
@@ -103,9 +125,21 @@ const UserAddModal = props => {
       })
     setisShowMap(true)
   }
+  let newRecord;
   useEffect(() => {
     if (record !== undefined) {
-      form.setFieldsValue({...record})
+      console.log('record', record);
+      // 转换时间
+      const startDate = moment(+record.startDate)
+      const endDate = moment(+record.endDate)
+      let teaId = record.users && record.users[0].userId
+      newRecord = {
+        ...record,
+        openingTime: [startDate, endDate],
+        teaId: teaId
+      }
+      form.setFieldsValue({...newRecord})
+    
     }
   }, [record])
   useEffect(() => {
@@ -128,6 +162,7 @@ const UserAddModal = props => {
       onOk={handleOk}
       onCancel={handleCancel}
       destroyOnClose
+      confirmLoading={confirmLoading}
     >
     <Form {...layout} form={form}>
       <Form.Item
@@ -140,7 +175,7 @@ const UserAddModal = props => {
           },
         ]}
       >
-        <Input placeholder="请输入课程名" />
+        <Input placeholder="请输入课程名" disabled={addOrEdit === 'edit'} />
       </Form.Item>
 
       <Form.Item
@@ -205,7 +240,7 @@ const UserAddModal = props => {
           },
         ]}
       >
-          <Select allowClear placeholder="请选择开课专家">
+          <Select allowClear placeholder="请选择开课专家" disabled={addOrEdit === 'edit'}>
             {
               teaList.map(item => (
                 <Option value={item.userId}>{item.realname + ' (' + item.username + ')'}</Option>
@@ -260,6 +295,7 @@ const UserAddModal = props => {
             onSearch={handleSearch}
             onChange={handleChange}
             notFoundContent={null}
+            disabled={addOrEdit === 'edit'}
           >
             {
               address.map(item => (

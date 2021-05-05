@@ -58,6 +58,7 @@ export class CourseService {
   async remove(courseId: string): Promise<object> {
     try {
       const res = await this.courseRepository.delete(courseId);
+      
       if (res.affected === 1) {
         return {
           code: 0,
@@ -65,24 +66,61 @@ export class CourseService {
         }
       }
     } catch (error) {
+      console.log('error', error);
+      if (error.errno === 1451) {
+        return {
+          code: 1,
+          message: '该项目有申报表不可删除',
+          error
+        }
+      }
       return {
         code: 1,
-        message: '删除失败'
+        message: '删除失败',
+        error
       }
     }
   }
 
-  async edit(id: number, course: Course): Promise<object> {
+  async edit(id, course, manager): Promise<object> {
     try {
-      await this.courseRepository.update(id, course)
+      // 上传的数据 一部分course  一部分 开课专家名字
+      // 1. 开课庄稼  --  User
+      // 2. course 一部分用上传的数据填充 users开课专家对象
+      // 3. save
+      let user = await this.usersService.findOne(course.teaId)
+      if (!user["data"]){
+        return {
+          code: 0,
+          message: '该专家不存在'
+        }
+      }
+      let newCourse = {
+        ...course,
+        users: [user["data"]],
+      }
+      try {
+        let saveCourse = await manager.update(Course, {courseId: id}, course)
+        // let saveCourse = await manager.save(Course, newCourse)
+        // let saveCourse = await this.courseRepository.update(id, newCourse)
+        if (!saveCourse){
+          throw new Error("insert error")
+        }
+      } catch (error) {
+        return {
+          code: 1,
+          message: '编辑课程失败',
+          error,
+        }
+      }
       return {
         code: 0,
-        message: '更新成功'
-      }
+        message: '编辑课程成功'
+      }  
     } catch (error) {
       return {
         code: 1,
-        message: '更新失败'
+        message: '编辑课程失败'
       }
     }
   }

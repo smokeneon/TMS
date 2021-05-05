@@ -68,14 +68,14 @@ __decorate([
     typeorm_1.Column({
         nullable: true,
     }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Course.prototype, "startDate", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '开课时间 结束', example: 0 }),
     typeorm_1.Column({
         nullable: true,
     }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Course.prototype, "endDate", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '地址', example: 0 }),

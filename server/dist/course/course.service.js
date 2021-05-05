@@ -69,24 +69,53 @@ let CourseService = class CourseService {
             }
         }
         catch (error) {
+            console.log('error', error);
+            if (error.errno === 1451) {
+                return {
+                    code: 1,
+                    message: '该项目有申报表不可删除',
+                    error
+                };
+            }
             return {
                 code: 1,
-                message: '删除失败'
+                message: '删除失败',
+                error
             };
         }
     }
-    async edit(id, course) {
+    async edit(id, course, manager) {
         try {
-            await this.courseRepository.update(id, course);
+            let user = await this.usersService.findOne(course.teaId);
+            if (!user["data"]) {
+                return {
+                    code: 0,
+                    message: '该专家不存在'
+                };
+            }
+            let newCourse = Object.assign(Object.assign({}, course), { users: [user["data"]] });
+            try {
+                let saveCourse = await manager.update(course_entity_1.Course, { courseId: id }, course);
+                if (!saveCourse) {
+                    throw new Error("insert error");
+                }
+            }
+            catch (error) {
+                return {
+                    code: 1,
+                    message: '编辑课程失败',
+                    error,
+                };
+            }
             return {
                 code: 0,
-                message: '更新成功'
+                message: '编辑课程成功'
             };
         }
         catch (error) {
             return {
                 code: 1,
-                message: '更新失败'
+                message: '编辑课程失败'
             };
         }
     }

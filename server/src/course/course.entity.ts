@@ -54,13 +54,13 @@ export class Course {
   @Column({
     nullable: true,
   })
-  startDate: number;
+  startDate: string;
 
   @ApiProperty({ description: '开课时间 结束', example: 0 })
   @Column({
     nullable: true,
   })
-  endDate: number;
+  endDate: string;
 
   @ApiProperty({ description: '地址', example: 0 })
   @Column({

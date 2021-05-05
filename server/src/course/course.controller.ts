@@ -45,9 +45,10 @@ export class CourseController {
   }
   
   @Put(':id')
+  @Transaction()
   @ApiOperation({ summary: '编辑一门课程' })
-  async update(@Param('id') id: number, @Body() body: Course) {
-    return await this.courseService.edit(id, body)
+  async update(@Param('id') id: number, @Body() body: Course, @TransactionManager() manager: EntityManager) {
+    return await this.courseService.edit(id, body, manager)
   }
 
   @Get('/list/no-page')
