@@ -51,6 +51,21 @@ export class CourseController {
     return await this.courseService.edit(id, body, manager)
   }
 
+  @Post('/approval')
+  @Transaction()
+  @ApiOperation({ summary: '改变课程申报状态' })
+  async changeApproval(@Body() body, @TransactionManager() manager: EntityManager) {
+    return await this.courseService.changeApprovalState(body, manager)
+  }
+
+
+  @Post('/open')
+  @Transaction()
+  @ApiOperation({ summary: '改变课程开放状态' })
+  async changeOpening(@Body() body, @TransactionManager() manager: EntityManager) {
+    return await this.courseService.changeOpeningState(body, manager)
+  }
+
   @Get('/list/no-page')
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '查询所有课程列表， 不带分页'})

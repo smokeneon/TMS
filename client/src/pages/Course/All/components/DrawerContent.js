@@ -6,19 +6,37 @@ const DrawerContent = props => {
   const { record }  = props
   const columns = [
     {
-      title: 'applyId',
-      dataIndex: 'applyId',
-      key: 'applyId',
-    },
-    {
       title: 'applyNumber',
       dataIndex: 'applyNumber',
       key: 'applyNumber',
     },
     {
-      title: 'score',
+      title: '课程名',
+      dataIndex: 'courseName',
+      key: 'courseName',
+      render: (text, record) => {
+        return record.course.courseName
+      },
+    },
+    {
+      title: '参训人',
+      dataIndex: 'stuName',
+      key: 'stuName',
+      render: (text, record) => {
+        return record.stu[0].realname + '(' + record.stu[0].username + ')'
+      },
+    },
+    {
+      title: '分数',
       dataIndex: 'score',
       key: 'score',
+      render: (text, record) => {
+        if (text === -1) {
+          return '课程未完成'
+        } else {
+          return text
+        }
+      },
     },
   ];
   return (

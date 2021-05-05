@@ -66,7 +66,6 @@ export class CourseService {
         }
       }
     } catch (error) {
-      console.log('error', error);
       if (error.errno === 1451) {
         return {
           code: 1,
@@ -82,6 +81,71 @@ export class CourseService {
     }
   }
 
+  async changeApprovalState(body, manager): Promise<any> {
+    try {
+      const course = await manager.find(Course, { courseId: body.courseId });
+      let approvalState = Number(body.approvalState)
+      let newCourse = {
+        ...course["0"],
+        approvalState: approvalState,
+      }
+      delete newCourse.users
+      
+      try {
+        let saveCourse = await manager.update(Course, {courseId: body.courseId}, newCourse)
+        if (!saveCourse){
+          throw new Error("更新 error")
+        }
+      } catch (error) {
+        return {
+          code: 1,
+          message: '更新课程审批状态失败',
+          error,
+        }
+      }
+      return {
+        code: 0,
+        message: '更新课程审批状态成功'
+      }  
+      
+    } catch (error) {
+      
+    }
+  
+  }
+
+  async changeOpeningState(body, manager): Promise<any> {
+    try {
+      const course = await manager.find(Course, { courseId: body.courseId });
+      let openState = Number(body.openState)
+      let newCourse = {
+        ...course["0"],
+        openState: openState,
+      }
+      delete newCourse.users
+      
+      try {
+        let saveCourse = await manager.update(Course, {courseId: body.courseId}, newCourse)
+        if (!saveCourse){
+          throw new Error("更新 error")
+        }
+      } catch (error) {
+        return {
+          code: 1,
+          message: '更新课程审批状态失败',
+          error,
+        }
+      }
+      return {
+        code: 0,
+        message: '更新课程审批状态成功'
+      }  
+      
+    } catch (error) {
+      
+    }
+  
+  }
   async edit(id, course, manager): Promise<object> {
     try {
       // 上传的数据 一部分course  一部分 开课专家名字
@@ -95,14 +159,12 @@ export class CourseService {
           message: '该专家不存在'
         }
       }
-      let newCourse = {
-        ...course,
-        users: [user["data"]],
-      }
+      // let newCourse = {
+      //   ...course,
+      //   users: [user["data"]],
+      // }
       try {
         let saveCourse = await manager.update(Course, {courseId: id}, course)
-        // let saveCourse = await manager.save(Course, newCourse)
-        // let saveCourse = await this.courseRepository.update(id, newCourse)
         if (!saveCourse){
           throw new Error("insert error")
         }

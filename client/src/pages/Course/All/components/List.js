@@ -1,12 +1,12 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Drawer, Card, Tag } from 'antd'
+import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Drawer, Card, Tag, Menu, Dropdown} from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import Moment from 'moment'
 import AddModal from './AddModal'
 import { OpenState, ApprovalState } from '../../../../common/const'
 import DrawerContent from './DrawerContent'
 import axios from 'axios'
-import { deleteItem, getUserList } from '../api'
+import { deleteItem, getUserList, changeApprovalRequest, changeOpeningRequest } from '../api'
 
 const formItemLayout = {
   labelCol: { span: 1 },
@@ -61,7 +61,6 @@ const SubjectList = forwardRef((props, ref) => {
   }
   const deleteConfirm = id => () => {
     deleteItem(id).then(res => {
-      console.log('res', res);
       if(res.data.code === 0 ) {
         message.success(res.data.message)
         getList(requestParams)
@@ -184,13 +183,6 @@ const SubjectList = forwardRef((props, ref) => {
 
       }
     },
-    // {
-    //   title: '操作时间',
-    //   dataIndex: 'updatedTime',
-    //   key: 'updatedTime',
-    //   width: 200,
-    //   render: time => Moment(time).format('YYYY-MM-DD HH:mm:ss'),
-    // },
     {
       title: '操作',
       key: 'action',
@@ -210,13 +202,67 @@ const SubjectList = forwardRef((props, ref) => {
       ),
     },
   ]
+  const changeOpenState = ({ key }) => {
+    changeOpeningRequest(drawRecord.courseId, key).then(res => {
+      if (res.data.code === 0) {
+        message.success(res.data.message)
+        getList(requestParams)
+        setDrawerVisable(false); 
+      } else {
+        message.error(res.data.message)
+      }
+    }).catch(error => {
+      message.error('更新状态失败')
+    })
+  };
+  const changeApprovalState = ({key}) => {
+    changeApprovalRequest(drawRecord.courseId, key).then(res => {
+      if (res.data.code === 0) {
+        message.success(res.data.message)
+        getList(requestParams)
+        setDrawerVisable(false); 
+      } else {
+        message.error(res.data.message)
+      }
+    }).catch(error => {
+      message.error('更新状态失败')
+    })
+  }
+  const menu1 = (
+    <Menu onClick={changeOpenState}>
+      <Menu.Item key="0">
+        <a>未开课</a>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <a>开放申请</a>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <a>已完结</a>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const menu2 = (
+    <Menu onClick={changeApprovalState}>
+      <Menu.Item key="0">
+        <a>未提交</a>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <a>审批中</a>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <a>审批成功</a>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <a>审批失败</a>
+      </Menu.Item>
+    </Menu>
+  );
+  
 
   useEffect(() => {
     getList(requestParams)
   }, [])
-  useEffect(() => {
-    console.log('pagination',pagination);
-  }, [pagination])
   return (
     <div>
       <div style={{padding: '0px 0 24px 0'}}>
@@ -261,13 +307,23 @@ const SubjectList = forwardRef((props, ref) => {
             style={{
               textAlign: 'right',
             }}
-          >
-            <Button onClick={closeDrawer} style={{ marginRight: 8 }}>
-              设置开放状态
-            </Button>
-            <Button onClick={closeDrawer} type="primary">
-              设置申报状态
-            </Button>
+          >  
+            {
+              drawRecord.approvalState === 2 ? (
+                <Dropdown overlay={menu1} trigger={['click']}>
+                  <Button style={{ marginRight: 8 }}>
+                    设置开放状态
+                  </Button>
+                </Dropdown>
+              ) : ''
+            }
+           
+            <Dropdown overlay={menu2} trigger={['click']} >
+              <Button type="primary">
+                设置申报状态
+              </Button>
+            </Dropdown>
+            
           </div>
         }
       >

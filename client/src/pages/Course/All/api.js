@@ -49,6 +49,35 @@ export const editUser = (id, params) => {
   })
 }
 
+// 更新审批状态
+export const changeApprovalRequest = (courseId, approvalState) => {
+  return axios({
+    method: 'post',
+    url: `/api/course/approval`,
+    data: {
+      courseId,
+      approvalState
+    },
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+}
+
+// 更新审批状态
+export const changeOpeningRequest = (courseId, openState) => {
+  return axios({
+    method: 'post',
+    url: `/api/course/open`,
+    data: {
+      courseId,
+      openState
+    },
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+}
 
 export const deleteItem = id => {
   return axios.delete(`/api/course/${id}`)

@@ -7,6 +7,8 @@ export declare class CourseService {
     constructor(courseRepository: Repository<Course>, usersService: UsersService);
     create(course: any, manager: any): Promise<any>;
     remove(courseId: string): Promise<object>;
+    changeApprovalState(body: any, manager: any): Promise<any>;
+    changeOpeningState(body: any, manager: any): Promise<any>;
     edit(id: any, course: any, manager: any): Promise<object>;
     findOne(id: string): Promise<object>;
     getList(pagination: any): Promise<any>;

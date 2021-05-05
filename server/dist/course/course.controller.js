@@ -37,6 +37,12 @@ let CourseController = class CourseController {
     async update(id, body, manager) {
         return await this.courseService.edit(id, body, manager);
     }
+    async changeApproval(body, manager) {
+        return await this.courseService.changeApprovalState(body, manager);
+    }
+    async changeOpening(body, manager) {
+        return await this.courseService.changeOpeningState(body, manager);
+    }
     async findAllWithNoPage() {
         return this.courseService.findAllWithNoPage();
     }
@@ -81,6 +87,24 @@ __decorate([
     __metadata("design:paramtypes", [Number, course_entity_1.Course, typeorm_1.EntityManager]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "update", null);
+__decorate([
+    common_1.Post('/approval'),
+    typeorm_1.Transaction(),
+    swagger_1.ApiOperation({ summary: '改变课程申报状态' }),
+    __param(0, common_1.Body()), __param(1, typeorm_1.TransactionManager()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeorm_1.EntityManager]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "changeApproval", null);
+__decorate([
+    common_1.Post('/open'),
+    typeorm_1.Transaction(),
+    swagger_1.ApiOperation({ summary: '改变课程开放状态' }),
+    __param(0, common_1.Body()), __param(1, typeorm_1.TransactionManager()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeorm_1.EntityManager]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "changeOpening", null);
 __decorate([
     common_1.Get('/list/no-page'),
     common_1.UseGuards(passport_1.AuthGuard('jwt')),

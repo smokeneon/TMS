@@ -69,7 +69,6 @@ let CourseService = class CourseService {
             }
         }
         catch (error) {
-            console.log('error', error);
             if (error.errno === 1451) {
                 return {
                     code: 1,
@@ -84,6 +83,60 @@ let CourseService = class CourseService {
             };
         }
     }
+    async changeApprovalState(body, manager) {
+        try {
+            const course = await manager.find(course_entity_1.Course, { courseId: body.courseId });
+            let approvalState = Number(body.approvalState);
+            let newCourse = Object.assign(Object.assign({}, course["0"]), { approvalState: approvalState });
+            delete newCourse.users;
+            try {
+                let saveCourse = await manager.update(course_entity_1.Course, { courseId: body.courseId }, newCourse);
+                if (!saveCourse) {
+                    throw new Error("更新 error");
+                }
+            }
+            catch (error) {
+                return {
+                    code: 1,
+                    message: '更新课程审批状态失败',
+                    error,
+                };
+            }
+            return {
+                code: 0,
+                message: '更新课程审批状态成功'
+            };
+        }
+        catch (error) {
+        }
+    }
+    async changeOpeningState(body, manager) {
+        try {
+            const course = await manager.find(course_entity_1.Course, { courseId: body.courseId });
+            let openState = Number(body.openState);
+            let newCourse = Object.assign(Object.assign({}, course["0"]), { openState: openState });
+            delete newCourse.users;
+            try {
+                let saveCourse = await manager.update(course_entity_1.Course, { courseId: body.courseId }, newCourse);
+                if (!saveCourse) {
+                    throw new Error("更新 error");
+                }
+            }
+            catch (error) {
+                return {
+                    code: 1,
+                    message: '更新课程审批状态失败',
+                    error,
+                };
+            }
+            return {
+                code: 0,
+                message: '更新课程审批状态成功'
+            };
+        }
+        catch (error) {
+        }
+    }
     async edit(id, course, manager) {
         try {
             let user = await this.usersService.findOne(course.teaId);
@@ -93,7 +146,6 @@ let CourseService = class CourseService {
                     message: '该专家不存在'
                 };
             }
-            let newCourse = Object.assign(Object.assign({}, course), { users: [user["data"]] });
             try {
                 let saveCourse = await manager.update(course_entity_1.Course, { courseId: id }, course);
                 if (!saveCourse) {

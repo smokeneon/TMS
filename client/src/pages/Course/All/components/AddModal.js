@@ -128,7 +128,6 @@ const UserAddModal = props => {
   let newRecord;
   useEffect(() => {
     if (record !== undefined) {
-      console.log('record', record);
       // 转换时间
       const startDate = moment(+record.startDate)
       const endDate = moment(+record.endDate)
