@@ -60,7 +60,6 @@ const SubjectList = forwardRef((props, ref) => {
   const deleteConfirm = record => () => {
     let currentUserId = localStorage.getItem('userId');
     if (currentUserId === record.userId.toString()) {
-      console.log('daozhel');
       return message.warning('您不能删除自己')
     }
     deleteItem(record.id).then(res => {

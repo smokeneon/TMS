@@ -36,7 +36,7 @@ const Login = (props) => {
 
   const handleSubmit = (values) => {
     if (type === 'account') {
-      console.log('login values', values);
+      // console.log('login values', values);
       const { dispatch } = props;
       dispatch({
         type: 'login/login',
@@ -44,7 +44,7 @@ const Login = (props) => {
       });
     }
     if (type === 'register') {
-      console.log('props', props);
+      // console.log('props', props);
       axios.post('/api/user/register', {
         ...values
       }).then(res => {

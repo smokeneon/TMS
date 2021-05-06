@@ -5,6 +5,8 @@ export declare class CourseController {
     private readonly courseService;
     constructor(courseService: CourseService);
     getList(pagination: string): Promise<any>;
+    getApprovedList(pagination: string): Promise<any>;
+    getNotApprovedList(pagination: string): Promise<any>;
     create(course: Course, manager: EntityManager): Promise<any>;
     remove(courseId: string): Promise<object>;
     update(id: number, body: Course, manager: EntityManager): Promise<object>;

@@ -20,7 +20,6 @@ let AuthService = class AuthService {
         this.jwtService = jwtService;
     }
     async validateUser(username, password) {
-        console.log('username', username);
         console.log('JWT验证 - Step 2: 校验用户信息');
         const user = await this.usersService.findOneByUsername(username);
         if (user) {

@@ -3952,7 +3952,7 @@
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "32529e8b7b016fcecdd86d15d3407557a8283d5d0fa4af0f00e11c9cc3d2d928",
+        "version": "d6cb0553942ece0d8d80148ca8277cd9b78ca0405541a1c925b4587fa686f7fc",
         "signature": "906a22debf06e7de8e9b95cc122b616a9c52503555944909d8b7018cbc87f50f",
         "affectsGlobalScope": false
       },
@@ -4147,13 +4147,13 @@
         "affectsGlobalScope": false
       },
       "../src/course/course.service.ts": {
-        "version": "8bf2d33d5e8ccf43e5542a270b049f6dfb7dd812812c43336d876ec44b0f6d69",
-        "signature": "23de981a76af366a91615e89beff731a14992e0b8f0de73ffc5c03cf055a7ac2",
+        "version": "fd85147bb87c334d15ec74d64f8427195c58c760c259ecbbd0546e1b7b6086a6",
+        "signature": "a2db5de23b614be493b671f8c53f909dc188819621ffd4d4bb48122a8e12f38b",
         "affectsGlobalScope": false
       },
       "../src/course/course.controller.ts": {
-        "version": "f815aacde17c2c84ecdd69c817c3abf5dcb93037f4dad6873afd298881ddfbc9",
-        "signature": "26c505a2e6ee381f4c888633132a7f01d6de8c77a69a3667e2ac657af69abccf",
+        "version": "3e310d09be76016eec2f9cf9dc7e064b434ab92bc1f3c2cec4deb6ed5402ecfa",
+        "signature": "088ea769991f418f993de96c35af4470a20a5fa997a3cb4a21536ce34dd5376c",
         "affectsGlobalScope": false
       },
       "../src/course/course.module.ts": {
@@ -4237,7 +4237,7 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.controller.ts": {
-        "version": "2371ba2d71bcac61ce7346f2bb3a0b87a4a7d010eed101c0f0021da72277e3ec",
+        "version": "cb03a40bb88d987e309c85bc6627b41a943ee59ab33c76fba3090b70421be06a",
         "signature": "65a3680ccbd37701ed19c813026e005aa795bbd7761d6528df700325efc65889",
         "affectsGlobalScope": false
       },

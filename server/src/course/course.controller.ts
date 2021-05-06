@@ -23,10 +23,23 @@ class PageBody  {
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
+  // 课程列表页面用的这个接口
   @Get('/list')
   @ApiOperation({ summary: '左连接申报表查询' })
   async getList(@Query() pagination: string) {
     return await this.courseService.getList(pagination);
+  }
+
+  @Get('/list/approved')
+  @ApiOperation({ summary: '左连接申报表查询 审批过的' })
+  async getApprovedList(@Query() pagination: string) {
+    return await this.courseService.getApprovedList(pagination);
+  }
+
+  @Get('/list/notApproved')
+  @ApiOperation({ summary: '左连接申报表查询 未审批的' })
+  async getNotApprovedList(@Query() pagination: string) {
+    return await this.courseService.getNotApprovedList(pagination);
   }
 
   @Post('/add')
@@ -79,6 +92,7 @@ export class CourseController {
   async findAll(@Query() pagination: string) {
     return this.courseService.findAll(pagination) 
   }
+
 
   @Get(':id')
   @ApiOperation({ summary: '根据课程id查询详情' })

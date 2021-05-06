@@ -12,6 +12,8 @@ export declare class CourseService {
     edit(id: any, course: any, manager: any): Promise<object>;
     findOne(id: string): Promise<object>;
     getList(pagination: any): Promise<any>;
+    getApprovedList(pagination: any): Promise<any>;
+    getNotApprovedList(pagination: any): Promise<any>;
     findAllWithNoPage(): Promise<any>;
     findAll(pagination: any): Promise<Object>;
 }

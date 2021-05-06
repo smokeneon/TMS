@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getRepository, Like, Repository } from 'typeorm';
+import { getRepository, Like, Not, Repository } from 'typeorm';
 import { Course } from './course.entity'
 import { UsersService } from '../users/users.service';
 
@@ -235,6 +235,71 @@ export class CourseService {
       }
     }
   }
+
+  // 查询列表以及连带的申请表 审批过的
+  async getApprovedList(pagination): Promise<any> {
+    let search = pagination.search || '';
+    let course;
+    try {
+        course = await this.courseRepository.findAndCount({ 
+          where: {
+            courseName: Like("%"+search+"%"),
+            approvalState: Not(0)
+          },
+          relations: ["users","applys"],
+          skip: (pagination.page-1)*pagination.size || 0,
+          take: pagination.size || 10,
+        })
+      return {
+        code: 0,
+        message: '查询成功',
+        data: course[0],
+        total: course[1],
+        page: pagination.page || 1,
+        size: pagination.size || 10,
+      }
+      
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error
+      }
+    }
+  }
+
+  // 查询列表以及连带的申请表 未审批的
+  async getNotApprovedList(pagination): Promise<any> {
+    let search = pagination.search || '';
+    let course;
+    try {
+        course = await this.courseRepository.findAndCount({ 
+          where: {
+            courseName: Like("%"+search+"%"),
+            approvalState: 0
+          },
+          relations: ["users","applys"],
+          skip: (pagination.page-1)*pagination.size || 0,
+          take: pagination.size || 10,
+        })
+      return {
+        code: 0,
+        message: '查询成功',
+        data: course[0],
+        total: course[1],
+        page: pagination.page || 1,
+        size: pagination.size || 10,
+      }
+      
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error
+      }
+    }
+  }
+  
 
   // 查询所有 无分页
   async findAllWithNoPage(): Promise<any> {

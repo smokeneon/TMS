@@ -22,7 +22,6 @@ export class ApplyController {
   @ApiOperation({ summary: '添加一个申报' })
   @Transaction()
   async create(@Body() apply: any, @TransactionManager() manager: EntityManager) {
-    console.log('apply', apply);
     return await this.applyService.create(apply, manager);
   }
 

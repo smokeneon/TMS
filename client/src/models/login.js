@@ -17,7 +17,7 @@ const Model = {
         payload: response,
       }); // Login successfully
 
-      console.log('login response', response);
+      // console.log('login response', response);
       if (response.code === 1) {
         message.error(response.message)
       }

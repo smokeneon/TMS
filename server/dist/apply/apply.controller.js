@@ -23,7 +23,6 @@ let ApplyController = class ApplyController {
         this.applyService = applyService;
     }
     async create(apply, manager) {
-        console.log('apply', apply);
         return await this.applyService.create(apply, manager);
     }
     async remove(id) {

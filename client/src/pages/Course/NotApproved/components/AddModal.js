@@ -65,7 +65,7 @@ const UserAddModal = props => {
           message.error('课程添加失败')
         })
       } else {
-        
+        // console.log('address', record.address);
         let editParams = {
           ...newParams,
           address: record.coordinate,

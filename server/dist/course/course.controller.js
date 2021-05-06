@@ -28,6 +28,12 @@ let CourseController = class CourseController {
     async getList(pagination) {
         return await this.courseService.getList(pagination);
     }
+    async getApprovedList(pagination) {
+        return await this.courseService.getApprovedList(pagination);
+    }
+    async getNotApprovedList(pagination) {
+        return await this.courseService.getNotApprovedList(pagination);
+    }
     async create(course, manager) {
         return await this.courseService.create(course, manager);
     }
@@ -61,6 +67,22 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "getList", null);
+__decorate([
+    common_1.Get('/list/approved'),
+    swagger_1.ApiOperation({ summary: '左连接申报表查询 审批过的' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getApprovedList", null);
+__decorate([
+    common_1.Get('/list/notApproved'),
+    swagger_1.ApiOperation({ summary: '左连接申报表查询 未审批的' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getNotApprovedList", null);
 __decorate([
     common_1.Post('/add'),
     typeorm_1.Transaction(),
