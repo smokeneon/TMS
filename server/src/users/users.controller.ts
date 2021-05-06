@@ -69,7 +69,7 @@ export class UsersController {
   }
 
   @Get()
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '查询用户列表 带分页' })
   async findAll(@Query() pagination: string) {
     return await this.usersService.findAll(pagination);

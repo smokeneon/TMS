@@ -79,6 +79,22 @@ export const changeOpeningRequest = (courseId, openState) => {
   })
 }
 
+// 更新分数
+export const changeScoreRequest = (apply, score) => {
+ 
+  return axios({
+    method: 'post',
+    url: `/api/apply/score`,
+    data: {
+      applyId: apply.applyId,
+      score
+    },
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+}
+
 export const deleteItem = id => {
   return axios.delete(`/api/course/${id}`)
 }

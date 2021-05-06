@@ -7,6 +7,7 @@ export declare class ApplyController {
     create(apply: any, manager: EntityManager): Promise<any>;
     remove(id: string): Promise<object>;
     update(id: number, body: Apply): Promise<object>;
+    changeScoreRequest(body: any, manager: EntityManager): Promise<any>;
     findAll(pagination: string): Promise<Object>;
     detail(id: string): Promise<object>;
 }

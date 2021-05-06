@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Drawer, Card, Tag, Menu, Dropdown} from 'antd'
+import { Table, Space, Typography, Button, Popconfirm, message, Drawer, Card, Tag, Menu, Dropdown, Form, Input} from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import Moment from 'moment'
 import AddModal from './AddModal'
@@ -13,6 +13,8 @@ const formItemLayout = {
   wrapperCol: { span: 23 },
 }
 
+
+
 const SubjectList = forwardRef((props, ref) => {
   const [modalVisable, setModalVisable] = useState(false)
   const [tableData, setTableData] = useState([])
@@ -23,6 +25,7 @@ const SubjectList = forwardRef((props, ref) => {
   const [drawRecord, setDrawRecord] = useState({})
   const requestParams = { page: 1, size: 10, search: null }
   const [drawerVisable, setDrawerVisable] = useState(false);
+ 
   const [form] = Form.useForm()
  
   const getList = params => {
@@ -146,7 +149,7 @@ const SubjectList = forwardRef((props, ref) => {
           }
         } else {
           return (
-            <Tag>审批状态不允许</Tag>
+            <Tag>不允许</Tag>
           )
         }
         
@@ -189,6 +192,7 @@ const SubjectList = forwardRef((props, ref) => {
       fixed: 'right',
       render: (text, record) => (
         <Space size="middle">
+            <a onClick={showDrawer(record)}>详情</a>
           <a onClick={openModal(record)}>编辑</a>
           <Popconfirm
             title="你确定删除此条吗?"
@@ -258,7 +262,7 @@ const SubjectList = forwardRef((props, ref) => {
       </Menu.Item>
     </Menu>
   );
-  
+
 
   useEffect(() => {
     getList(requestParams)
@@ -327,7 +331,7 @@ const SubjectList = forwardRef((props, ref) => {
           </div>
         }
       >
-        <DrawerContent record={drawRecord} />
+        <DrawerContent record={drawRecord} getList={getList} closeDrawer={closeDrawer} />
       </Drawer>
     </div>
   )

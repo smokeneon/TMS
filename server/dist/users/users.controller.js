@@ -141,7 +141,6 @@ __decorate([
 ], UsersController.prototype, "update", null);
 __decorate([
     common_1.Get(),
-    common_1.UseGuards(passport_1.AuthGuard('jwt')),
     swagger_1.ApiOperation({ summary: '查询用户列表 带分页' }),
     __param(0, common_1.Query()),
     __metadata("design:type", Function),

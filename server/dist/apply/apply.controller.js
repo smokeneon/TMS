@@ -32,6 +32,9 @@ let ApplyController = class ApplyController {
     async update(id, body) {
         return await this.applyService.edit(id, body);
     }
+    async changeScoreRequest(body, manager) {
+        return await this.applyService.changeScore(body, manager);
+    }
     async findAll(pagination) {
         return this.applyService.findAll(pagination);
     }
@@ -64,6 +67,15 @@ __decorate([
     __metadata("design:paramtypes", [Number, apply_entity_1.Apply]),
     __metadata("design:returntype", Promise)
 ], ApplyController.prototype, "update", null);
+__decorate([
+    common_1.Post('/score'),
+    swagger_1.ApiOperation({ summary: '设置已完结课程分数' }),
+    typeorm_1.Transaction(),
+    __param(0, common_1.Body()), __param(1, typeorm_1.TransactionManager()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeorm_1.EntityManager]),
+    __metadata("design:returntype", Promise)
+], ApplyController.prototype, "changeScoreRequest", null);
 __decorate([
     common_1.Get(),
     swagger_1.ApiOperation({ summary: '查询所有申报列表' }),

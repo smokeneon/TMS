@@ -69,6 +69,37 @@ let ApplyService = class ApplyService {
             };
         }
     }
+    async changeScore(body, manager) {
+        try {
+            let apply = await manager.find(apply_entity_1.Apply, { applyId: body.applyId });
+            let score = Number(body.score);
+            try {
+                let updateScore = await manager.update(apply_entity_1.Apply, { applyId: body.applyId }, { score: score });
+                console.log('updateScore', updateScore);
+                if (!updateScore) {
+                    throw new Error("更新 error");
+                }
+            }
+            catch (error) {
+                return {
+                    code: 2,
+                    message: '更新分数失败',
+                    error
+                };
+            }
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '更新分数失败',
+                error
+            };
+        }
+        return {
+            code: 0,
+            message: '更新分数成功'
+        };
+    }
     async remove(id) {
         try {
             const res = await this.applyRepository.delete(id);

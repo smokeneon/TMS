@@ -39,6 +39,13 @@ export class ApplyController {
     return await this.applyService.edit(id, body)
   }
 
+  @Post('/score')
+  @ApiOperation({ summary: '设置已完结课程分数' })
+  @Transaction()
+  async changeScoreRequest(@Body() body:any, @TransactionManager() manager: EntityManager) {
+    return await this.applyService.changeScore(body, manager)
+  }
+
   @Get()
   @ApiOperation({ summary: '查询所有申报列表' })
   async findAll(@Query() pagination: string) {
