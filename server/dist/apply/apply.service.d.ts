@@ -11,6 +11,9 @@ export declare class ApplyService {
     changeScore(body: any, manager: any): Promise<any>;
     remove(id: string): Promise<object>;
     edit(id: number, apply: Apply): Promise<object>;
+    findAllDoing(pagination: any): Promise<Object>;
+    findAllFinished(pagination: any): Promise<Object>;
+    findAllNotFinished(pagination: any): Promise<Object>;
     findAll(pagination: any): Promise<Object>;
     findOne(id: string): Promise<object>;
 }

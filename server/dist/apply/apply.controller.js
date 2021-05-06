@@ -37,6 +37,15 @@ let ApplyController = class ApplyController {
     async findAll(pagination) {
         return this.applyService.findAll(pagination);
     }
+    async findAllDoing(pagination) {
+        return this.applyService.findAllDoing(pagination);
+    }
+    async findAllFinished(pagination) {
+        return this.applyService.findAllFinished(pagination);
+    }
+    async findAllNotFinished(pagination) {
+        return this.applyService.findAllNotFinished(pagination);
+    }
     async detail(id) {
         return await this.applyService.findOne(id);
     }
@@ -83,6 +92,30 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ApplyController.prototype, "findAll", null);
+__decorate([
+    common_1.Get('/doing'),
+    swagger_1.ApiOperation({ summary: '查询所有申报列表 进行中' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ApplyController.prototype, "findAllDoing", null);
+__decorate([
+    common_1.Get('/finised'),
+    swagger_1.ApiOperation({ summary: '查询所有申报列表 已完成' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ApplyController.prototype, "findAllFinished", null);
+__decorate([
+    common_1.Get('/notFinished'),
+    swagger_1.ApiOperation({ summary: '查询所有申报列表 未完成' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ApplyController.prototype, "findAllNotFinished", null);
 __decorate([
     common_1.Get(':id'),
     swagger_1.ApiOperation({ summary: '根据申报id查询申报详情' }),

@@ -51,6 +51,24 @@ export class ApplyController {
     return this.applyService.findAll(pagination) 
   }
 
+  @Get('/doing')
+  @ApiOperation({ summary: '查询所有申报列表 进行中' })
+  async findAllDoing(@Query() pagination: string) {
+    return this.applyService.findAllDoing(pagination) 
+  }
+
+  @Get('/finised')
+  @ApiOperation({ summary: '查询所有申报列表 已完成' })
+  async findAllFinished(@Query() pagination: string) {
+    return this.applyService.findAllFinished(pagination) 
+  }
+
+  @Get('/notFinished')
+  @ApiOperation({ summary: '查询所有申报列表 未完成' })
+  async findAllNotFinished(@Query() pagination: string) {
+    return this.applyService.findAllNotFinished(pagination) 
+  }
+
   @Get(':id')
   @ApiOperation({ summary: '根据申报id查询申报详情' })
   async detail(@Param('id') id: string) {

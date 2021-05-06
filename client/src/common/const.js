@@ -16,3 +16,9 @@ export const identityState = {
   'stu': '参训者',
   'admin': '管理员'
 }
+
+export const applyState = {
+  0: '进行中',
+  1: '已完成',
+  2: '未完成'
+}

@@ -4,7 +4,7 @@ let token = localStorage.getItem('token')
 export const getApplyList = (params) => {
   return axios({
     method: 'get',
-    url: '/api/apply',
+    url: '/api/apply/finised',
     params: {
           page: params.page || 1,
           size: params.size || 10,

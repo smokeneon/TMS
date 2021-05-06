@@ -74,8 +74,13 @@ let ApplyService = class ApplyService {
             let apply = await manager.find(apply_entity_1.Apply, { applyId: body.applyId });
             let score = Number(body.score);
             try {
-                let updateScore = await manager.update(apply_entity_1.Apply, { applyId: body.applyId }, { score: score });
-                console.log('updateScore', updateScore);
+                let updateScore;
+                if (score >= 60 && score <= 100) {
+                    updateScore = await manager.update(apply_entity_1.Apply, { applyId: body.applyId }, { score: score, approvalState: 1 });
+                }
+                if (score >= 0 && score < 60) {
+                    updateScore = await manager.update(apply_entity_1.Apply, { applyId: body.applyId }, { score: score, approvalState: 2 });
+                }
                 if (!updateScore) {
                     throw new Error("更新 error");
                 }
@@ -129,6 +134,105 @@ let ApplyService = class ApplyService {
             return {
                 code: 1,
                 message: '更新失败'
+            };
+        }
+    }
+    async findAllDoing(pagination) {
+        let search = pagination.search || '';
+        let res;
+        try {
+            res = await this.applyRepository.findAndCount({
+                where: {
+                    applyNumber: typeorm_2.Like("%" + search + "%"),
+                    approvalState: 0
+                },
+                relations: ["course"],
+                order: {
+                    applyId: "DESC"
+                },
+                skip: (pagination.page - 1) * pagination.size || 0,
+                take: pagination.size || 10,
+            });
+            return {
+                code: 0,
+                message: '查询成功',
+                data: res[0],
+                total: res[1],
+                page: pagination.page || 1,
+                size: pagination.size || 10,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error
+            };
+        }
+    }
+    async findAllFinished(pagination) {
+        let search = pagination.search || '';
+        let res;
+        try {
+            res = await this.applyRepository.findAndCount({
+                where: {
+                    applyNumber: typeorm_2.Like("%" + search + "%"),
+                    approvalState: 1
+                },
+                relations: ["course"],
+                order: {
+                    applyId: "DESC"
+                },
+                skip: (pagination.page - 1) * pagination.size || 0,
+                take: pagination.size || 10,
+            });
+            return {
+                code: 0,
+                message: '查询成功',
+                data: res[0],
+                total: res[1],
+                page: pagination.page || 1,
+                size: pagination.size || 10,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error
+            };
+        }
+    }
+    async findAllNotFinished(pagination) {
+        let search = pagination.search || '';
+        let res;
+        try {
+            res = await this.applyRepository.findAndCount({
+                where: {
+                    applyNumber: typeorm_2.Like("%" + search + "%"),
+                    approvalState: 2
+                },
+                relations: ["course"],
+                order: {
+                    applyId: "DESC"
+                },
+                skip: (pagination.page - 1) * pagination.size || 0,
+                take: pagination.size || 10,
+            });
+            return {
+                code: 0,
+                message: '查询成功',
+                data: res[0],
+                total: res[1],
+                page: pagination.page || 1,
+                size: pagination.size || 10,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error
             };
         }
     }

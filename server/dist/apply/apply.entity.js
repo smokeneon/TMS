@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Apply.prototype, "stu", void 0);
 __decorate([
-    swagger_1.ApiProperty({ description: '申报状态 默认0 0:未提交 1:审批中 2: 申报成功 3:申报失败 4:进行中 5.已完结', example: 0 }),
+    swagger_1.ApiProperty({ description: '申报状态 默认0 0:进行中 1:已完成 2: 未完成 ', example: 0 }),
     typeorm_1.Column({
         default: 0,
     }),

@@ -32,7 +32,7 @@ export class Apply {
   stu: User[];
 
 
-  @ApiProperty({ description: '申报状态 默认0 0:未提交 1:审批中 2: 申报成功 3:申报失败 4:进行中 5.已完结', example: 0 })
+  @ApiProperty({ description: '申报状态 默认0 0:进行中 1:已完成 2: 未完成 ', example: 0 })
   @Column({
     default: 0,
   })

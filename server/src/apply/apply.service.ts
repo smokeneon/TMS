@@ -66,8 +66,14 @@ export class ApplyService {
       
       
       try {
-        let updateScore = await manager.update(Apply, {applyId: body.applyId}, { score: score })
-        console.log('updateScore', updateScore);
+        let updateScore;
+        // 判断课程是否 > 60
+        if (score >= 60 && score <= 100) {
+          updateScore = await manager.update(Apply, {applyId: body.applyId}, { score: score, approvalState: 1 })
+        } 
+        if (score >= 0 && score < 60) {
+          updateScore = await manager.update(Apply, {applyId: body.applyId}, { score: score, approvalState: 2 })
+        }
         
         if (!updateScore){
           throw new Error("更新 error")
@@ -125,7 +131,111 @@ export class ApplyService {
     }
   }
 
-    // 分页查询接口 联查课程
+  // 分页查询接口 联查课程 进行中
+  async findAllDoing(pagination): Promise<Object> {
+    let search = pagination.search || '';
+    let res;
+    try {
+      res = await this.applyRepository.findAndCount({ 
+        where: {
+          applyNumber: Like("%"+search+"%"),
+          approvalState: 0
+        },
+        relations: ["course"],
+        order: {
+          applyId: "DESC"
+        },
+        skip: (pagination.page-1)*pagination.size || 0,
+        take: pagination.size || 10,
+      })
+
+      return {
+        code: 0,
+        message: '查询成功',
+        data: res[0],
+        total: res[1],
+        page: pagination.page || 1,
+        size: pagination.size || 10,
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error
+      }
+    }
+  }
+
+  // 分页查询接口 联查课程 已完成
+  async findAllFinished(pagination): Promise<Object> {
+    let search = pagination.search || '';
+    let res;
+    try {
+      res = await this.applyRepository.findAndCount({ 
+        where: {
+          applyNumber: Like("%"+search+"%"),
+          approvalState: 1
+        },
+        relations: ["course"],
+        order: {
+          applyId: "DESC"
+        },
+        skip: (pagination.page-1)*pagination.size || 0,
+        take: pagination.size || 10,
+      })
+
+      return {
+        code: 0,
+        message: '查询成功',
+        data: res[0],
+        total: res[1],
+        page: pagination.page || 1,
+        size: pagination.size || 10,
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error
+      }
+    }
+  }
+  // 分页查询接口 联查课程 未完成
+  async findAllNotFinished(pagination): Promise<Object> {
+    let search = pagination.search || '';
+    let res;
+    try {
+      res = await this.applyRepository.findAndCount({ 
+        where: {
+          applyNumber: Like("%"+search+"%"),
+          approvalState: 2
+        },
+        relations: ["course"],
+        order: {
+          applyId: "DESC"
+        },
+        skip: (pagination.page-1)*pagination.size || 0,
+        take: pagination.size || 10,
+      })
+
+      return {
+        code: 0,
+        message: '查询成功',
+        data: res[0],
+        total: res[1],
+        page: pagination.page || 1,
+        size: pagination.size || 10,
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error
+      }
+    }
+  }
+
+  // 分页查询接口 联查课程
   async findAll(pagination): Promise<Object> {
     let search = pagination.search || '';
     let res;
