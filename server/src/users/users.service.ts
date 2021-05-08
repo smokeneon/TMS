@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { getRepository, Repository } from 'typeorm';
 import { User } from './users.entity';
 import { makeSalt, encryptPassword } from '../utils/cryptogram'
+import { Course } from 'src/course/course.entity';
 
 @Injectable()
 export class UsersService {
@@ -114,9 +115,59 @@ export class UsersService {
     } catch (error) {
       return {
         code: 1,
-        message: '查询失败'
+        message: '查询失败',
+        error
       }
     } 
+  }
+
+  // 查询个人详情
+  async getDetails(id): Promise<any> {
+    let user;
+    try {
+      user = await this.usersRepository.findOne({
+        relations: ["courses", "applys"],
+        where: { userId: id,  }
+      })
+      return {
+        code: 0,
+        message: '查询成功',
+        data: user,
+      }
+      
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error,
+      }
+    }
+  }
+   // 分页查询接口 连接
+  async findJoinAll(pagination): Promise<Object> {
+  let user;
+  try {
+    user = await this.usersRepository.findAndCount({ 
+      relations: ["courses", "applys"],
+      skip: (pagination.page-1)*pagination.size || 0,
+      take: pagination.size || 10,
+    })
+    
+    return {
+      code: 0,
+      message: '查询成功',
+      data: user[0],
+      total: user[1],
+      page: pagination.page || 1,
+      size: pagination.size || 10,
+    }
+  } catch (error) {
+    return {
+      code: 1,
+      message: '查询失败',
+      error
+    }
+  }
   }
 
   async findAllNoPagination(type): Promise<any> {

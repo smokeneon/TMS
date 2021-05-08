@@ -31,11 +31,11 @@ export class Course {
   @Column('varchar')
   courseFramework: string;
 
-  // @ApiProperty({ description: '专家id', example: '21' })
-  // @Column({
-  //   nullable: false,
-  // })
-  // teaId: number;
+  @ApiProperty({ description: '专家id', example: '21' })
+  @Column({
+    nullable: true,
+  })
+  teaId: number;
 
 
   @ApiProperty({ description: '开课状态 默认0 0:未开课，1:进行中，2:已完结', example: 0 })
@@ -76,10 +76,15 @@ export class Course {
   @OneToMany(() => Apply, (apply) => apply.course) // note: we will create author property in the Photo class below
   applys: Apply[];
 
-  @ManyToMany(() => User, {
+  @ManyToMany(() => User, user => user.courses, {
     eager: true
   })
   @JoinTable()
   users: User[];
+  // @ManyToMany(() => User, {
+  //   eager: true
+  // })
+  // @JoinTable()
+  // users: User[];
 
 }

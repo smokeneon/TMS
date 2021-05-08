@@ -38,11 +38,17 @@ export class Apply {
   })
   course: Course
 
-  @ManyToMany(() => User, {
+  @ManyToMany(() => User, (user) => user.applys, {
     eager: true
   })
   @JoinTable()
   stu: User[];
+  
+  // @ManyToMany(() => User, {
+  //   eager: true
+  // })
+  // @JoinTable()
+  // stu: User[];
 
 
   @ApiProperty({ description: '申报状态 默认0 0:进行中 1:已完成 2: 未完成 ', example: 0 })

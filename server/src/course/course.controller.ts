@@ -48,6 +48,12 @@ export class CourseController {
     return await this.courseService.getCanApplyList(pagination);
   }
 
+  @Get('/list/my')
+  @ApiOperation({ summary: '左连接申报表查询 我的课程' })
+  async getMyList(@Query() pagination: string) {
+    return await this.courseService.getListByTeaId(pagination);
+  }
+
   @Post('/add')
   @Transaction()
   @ApiOperation({ summary: '增加一门课程' })

@@ -15,6 +15,7 @@ export declare class CourseService {
     getApprovedList(pagination: any): Promise<any>;
     getNotApprovedList(pagination: any): Promise<any>;
     getCanApplyList(pagination: any): Promise<any>;
+    getListByTeaId(pagination: any): Promise<any>;
     findAllWithNoPage(): Promise<any>;
     findAll(pagination: any): Promise<Object>;
 }

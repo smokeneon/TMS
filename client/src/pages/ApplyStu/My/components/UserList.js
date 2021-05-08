@@ -142,14 +142,15 @@ const SubjectList = forwardRef((props, ref) => {
       fixed: 'right',
       render: (text, record) => (
         <Space size="middle">
-          <Popconfirm
+          {/* <Popconfirm
             title="你确定删除此条吗?"
             onConfirm={deleteConfirm(record)}
             okText="是"
             cancelText="否"
           >
             <a>删除</a>
-          </Popconfirm>
+          </Popconfirm> */}
+          <a>详情</a>
         </Space>
       ),
     },

@@ -18,6 +18,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const users_entity_1 = require("./users.entity");
 const cryptogram_1 = require("../utils/cryptogram");
+const course_entity_1 = require("../course/course.entity");
 let UsersService = class UsersService {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
@@ -116,7 +117,54 @@ let UsersService = class UsersService {
         catch (error) {
             return {
                 code: 1,
-                message: '查询失败'
+                message: '查询失败',
+                error
+            };
+        }
+    }
+    async getDetails(id) {
+        let user;
+        try {
+            user = await this.usersRepository.findOne({
+                relations: ["courses", "applys"],
+                where: { userId: id, }
+            });
+            return {
+                code: 0,
+                message: '查询成功',
+                data: user,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error,
+            };
+        }
+    }
+    async findJoinAll(pagination) {
+        let user;
+        try {
+            user = await this.usersRepository.findAndCount({
+                relations: ["courses", "applys"],
+                skip: (pagination.page - 1) * pagination.size || 0,
+                take: pagination.size || 10,
+            });
+            return {
+                code: 0,
+                message: '查询成功',
+                data: user[0],
+                total: user[1],
+                page: pagination.page || 1,
+                size: pagination.size || 10,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error
             };
         }
     }

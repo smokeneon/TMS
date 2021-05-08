@@ -24,6 +24,8 @@ export declare class UsersController {
     remove(id: string): Promise<any>;
     update(id: number, body: User): Promise<any>;
     findAll(pagination: string): Promise<Object>;
+    findJoinAll(pagination: string): Promise<Object>;
+    findDetailById(id: string): Promise<any>;
     findAllNoPagination1(): Promise<any>;
     findAllNoPagination2(): Promise<any>;
     x: any;

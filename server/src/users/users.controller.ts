@@ -74,6 +74,20 @@ export class UsersController {
   async findAll(@Query() pagination: string) {
     return await this.usersService.findAll(pagination);
   }
+
+  @Get('/joinAll')
+  // @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ summary: '查询用户列表 带分页 带课程以及申报表 ' })
+  async findJoinAll(@Query() pagination: string) {
+    return await this.usersService.findJoinAll(pagination);
+  }
+
+  @Get('/detail/:id')
+  // @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ summary: '根据用户id查询用户详情 带申报表以及课程表 ' })
+  async findDetailById(@Param('id') id: string) {
+    return await this.usersService.getDetails(id);
+  }
   
   @Get('/tea')
   @UseGuards(AuthGuard('jwt'))

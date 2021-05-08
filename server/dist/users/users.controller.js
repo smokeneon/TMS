@@ -54,6 +54,12 @@ let UsersController = class UsersController {
     async findAll(pagination) {
         return await this.usersService.findAll(pagination);
     }
+    async findJoinAll(pagination) {
+        return await this.usersService.findJoinAll(pagination);
+    }
+    async findDetailById(id) {
+        return await this.usersService.getDetails(id);
+    }
     async findAllNoPagination1() {
         let type = 'tea';
         return await this.usersService.findAllNoPagination(type);
@@ -147,6 +153,22 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "findAll", null);
+__decorate([
+    common_1.Get('/joinAll'),
+    swagger_1.ApiOperation({ summary: '查询用户列表 带分页 带课程以及申报表 ' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "findJoinAll", null);
+__decorate([
+    common_1.Get('/detail/:id'),
+    swagger_1.ApiOperation({ summary: '根据用户id查询用户详情 带申报表以及课程表 ' }),
+    __param(0, common_1.Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "findDetailById", null);
 __decorate([
     common_1.Get('/tea'),
     common_1.UseGuards(passport_1.AuthGuard('jwt')),

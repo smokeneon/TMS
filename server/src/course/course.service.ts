@@ -30,6 +30,7 @@ export class CourseService {
       let newCourse = {
         ...course,
         users: [user["data"]],
+        teaId: course.teaId,
       }
       try {
         let saveCourse = await manager.save(Course, newCourse);
@@ -309,6 +310,37 @@ export class CourseService {
             courseName: Like("%"+search+"%"),
             openState: 1,
             approvalState: 2,
+          },
+          relations: ["users","applys"],
+          skip: (pagination.page-1)*pagination.size || 0,
+          take: pagination.size || 10,
+        })
+      return {
+        code: 0,
+        message: '查询成功',
+        data: course[0],
+        total: course[1],
+        page: pagination.page || 1,
+        size: pagination.size || 10,
+      }
+      
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error
+      }
+    }
+  }
+
+  async getListByTeaId(pagination): Promise<any> {
+    let search = pagination.search || '';
+    let course;
+    try {
+        course = await this.courseRepository.findAndCount({ 
+          where: {
+            courseName: Like("%"+search+"%"),
+            teaId: pagination.teaId,
           },
           relations: ["users","applys"],
           skip: (pagination.page-1)*pagination.size || 0,

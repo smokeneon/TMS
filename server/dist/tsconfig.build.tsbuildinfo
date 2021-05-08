@@ -3657,13 +3657,13 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.entity.ts": {
-        "version": "989ab6a32542dd753e9253b1903d0c38c1b0f8085eaf27d236ad373807596dc8",
+        "version": "4af2b11cbf61ab400179bc8db86fbb6f8b862493491255bcdb68e4f2a602ea45",
         "signature": "47f2b4ea234c16dbb95f4f12a091405387ff0fadf09a3e98e864cbeaeda7fc6b",
         "affectsGlobalScope": false
       },
       "../src/course/course.entity.ts": {
-        "version": "b60e83528ec13c1d81ba5a4516b7f1b1f62d82543f023c0f1d9cf8be30459135",
-        "signature": "fcb067eacd1147210613424da64b390cde045258f7a44bd2c493fb5ec9d60381",
+        "version": "a6564104fe33b620c6d0e3939153634537fcf6715dd9e2c9c536ae60f4e03913",
+        "signature": "d953c44bc02935dc4af23504781e2065f7df0c41cc42a0b8568e3fe190135f1c",
         "affectsGlobalScope": false
       },
       "../src/users/users.entity.ts": {
@@ -3677,8 +3677,8 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "2cbd4891459ca2ebf5cfcac6867b390cc066a4d3b8fbdde2ea2b39956aade292",
-        "signature": "e02743321cd98b1afad1c36c88dc071bee98ed3a65ac04296de8e869bc2016d0",
+        "version": "dd0d1abc36d7effda2567bcccf31a8d24e9d636f2f780dc9b30a857b0ba61bce",
+        "signature": "9c8db212fab7e843a24908e0ba694d8cab2bc06e82a14bece61d5eade227f4d8",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/node/globals.d.ts": {
@@ -4052,8 +4052,8 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "00ac0ea235f31575d7fb7820345c2d9674755c70f06b319e9c6a06af43567b3a",
-        "signature": "f69ee628a1664113f120f27fad94c19ecdc56d3e677a760515a5f604220498a4",
+        "version": "a74a94a41d706b0deb59f5d0d4d3ce64691f027afa419a14643bf4783af9fc35",
+        "signature": "4fc4de9d40cbfac5b25132981460abb1fedef1bbbf8491bf5c987d6baff56ca4",
         "affectsGlobalScope": false
       },
       "../src/users/users.module.ts": {
@@ -4147,13 +4147,13 @@
         "affectsGlobalScope": false
       },
       "../src/course/course.service.ts": {
-        "version": "7da9f854d9c9276318c8fd17016d4bf7fc59bb20e47f1874c210a104bddbcbe2",
-        "signature": "eeb36aa627d8142109c95e39e2f6428dbbe770249f350ed810501b2ac7cd99ae",
+        "version": "9b23d4a69ec28123cf3b069d08e9f3a16dc7c9f2e2d04f9aa1344e6b7f51fe82",
+        "signature": "701e943ca26f6e79c2d0ebd0ff22ec1745aa6508131a1a471d41d1dc4dd66b55",
         "affectsGlobalScope": false
       },
       "../src/course/course.controller.ts": {
-        "version": "0949ea41155bfdce9452f5e49f68813cff4df9c6c3ceda6a2df6ace4c60a28d4",
-        "signature": "c661cdc582e6f6fb73fa0f2ffab7b52d9904cfb40b0797af36ff75402acf390c",
+        "version": "e2d0ecc77d678cdab94cabb02e8831c5d2c00fe98f5a2e3d416ba8f3a5c6eccb",
+        "signature": "55be97e063893d5d13b1e232d68366bd47cdfdb5e1b65c7d2c2757bd82d506c3",
         "affectsGlobalScope": false
       },
       "../src/course/course.module.ts": {
@@ -8328,6 +8328,7 @@
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
+        "../src/course/course.entity.ts",
         "../src/users/users.entity.ts",
         "../src/utils/cryptogram.ts"
       ],

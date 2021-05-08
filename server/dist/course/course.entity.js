@@ -50,6 +50,13 @@ __decorate([
     __metadata("design:type", String)
 ], Course.prototype, "courseFramework", void 0);
 __decorate([
+    swagger_1.ApiProperty({ description: '专家id', example: '21' }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
+    __metadata("design:type", Number)
+], Course.prototype, "teaId", void 0);
+__decorate([
     swagger_1.ApiProperty({ description: '开课状态 默认0 0:未开课，1:进行中，2:已完结', example: 0 }),
     typeorm_1.Column({
         default: 0,
@@ -89,7 +96,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Course.prototype, "applys", void 0);
 __decorate([
-    typeorm_1.ManyToMany(() => users_entity_1.User, {
+    typeorm_1.ManyToMany(() => users_entity_1.User, user => user.courses, {
         eager: true
     }),
     typeorm_1.JoinTable(),

@@ -50,7 +50,7 @@ __decorate([
     __metadata("design:type", course_entity_1.Course)
 ], Apply.prototype, "course", void 0);
 __decorate([
-    typeorm_1.ManyToMany(() => users_entity_1.User, {
+    typeorm_1.ManyToMany(() => users_entity_1.User, (user) => user.applys, {
         eager: true
     }),
     typeorm_1.JoinTable(),

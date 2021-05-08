@@ -133,7 +133,7 @@ export default [
                 name: '全部课程',
                 icon: 'smile',
                 component: './CourseStu/All',
-                authority: ['stu'],
+                authority: ['stu', 'tea'],
               },
               {
                 path: '/stu/course/canApply',
@@ -148,6 +148,14 @@ export default [
                 icon: 'smile',
                 component: './ApplyStu/My',
                 authority: ['stu'],
+              },
+              // 专家身份菜单
+              {
+                path: '/tea/course/my',
+                name: '我的课程',
+                icon: 'smile',
+                component: './CourseTea/My',
+                authority: ['tea'],
               },
               {
                 component: './404',

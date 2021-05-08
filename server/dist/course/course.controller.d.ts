@@ -8,6 +8,7 @@ export declare class CourseController {
     getApprovedList(pagination: string): Promise<any>;
     getNotApprovedList(pagination: string): Promise<any>;
     getCanApplyList(pagination: string): Promise<any>;
+    getMyList(pagination: string): Promise<any>;
     create(course: Course, manager: EntityManager): Promise<any>;
     remove(courseId: string): Promise<object>;
     update(id: number, body: Course, manager: EntityManager): Promise<object>;

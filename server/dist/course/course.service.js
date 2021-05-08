@@ -32,7 +32,7 @@ let CourseService = class CourseService {
                     message: '该专家不存在'
                 };
             }
-            let newCourse = Object.assign(Object.assign({}, course), { users: [user["data"]] });
+            let newCourse = Object.assign(Object.assign({}, course), { users: [user["data"]], teaId: course.teaId });
             try {
                 let saveCourse = await manager.save(course_entity_1.Course, newCourse);
                 if (!saveCourse) {
@@ -285,6 +285,36 @@ let CourseService = class CourseService {
                     courseName: typeorm_2.Like("%" + search + "%"),
                     openState: 1,
                     approvalState: 2,
+                },
+                relations: ["users", "applys"],
+                skip: (pagination.page - 1) * pagination.size || 0,
+                take: pagination.size || 10,
+            });
+            return {
+                code: 0,
+                message: '查询成功',
+                data: course[0],
+                total: course[1],
+                page: pagination.page || 1,
+                size: pagination.size || 10,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error
+            };
+        }
+    }
+    async getListByTeaId(pagination) {
+        let search = pagination.search || '';
+        let course;
+        try {
+            course = await this.courseRepository.findAndCount({
+                where: {
+                    courseName: typeorm_2.Like("%" + search + "%"),
+                    teaId: pagination.teaId,
                 },
                 relations: ["users", "applys"],
                 skip: (pagination.page - 1) * pagination.size || 0,

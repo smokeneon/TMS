@@ -37,6 +37,9 @@ let CourseController = class CourseController {
     async getCanApplyList(pagination) {
         return await this.courseService.getCanApplyList(pagination);
     }
+    async getMyList(pagination) {
+        return await this.courseService.getListByTeaId(pagination);
+    }
     async create(course, manager) {
         return await this.courseService.create(course, manager);
     }
@@ -94,6 +97,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "getCanApplyList", null);
+__decorate([
+    common_1.Get('/list/my'),
+    swagger_1.ApiOperation({ summary: '左连接申报表查询 我的课程' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getMyList", null);
 __decorate([
     common_1.Post('/add'),
     typeorm_1.Transaction(),

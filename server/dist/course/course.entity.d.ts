@@ -7,6 +7,7 @@ export declare class Course {
     coureseBackground: string;
     courseTarget: string;
     courseFramework: string;
+    teaId: number;
     openState: number;
     approvalState: number;
     startDate: string;
