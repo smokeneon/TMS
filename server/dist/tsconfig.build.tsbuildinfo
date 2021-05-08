@@ -3657,8 +3657,8 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.entity.ts": {
-        "version": "4908424e1c32caa3956ed0fc88546796fe24d72e7da93eb17e2de7cf308475f1",
-        "signature": "d60135849a4a13e410fa0b0325c7b8f272dd014029db60cffda12c89784e99ff",
+        "version": "989ab6a32542dd753e9253b1903d0c38c1b0f8085eaf27d236ad373807596dc8",
+        "signature": "47f2b4ea234c16dbb95f4f12a091405387ff0fadf09a3e98e864cbeaeda7fc6b",
         "affectsGlobalScope": false
       },
       "../src/course/course.entity.ts": {
@@ -3677,7 +3677,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "d4eb8a1e0f1eec6cac5b3870d65434373a91892fad9050007d80604192e7c012",
+        "version": "2cbd4891459ca2ebf5cfcac6867b390cc066a4d3b8fbdde2ea2b39956aade292",
         "signature": "e02743321cd98b1afad1c36c88dc071bee98ed3a65ac04296de8e869bc2016d0",
         "affectsGlobalScope": false
       },
@@ -4147,13 +4147,13 @@
         "affectsGlobalScope": false
       },
       "../src/course/course.service.ts": {
-        "version": "fd85147bb87c334d15ec74d64f8427195c58c760c259ecbbd0546e1b7b6086a6",
-        "signature": "a2db5de23b614be493b671f8c53f909dc188819621ffd4d4bb48122a8e12f38b",
+        "version": "7da9f854d9c9276318c8fd17016d4bf7fc59bb20e47f1874c210a104bddbcbe2",
+        "signature": "eeb36aa627d8142109c95e39e2f6428dbbe770249f350ed810501b2ac7cd99ae",
         "affectsGlobalScope": false
       },
       "../src/course/course.controller.ts": {
-        "version": "3e310d09be76016eec2f9cf9dc7e064b434ab92bc1f3c2cec4deb6ed5402ecfa",
-        "signature": "088ea769991f418f993de96c35af4470a20a5fa997a3cb4a21536ce34dd5376c",
+        "version": "0949ea41155bfdce9452f5e49f68813cff4df9c6c3ceda6a2df6ace4c60a28d4",
+        "signature": "c661cdc582e6f6fb73fa0f2ffab7b52d9904cfb40b0797af36ff75402acf390c",
         "affectsGlobalScope": false
       },
       "../src/course/course.module.ts": {
@@ -4232,13 +4232,13 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.service.ts": {
-        "version": "491971f9dd47f7a69358efaa47378b21691ca5f93d681ab5f7df867e256f328e",
-        "signature": "82d3a4062b4cd65b2a71c2c6dc87c35bc4bfa7cda6eebb0f16da8d5786600464",
+        "version": "c3f86bea307a09150c189a75c20da304763c9db7bf861b954e2569bcea96fa39",
+        "signature": "c788211ac9bb9f99015f2bf40221b51fc5090e50270e1bb844580bf093b21401",
         "affectsGlobalScope": false
       },
       "../src/apply/apply.controller.ts": {
-        "version": "998ffd99379576dd64c770b24c662124281f5a4b8c387c688899dd8f5eb6132c",
-        "signature": "cc3c81914ef45003a0c06338d1444c7fb3e6ab508463da4d92b86de3cefc12bf",
+        "version": "64c7941c8b8f1a385467899b949c3a70e869fb853aa7d8911615de781e3f67d7",
+        "signature": "b800468fbf0c07606248f834fc3866f01206c790c98cf56be830b911de466b1e",
         "affectsGlobalScope": false
       },
       "../src/apply/apply.module.ts": {

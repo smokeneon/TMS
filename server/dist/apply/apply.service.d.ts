@@ -15,5 +15,6 @@ export declare class ApplyService {
     findAllFinished(pagination: any): Promise<Object>;
     findAllNotFinished(pagination: any): Promise<Object>;
     findAll(pagination: any): Promise<Object>;
+    findMy(pagination: any): Promise<Object>;
     findOne(id: string): Promise<object>;
 }

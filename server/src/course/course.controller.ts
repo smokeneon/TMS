@@ -42,6 +42,12 @@ export class CourseController {
     return await this.courseService.getNotApprovedList(pagination);
   }
 
+  @Get('/list/canApply')
+  @ApiOperation({ summary: '左连接申报表查询 开放申请的' })
+  async getCanApplyList(@Query() pagination: string) {
+    return await this.courseService.getCanApplyList(pagination);
+  }
+
   @Post('/add')
   @Transaction()
   @ApiOperation({ summary: '增加一门课程' })

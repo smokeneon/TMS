@@ -27,6 +27,23 @@ let ApplyService = class ApplyService {
         this.usersService = usersService;
     }
     async create(apply, manager) {
+        try {
+            let unique = await this.applyRepository.find({
+                where: [{ courseId: apply.courseId, stuId: apply.stuIds['0'] },]
+            });
+            if (unique.length != 0) {
+                return {
+                    code: 1,
+                    message: '该课程你已申报，请勿重复申报'
+                };
+            }
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '校验唯一性发生错误'
+            };
+        }
         let course;
         try {
             course = await this.courseService.findOne(apply.courseId);
@@ -54,6 +71,8 @@ let ApplyService = class ApplyService {
             applyNumber: apply.applyNumber,
             course: course["data"],
             stu: users,
+            stuId: apply.stuIds['0'],
+            courseId: apply.courseId,
         };
         try {
             await manager.save(apply_entity_1.Apply, newApply);
@@ -243,6 +262,39 @@ let ApplyService = class ApplyService {
             res = await this.applyRepository.findAndCount({
                 where: {
                     applyNumber: typeorm_2.Like("%" + search + "%"),
+                },
+                relations: ["course"],
+                order: {
+                    applyId: "DESC"
+                },
+                skip: (pagination.page - 1) * pagination.size || 0,
+                take: pagination.size || 10,
+            });
+            return {
+                code: 0,
+                message: '查询成功',
+                data: res[0],
+                total: res[1],
+                page: pagination.page || 1,
+                size: pagination.size || 10,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error
+            };
+        }
+    }
+    async findMy(pagination) {
+        let search = pagination.search || '';
+        let res;
+        try {
+            res = await this.applyRepository.findAndCount({
+                where: {
+                    applyNumber: typeorm_2.Like("%" + search + "%"),
+                    stuId: pagination.stuId,
                 },
                 relations: ["course"],
                 order: {

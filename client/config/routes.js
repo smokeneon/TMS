@@ -127,6 +127,28 @@ export default [
                   }
                 ],
               },
+              // 参训者身份菜单
+              {
+                path: '/stu/course/all',
+                name: '全部课程',
+                icon: 'smile',
+                component: './CourseStu/All',
+                authority: ['stu'],
+              },
+              {
+                path: '/stu/course/canApply',
+                name: '可申请课程',
+                icon: 'smile',
+                component: './CourseStu/CanApply',
+                authority: ['stu'],
+              },
+              {
+                path: '/stu/apply/my',
+                name: '我的申报',
+                icon: 'smile',
+                component: './ApplyStu/My',
+                authority: ['stu'],
+              },
               {
                 component: './404',
               },

@@ -37,6 +37,9 @@ let ApplyController = class ApplyController {
     async findAll(pagination) {
         return this.applyService.findAll(pagination);
     }
+    async findMy(pagination) {
+        return this.applyService.findMy(pagination);
+    }
     async findAllDoing(pagination) {
         return this.applyService.findAllDoing(pagination);
     }
@@ -92,6 +95,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ApplyController.prototype, "findAll", null);
+__decorate([
+    common_1.Get('/my'),
+    swagger_1.ApiOperation({ summary: '查询我的所有申报列表' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ApplyController.prototype, "findMy", null);
 __decorate([
     common_1.Get('/doing'),
     swagger_1.ApiOperation({ summary: '查询所有申报列表 进行中' }),

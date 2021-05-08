@@ -51,6 +51,12 @@ export class ApplyController {
     return this.applyService.findAll(pagination) 
   }
 
+  @Get('/my')
+  @ApiOperation({ summary: '查询我的所有申报列表'})
+  async findMy(@Query() pagination: string) {
+    return this.applyService.findMy(pagination) 
+  }
+
   @Get('/doing')
   @ApiOperation({ summary: '查询所有申报列表 进行中' })
   async findAllDoing(@Query() pagination: string) {

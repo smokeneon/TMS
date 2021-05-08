@@ -30,6 +30,20 @@ __decorate([
     __metadata("design:type", String)
 ], Apply.prototype, "applyNumber", void 0);
 __decorate([
+    swagger_1.ApiProperty({ description: '学生id', example: '15' }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
+    __metadata("design:type", Number)
+], Apply.prototype, "stuId", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '课程id', example: '15' }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
+    __metadata("design:type", Number)
+], Apply.prototype, "courseId", void 0);
+__decorate([
     typeorm_1.ManyToOne(() => course_entity_1.Course, (course) => course.applys, {
         eager: true,
     }),

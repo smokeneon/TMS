@@ -34,6 +34,9 @@ let CourseController = class CourseController {
     async getNotApprovedList(pagination) {
         return await this.courseService.getNotApprovedList(pagination);
     }
+    async getCanApplyList(pagination) {
+        return await this.courseService.getCanApplyList(pagination);
+    }
     async create(course, manager) {
         return await this.courseService.create(course, manager);
     }
@@ -83,6 +86,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "getNotApprovedList", null);
+__decorate([
+    common_1.Get('/list/canApply'),
+    swagger_1.ApiOperation({ summary: '左连接申报表查询 开放申请的' }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getCanApplyList", null);
 __decorate([
     common_1.Post('/add'),
     typeorm_1.Transaction(),

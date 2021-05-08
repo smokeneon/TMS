@@ -16,6 +16,19 @@ export class Apply {
   })
   applyNumber: string;
 
+  @ApiProperty({ description: '学生id', example: '15' })
+  @Column({
+    nullable: true,
+  })
+  stuId: number;
+
+
+  @ApiProperty({ description: '课程id', example: '15' })
+  @Column({
+    nullable: true,
+  })
+  courseId: number;
+
   // @ApiProperty({ description: '参训者id', example: '23' })
   // @Column('varchar')
   // userId: string;
