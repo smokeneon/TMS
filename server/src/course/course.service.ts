@@ -297,7 +297,7 @@ export class CourseService {
         course = await this.courseRepository.findAndCount({ 
           where: {
             courseName: Like("%"+search+"%"),
-            approvalState: 0
+            approvalState: 1
           },
           relations: ["users","applys"],
           skip: (pagination.page-1)*pagination.size || 0,

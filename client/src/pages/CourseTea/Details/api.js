@@ -11,3 +11,49 @@ export const getCourseDetails = (courseId) => {
     }
   })
 }
+
+// 更新审批状态
+export const changeApprovalRequest = (courseId, approvalState) => {
+  return axios({
+    method: 'post',
+    url: `/api/course/approval`,
+    data: {
+      courseId,
+      approvalState
+    },
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+}
+
+// 更新审批状态
+export const changeOpeningRequest = (courseId, openState) => {
+  return axios({
+    method: 'post',
+    url: `/api/course/open`,
+    data: {
+      courseId,
+      openState
+    },
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+}
+
+// 更新分数
+export const changeScoreRequest = (apply, score) => {
+ 
+  return axios({
+    method: 'post',
+    url: `/api/apply/score`,
+    data: {
+      applyId: apply.applyId,
+      score
+    },
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+}
