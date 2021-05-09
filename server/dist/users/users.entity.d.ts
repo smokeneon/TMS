@@ -11,4 +11,5 @@ export declare class User {
     email: string;
     courses: Course[];
     applys: Apply[];
+    timeStamp: Date;
 }

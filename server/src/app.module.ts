@@ -43,6 +43,7 @@ import { UsersController } from './users/users.controller';
       database: 'tms',
       autoLoadEntities: true,
       synchronize: true,
+      timezone: '+8:00'
     }),
     EmailModule,
     UsersModule,

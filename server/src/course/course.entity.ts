@@ -87,4 +87,12 @@ export class Course {
   // @JoinTable()
   // users: User[];
 
+  @ApiProperty({ description: '更新时间', example: '2021-05-21' })
+  @Column({
+    nullable: true,
+    type: 'timestamp',
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  timeStamp: Date;
+
 }

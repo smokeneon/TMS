@@ -2,6 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Course } from '../course/course.entity'
 import { User } from '../users/users.entity'
+
+// 给数据修改增加时间戳
 @Entity()
 export class Apply {
   @ApiProperty({ description: '申报id（自动增加生成）', example: 2 })
@@ -63,6 +65,13 @@ export class Apply {
     default: -1,
   })
   score: number;
-  
+
+  @ApiProperty({ description: '更新时间', example: '2021-05-21' })
+  @Column({
+    nullable: true,
+    type: 'timestamp',
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  timeStamp: Date;
   
 }

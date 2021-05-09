@@ -59,6 +59,7 @@ AppModule = __decorate([
                 database: 'tms',
                 autoLoadEntities: true,
                 synchronize: true,
+                timezone: '+8:00'
             }),
             email_module_1.EmailModule,
             users_module_1.UsersModule,

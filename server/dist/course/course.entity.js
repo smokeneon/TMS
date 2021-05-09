@@ -102,6 +102,15 @@ __decorate([
     typeorm_1.JoinTable(),
     __metadata("design:type", Array)
 ], Course.prototype, "users", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '更新时间', example: '2021-05-21' }),
+    typeorm_1.Column({
+        nullable: true,
+        type: 'timestamp',
+        default: () => "CURRENT_TIMESTAMP",
+    }),
+    __metadata("design:type", Date)
+], Course.prototype, "timeStamp", void 0);
 Course = __decorate([
     typeorm_1.Entity()
 ], Course);

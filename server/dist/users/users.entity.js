@@ -75,6 +75,15 @@ __decorate([
     typeorm_1.ManyToMany(() => apply_entity_1.Apply, (apply) => apply.stu),
     __metadata("design:type", Array)
 ], User.prototype, "applys", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '更新时间', example: '2021-05-21' }),
+    typeorm_1.Column({
+        nullable: true,
+        type: 'timestamp',
+        default: () => "CURRENT_TIMESTAMP",
+    }),
+    __metadata("design:type", Date)
+], User.prototype, "timeStamp", void 0);
 User = __decorate([
     typeorm_1.Entity()
 ], User);

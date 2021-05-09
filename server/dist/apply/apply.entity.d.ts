@@ -9,4 +9,5 @@ export declare class Apply {
     stu: User[];
     approvalState: number;
     score: number;
+    timeStamp: Date;
 }
