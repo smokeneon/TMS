@@ -91,24 +91,26 @@ const Welcome = (props) => {
       <Row>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Card 
-            title="学科课程占比"
+            title="学科占比"
             style={{margin: '6px'}}
             >
-            <Pie
-              hasLegend
-              title="累计学科"
-              subTitle="所属学科"
-              total={() => (
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: salesPieData.reduce((pre, now) => now.y + pre, 0),
-                  }}
-                />
-              )}
-              data={salesPieData}
-              valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
-              height={380}
-            />
+            <div  style={{height:'23.7rem', display: 'flex', alignItems: 'center', justifyContent: 'center', clear: 'both'}}>
+              <Pie
+                hasLegend
+                title="累计学科"
+                subTitle="所属学科"
+                total={() => (
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: salesPieData.reduce((pre, now) => now.y + pre, 0),
+                    }}
+                  />
+                )}
+                data={salesPieData}
+                valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
+                height={140}
+              />
+            </div>
           </Card>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -131,6 +133,7 @@ const Welcome = (props) => {
           </Row>
          
         </Col>
+        {/* 轮播图 */}
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <div style={{margin: '6px'}}>
           <Carousel autoplay>
