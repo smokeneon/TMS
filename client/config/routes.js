@@ -151,10 +151,23 @@ export default [
               },
               // 专家身份菜单
               {
+                path: '/tea/course/add',
+                name: '添加课程',
+                icon: 'smile',
+                component: './CourseTea/Add',
+                authority: ['tea'],
+              },
+              {
                 path: '/tea/course/my',
                 name: '我的课程',
                 icon: 'smile',
                 component: './CourseTea/My',
+                authority: ['tea'],
+              },
+              {
+                path: '/tea/course/details',
+                icon: 'smile',
+                component: './CourseTea/Details',
                 authority: ['tea'],
               },
               {

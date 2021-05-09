@@ -11,6 +11,7 @@ export declare class CourseService {
     changeOpeningState(body: any, manager: any): Promise<any>;
     edit(id: any, course: any, manager: any): Promise<object>;
     findOne(id: string): Promise<object>;
+    getDetails(id: any): Promise<any>;
     getList(pagination: any): Promise<any>;
     getApprovedList(pagination: any): Promise<any>;
     getNotApprovedList(pagination: any): Promise<any>;

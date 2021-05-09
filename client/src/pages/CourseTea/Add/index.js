@@ -1,15 +1,14 @@
 import React from 'react'
-import { Card, } from 'antd'
+import { Card } from 'antd'
 import { PageContainer } from '@ant-design/pro-layout';
-import CourseList from './components/List'
-
-const Index = () => {
+import AddForm from './components/AddForm'
+const Index = (props) => {
   return (
     <PageContainer>
       <Card
-        title="查询表格"
+        title="课程提交表单"
       >
-        <CourseList />
+       <AddForm {...props} />
       </Card>
     </PageContainer>
   )

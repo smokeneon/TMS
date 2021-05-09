@@ -8,6 +8,7 @@ import DrawerContent from './DrawerContent'
 import axios from 'axios'
 import { deleteItem, getUserList, changeApprovalRequest, changeOpeningRequest } from '../api'
 import { connect } from 'umi';
+import { Link } from 'umi';
 const formItemLayout = {
   labelCol: { span: 1 },
   wrapperCol: { span: 23 },
@@ -193,7 +194,14 @@ const SubjectList = forwardRef((props, ref) => {
       fixed: 'right',
       render: (text, record) => (
         <Space size="middle">
-            <a onClick={showDrawer(record)}>详情</a>
+          <Link to={{
+            pathname: '/tea/course/details',
+            query: {
+              courseId: record.courseId,
+            }
+          }}>
+            <a>详情</a>
+          </Link>
           <a onClick={openModal(record)}>编辑</a>
           <Popconfirm
             title="你确定删除此条吗?"
@@ -270,12 +278,12 @@ const SubjectList = forwardRef((props, ref) => {
   }, [])
   return (
     <div>
-      <div style={{padding: '0px 0 24px 0'}}>
+      <div style={{padding: '0px 0 24px 0', display: 'flex', justifyContent: 'flex-end'}}>
         <Form onFinish={onSearch} form={form} layout="inline">
           <Form.Item name="searchText" {...formItemLayout}>
             <Input placeholder="请输入名称" style={{ width: 200 }} />
           </Form.Item>
-          <Button icon={<SearchOutlined />} loading={searchLoading} htmlType="submit">
+          <Button icon={<SearchOutlined />} loading={searchLoading} htmlType="submit" type="primary">
             查询
           </Button>
         </Form>

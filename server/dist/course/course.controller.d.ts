@@ -17,4 +17,5 @@ export declare class CourseController {
     findAllWithNoPage(): Promise<any>;
     findAll(pagination: string): Promise<Object>;
     detail(id: string): Promise<object>;
+    getDetails(id: string): Promise<any>;
 }

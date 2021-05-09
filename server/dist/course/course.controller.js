@@ -64,6 +64,9 @@ let CourseController = class CourseController {
     async detail(id) {
         return await this.courseService.findOne(id);
     }
+    async getDetails(id) {
+        return await this.courseService.getDetails(id);
+    }
 };
 __decorate([
     common_1.Get('/list'),
@@ -174,6 +177,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "detail", null);
+__decorate([
+    common_1.Get('/toDetails/:courseId'),
+    swagger_1.ApiOperation({ summary: '根据课程id查询详情 连表查询' }),
+    __param(0, common_1.Param('courseId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getDetails", null);
 CourseController = __decorate([
     common_1.Controller('/api/v1/course'),
     swagger_1.ApiTags('课程增删改查'),

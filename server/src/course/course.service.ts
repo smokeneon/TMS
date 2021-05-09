@@ -205,7 +205,27 @@ export class CourseService {
       }
     }
   }
-
+  // 根据课程id查询课程详情
+  async getDetails(id): Promise<any> {
+    let course; 
+    try {
+      course = await this.courseRepository.findOne({
+        relations: ["users", "applys"],
+        where: {courseId: id},
+      })
+      return {
+        code: 0,
+        message: '查询成功',
+        data: course,
+      }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询失败',
+        error
+      }
+    }
+  }
   // 查询列表以及连带的申请表
   async getList(pagination): Promise<any> {
     let search = pagination.search || '';

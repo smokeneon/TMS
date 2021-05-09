@@ -4147,13 +4147,13 @@
         "affectsGlobalScope": false
       },
       "../src/course/course.service.ts": {
-        "version": "9b23d4a69ec28123cf3b069d08e9f3a16dc7c9f2e2d04f9aa1344e6b7f51fe82",
-        "signature": "701e943ca26f6e79c2d0ebd0ff22ec1745aa6508131a1a471d41d1dc4dd66b55",
+        "version": "24f76973887b461079c7911973d54b8680ef2e747aafe9f2a21ff3f695f598d7",
+        "signature": "ca5b217b71cc6d4fbae203d57ac471045159efe3c7c15383f34617d931511c0b",
         "affectsGlobalScope": false
       },
       "../src/course/course.controller.ts": {
-        "version": "e2d0ecc77d678cdab94cabb02e8831c5d2c00fe98f5a2e3d416ba8f3a5c6eccb",
-        "signature": "55be97e063893d5d13b1e232d68366bd47cdfdb5e1b65c7d2c2757bd82d506c3",
+        "version": "a3c94d68ab3faed472f9e7e211b9f2ba5081fbad229d6e08b1d1f6315c80ef38",
+        "signature": "ec77dc7a22cb4fd467bed779eceb2f39949a66676afef9f08b551d6c30eaf1b9",
         "affectsGlobalScope": false
       },
       "../src/course/course.module.ts": {

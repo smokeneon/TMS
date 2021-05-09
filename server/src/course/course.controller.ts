@@ -112,5 +112,10 @@ export class CourseController {
     return await this.courseService.findOne(id);
   }
 
+  @Get('/toDetails/:courseId')
+  @ApiOperation({ summary: '根据课程id查询详情 连表查询'})
+  async getDetails(@Param('courseId') id: string) {
+    return await this.courseService.getDetails(id);
+  }
   
 }

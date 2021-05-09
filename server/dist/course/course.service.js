@@ -187,6 +187,27 @@ let CourseService = class CourseService {
             };
         }
     }
+    async getDetails(id) {
+        let course;
+        try {
+            course = await this.courseRepository.findOne({
+                relations: ["users", "applys"],
+                where: { courseId: id },
+            });
+            return {
+                code: 0,
+                message: '查询成功',
+                data: course,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询失败',
+                error
+            };
+        }
+    }
     async getList(pagination) {
         let search = pagination.search || '';
         let course;
