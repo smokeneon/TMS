@@ -9,12 +9,19 @@ export class Essay {
   // @PrimaryGeneratedColumn('uuid')
   essayId: number;
 
-  @ApiProperty({ description: '文章内容', example: '新建笔记' })
+  @ApiProperty({ description: '文章标题', example: '文章标题' })
   @Column({
-    nullable: false,
+    nullable: true,
     type: String,
   })
-  content: string;
+  title: string;
+
+  @ApiProperty({ description: '文章内容', example: '新建笔记' })
+  @Column({
+    nullable: true,
+    type: "text",
+  })
+  content;
 
   @ApiProperty({ description: '用户id', example: '15' })
   @Column({
@@ -28,6 +35,20 @@ export class Essay {
   })
   imgUrl: string;
 
+  @ApiProperty({ description: '是否开放', example: '默认 false' })
+  @Column({
+    nullable: false,
+    default: false
+  })
+  isOpen: boolean;
+
+  @ApiProperty({ description: '简介', example: '一段30个字之内的话' })
+  @Column({
+    nullable: true,
+  })
+  introduction: string;
+
+  
 
   @ManyToMany(() => User, (user) => user.applys, {
     eager: true

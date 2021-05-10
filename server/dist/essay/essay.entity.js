@@ -21,12 +21,20 @@ __decorate([
     __metadata("design:type", Number)
 ], Essay.prototype, "essayId", void 0);
 __decorate([
-    swagger_1.ApiProperty({ description: '文章内容', example: '新建笔记' }),
+    swagger_1.ApiProperty({ description: '文章标题', example: '文章标题' }),
     typeorm_1.Column({
-        nullable: false,
+        nullable: true,
         type: String,
     }),
     __metadata("design:type", String)
+], Essay.prototype, "title", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '文章内容', example: '新建笔记' }),
+    typeorm_1.Column({
+        nullable: true,
+        type: "text",
+    }),
+    __metadata("design:type", Object)
 ], Essay.prototype, "content", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '用户id', example: '15' }),
@@ -42,6 +50,21 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Essay.prototype, "imgUrl", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '是否开放', example: '默认 false' }),
+    typeorm_1.Column({
+        nullable: false,
+        default: false
+    }),
+    __metadata("design:type", Boolean)
+], Essay.prototype, "isOpen", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '简介', example: '一段30个字之内的话' }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
+    __metadata("design:type", String)
+], Essay.prototype, "introduction", void 0);
 __decorate([
     typeorm_1.ManyToMany(() => users_entity_1.User, (user) => user.applys, {
         eager: true

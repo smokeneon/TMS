@@ -24,12 +24,24 @@ let EssayService = class EssayService {
         this.usersService = usersService;
     }
     async create(essay, manager) {
+        const getString = (s, n) => {
+            if (s.length < n) {
+                s = delHtmlTag(s);
+            }
+            if (s.length > n) {
+                return s.substring(0, n);
+            }
+            return s;
+        };
+        const delHtmlTag = (str) => {
+            return str.replace(/<[^>]+>/g, "");
+        };
+        let intro = getString(essay.content, 30);
         let getUser;
-        console.log('essay', essay);
         if (essay.firstEssay === 'yes') {
             try {
                 getUser = await this.usersService.findOne(essay.userId);
-                let newEssay = Object.assign(Object.assign({}, essay), { user: [getUser.data] });
+                let newEssay = Object.assign(Object.assign({}, essay), { user: [getUser.data], introduction: intro });
                 try {
                     let addedEssay = await manager.save(essay_entity_1.Essay, newEssay);
                     return {
@@ -58,7 +70,7 @@ let EssayService = class EssayService {
         }
         if (essay.firstEssay === 'no') {
             try {
-                await manager.update(essay_entity_1.Essay, { essayId: essay.essayId }, { content: essay.content, });
+                await manager.update(essay_entity_1.Essay, { essayId: essay.essayId }, { content: essay.content, title: essay.title, introduction: intro });
                 return {
                     code: 0,
                     message: '笔记保存成功',
@@ -74,6 +86,74 @@ let EssayService = class EssayService {
                     error
                 };
             }
+        }
+    }
+    async findByUserId(userId, manager) {
+        let res;
+        try {
+            res = await this.essayRepository.findAndCount({
+                where: {
+                    userId: userId,
+                }
+            });
+            let _new_arr_ = res["0"].map((item) => {
+                return Object.keys(item).reduce((obj, key) => {
+                    if (key === 'content')
+                        return obj;
+                    obj[key] = item[key];
+                    return obj;
+                }, {});
+            });
+            return {
+                code: 0,
+                message: '查询笔记列表成功',
+                data: _new_arr_
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询笔记列表失败'
+            };
+        }
+    }
+    async detail(essayId, manager) {
+        let res;
+        try {
+            res = await this.essayRepository.findOne({
+                where: {
+                    essayId: essayId,
+                }
+            });
+            return {
+                code: 0,
+                message: '获取课程详情成功',
+                data: res,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '获取课程详情失败',
+                error
+            };
+        }
+    }
+    async remove(id) {
+        try {
+            const res = await this.essayRepository.delete(id);
+            if (res.affected === 1) {
+                return {
+                    code: 0,
+                    message: '删除成功'
+                };
+            }
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '删除失败'
+            };
         }
     }
 };

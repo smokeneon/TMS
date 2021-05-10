@@ -6,4 +6,7 @@ export declare class EssayService {
     private readonly usersService;
     constructor(essayRepository: Repository<Essay>, usersService: UsersService);
     create(essay: any, manager: any): Promise<any>;
+    findByUserId(userId: any, manager: any): Promise<any>;
+    detail(essayId: any, manager: any): Promise<any>;
+    remove(id: string): Promise<object>;
 }

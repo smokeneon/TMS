@@ -178,6 +178,19 @@ export default [
                 authority: ['stu', 'tea', 'admin'],
               },
               {
+                path: '/essay/details',
+                icon: 'smile',
+                component: './Editor/',
+                authority: ['stu', 'tea', 'admin'],
+              },
+              {
+                path: '/myNote',
+                name: '我的笔记',
+                icon: 'smile',
+                component: './MyNote/',
+                authority: ['stu', 'tea', 'admin'],
+              },
+              {
                 component: './404',
               },
             ],
