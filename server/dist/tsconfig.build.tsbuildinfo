@@ -4246,6 +4246,26 @@
         "signature": "05f4b2f0901fbdd7dce6daabad67e42cdfc14cee28bf05770d80ef4fa41b78b4",
         "affectsGlobalScope": false
       },
+      "../src/essay/essay.entity.ts": {
+        "version": "dc9ecfb6873047727d4e0fef854491003a3a37dd92c15554f29bcc492d59ede4",
+        "signature": "cffc4cc74e84ff1bd196516c849306d044c1617de5a959c669c5fba9e1f389b2",
+        "affectsGlobalScope": false
+      },
+      "../src/essay/essay.service.ts": {
+        "version": "fc7ef1b9254b3fb76002d2b6171835c800eb8ee80b878a7fee6c3a6c6d2abf25",
+        "signature": "c6c4cf1bfa6a468f5e06b960f41f977d2bde485b968728da57de88c05bbf093c",
+        "affectsGlobalScope": false
+      },
+      "../src/essay/essay.controller.ts": {
+        "version": "4d58ea6c84b807ade9564111c681e4c273f419780dd168c9e715a119c187ae86",
+        "signature": "df78f560e0743944aa1c08937fc05116bb046dc9994e80c7a9c9b0d5eb4910cd",
+        "affectsGlobalScope": false
+      },
+      "../src/essay/essay.module.ts": {
+        "version": "b5b61952c754e822eefb3f5b46b63fcb128141c6407ffab022e81c9145c89b74",
+        "signature": "e52d3b0718267055ca33712c7152f1157181682bb8c77bb3ff335d25fabb7bc4",
+        "affectsGlobalScope": false
+      },
       "../node_modules/@types/passport-strategy/index.d.ts": {
         "version": "29d59e921bc723594bbfc98230d24f38f0d5a669f28fcf989b7468f4f95b7c52",
         "signature": "29d59e921bc723594bbfc98230d24f38f0d5a669f28fcf989b7468f4f95b7c52",
@@ -4287,7 +4307,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "61503bf4fcdf25f513db50e2bee11cad509db03105f1cf8eda08536a7ba984d3",
+        "version": "4ba6d75537c5fffeee90c74b5fab78a1a4208f2fbe895a6bb4ebc3d215fa947d",
         "signature": "72ba1b6f51f679fef4130de0cef13456c2e316f3e9cf20467d45981a5609d917",
         "affectsGlobalScope": false
       },
@@ -8188,6 +8208,7 @@
         "../src/config/statusmonitor.ts",
         "../src/course/course.module.ts",
         "../src/email/email.module.ts",
+        "../src/essay/essay.module.ts",
         "../src/users/users.controller.ts",
         "../src/users/users.module.ts"
       ],
@@ -8295,6 +8316,33 @@
       "../src/email/email.service.ts": [
         "../node_modules/@nest-modules/mailer/index.d.ts",
         "../node_modules/@nestjs/common/index.d.ts"
+      ],
+      "../src/essay/essay.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/essay/essay.entity.ts",
+        "../src/essay/essay.service.ts"
+      ],
+      "../src/essay/essay.entity.ts": [
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/users/users.entity.ts"
+      ],
+      "../src/essay/essay.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../src/essay/essay.controller.ts",
+        "../src/essay/essay.entity.ts",
+        "../src/essay/essay.service.ts",
+        "../src/users/users.module.ts"
+      ],
+      "../src/essay/essay.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/essay/essay.entity.ts",
+        "../src/users/users.service.ts"
       ],
       "../src/main.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -11775,6 +11823,18 @@
       "../src/email/email.service.ts": [
         "../node_modules/@nest-modules/mailer/index.d.ts"
       ],
+      "../src/essay/essay.controller.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/essay/essay.service.ts"
+      ],
+      "../src/essay/essay.entity.ts": [
+        "../src/users/users.entity.ts"
+      ],
+      "../src/essay/essay.service.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/essay/essay.entity.ts",
+        "../src/users/users.service.ts"
+      ],
       "../src/users/users.controller.ts": [
         "../src/auth/auth.service.ts",
         "../src/users/users.entity.ts",
@@ -12737,6 +12797,10 @@
       "../src/email/email.controller.ts",
       "../src/email/email.module.ts",
       "../src/email/email.service.ts",
+      "../src/essay/essay.controller.ts",
+      "../src/essay/essay.entity.ts",
+      "../src/essay/essay.module.ts",
+      "../src/essay/essay.service.ts",
       "../src/main.ts",
       "../src/users/users.controller.ts",
       "../src/users/users.entity.ts",

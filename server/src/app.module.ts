@@ -12,6 +12,7 @@ import statusMonitorConfig  from './config/statusMonitor'
 import { CourseModule } from './course/course.module';
 import { EmailModule } from './email/email.module'
 import { ApplyModule } from './apply/apply.module'
+import { EssayModule } from './essay/essay.module'
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersController } from './users/users.controller';
@@ -50,6 +51,7 @@ import { UsersController } from './users/users.controller';
     CourseModule,
     ApplyModule,
     AuthModule,
+    EssayModule,
   ],
   controllers: [AppController, UsersController],
   providers: [AppService],

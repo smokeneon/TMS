@@ -24,6 +24,7 @@ const statusMonitor_1 = require("./config/statusMonitor");
 const course_module_1 = require("./course/course.module");
 const email_module_1 = require("./email/email.module");
 const apply_module_1 = require("./apply/apply.module");
+const essay_module_1 = require("./essay/essay.module");
 const auth_module_1 = require("./auth/auth.module");
 const users_controller_1 = require("./users/users.controller");
 let AppModule = class AppModule {
@@ -66,6 +67,7 @@ AppModule = __decorate([
             course_module_1.CourseModule,
             apply_module_1.ApplyModule,
             auth_module_1.AuthModule,
+            essay_module_1.EssayModule,
         ],
         controllers: [app_controller_1.AppController, users_controller_1.UsersController],
         providers: [app_service_1.AppService],

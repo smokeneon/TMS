@@ -171,6 +171,13 @@ export default [
                 authority: ['tea'],
               },
               {
+                path: '/note',
+                name: '新建笔记',
+                icon: 'smile',
+                component: './Editor/',
+                authority: ['stu', 'tea', 'admin'],
+              },
+              {
                 component: './404',
               },
             ],

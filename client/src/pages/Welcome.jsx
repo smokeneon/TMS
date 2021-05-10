@@ -1,6 +1,6 @@
 import React,{ useEffect, useState }  from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Tag, Row, Col, Carousel } from 'antd';
+import { Card, Alert, Tag, Row, Col, Carousel, Divider } from 'antd';
 import './Welcome.less';
 import WelcomeSvg from '../assets/welcome.svg'
 import WelcomeSvg2 from '../assets/welcome2.svg'
@@ -89,52 +89,9 @@ const Welcome = (props) => {
     >
 
       <Row>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Card 
-            title="学科占比"
-            style={{margin: '6px'}}
-            >
-            <div  style={{height:'23.7rem', display: 'flex', alignItems: 'center', justifyContent: 'center', clear: 'both'}}>
-              <Pie
-                hasLegend
-                title="累计学科"
-                subTitle="所属学科"
-                total={() => (
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: salesPieData.reduce((pre, now) => now.y + pre, 0),
-                    }}
-                  />
-                )}
-                data={salesPieData}
-                valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
-                height={140}
-              />
-            </div>
-          </Card>
-        </Col>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Row>
-            <Col span={24}>
-              <ChartCard 
-                  title="总申报数"
-                  total={numeral(8846).format('0,0')}
-                  contentHeight={62}
-                  style={{margin: '6px'}}
-                >
-                <MiniArea line height={40} data={visitData} />
-              </ChartCard>
-            </Col>
-            <Col span={24}>
-              <Card style={{margin: '6px'}} title="热门选课">
-                <TagCloud data={tags} height={200} />
-              </Card>
-            </Col>
-          </Row>
-         
-        </Col>
-        {/* 轮播图 */}
-        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+
+         {/* 轮播图 */}
+         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <div style={{margin: '6px'}}>
           <Carousel autoplay>
             <div>
@@ -214,6 +171,44 @@ const Welcome = (props) => {
           </Carousel>
           </div>
         </Col>
+        
+        <Col xs={24} sm={24} md={14} lg={14} xl={14}>
+          <Card 
+            title="学科占比"
+            style={{margin: '6px'}}
+            >
+            {/* <div  style={{height:'23.7rem', display: 'flex', alignItems: 'center', justifyContent: 'center', clear: 'both'}}> */}
+              <Pie
+                hasLegend
+                title="累计学科"
+                subTitle="所属学科"
+                data={salesPieData}
+                height={260}
+              />
+            {/* </div> */}
+          </Card>
+        </Col>
+        <Col xs={24} sm={24} md={10} lg={10} xl={10}>
+          <Row>
+            <Col span={24}>
+              <ChartCard 
+                  title="总申报数"
+                  total={numeral(8846).format('0,0')}
+                  contentHeight={40}
+                  style={{margin: '6px'}}
+                >
+                <MiniArea line height={35} data={visitData} />
+              </ChartCard>
+            </Col>
+            <Col span={24}>
+              <Card style={{margin: '6px'}} title="热门选课">
+                <TagCloud data={tags} height={102} />
+              </Card>
+            </Col>
+          </Row>
+         
+        </Col>
+       
       </Row>
      
     </PageContainer>
