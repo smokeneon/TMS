@@ -4457,7 +4457,7 @@
         "affectsGlobalScope": false
       },
       "../src/files/files.controller.ts": {
-        "version": "4594c558035643cb3bde5348ec7b713e0b92af9ebd4b7af3d19cea48e86eacba",
+        "version": "aeb37652303743699ff8d83ecbe7d1694b6bed190adc1b18da77d0e01e1cf212",
         "signature": "2fcafb26f2a01c3d1643e94d3832c6a2935005bcbb8816294e55449526970d7f",
         "affectsGlobalScope": false
       },
@@ -8618,6 +8618,7 @@
       "../src/files/files.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/platform-express/index.d.ts",
+        "../node_modules/@nestjs/swagger/index.d.ts",
         "../node_modules/@types/express/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/files/files.service.ts"

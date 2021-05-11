@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const files_service_1 = require("./files.service");
 const typeorm_1 = require("typeorm");
+const swagger_1 = require("@nestjs/swagger");
 let FilesController = class FilesController {
     constructor(albumService) {
         this.albumService = albumService;
@@ -48,7 +49,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FilesController.prototype, "downloadAll", null);
 FilesController = __decorate([
-    common_1.Controller('files'),
+    common_1.Controller('/api/v1/files'),
+    swagger_1.ApiTags('文件上传下载'),
     __metadata("design:paramtypes", [files_service_1.FilesService])
 ], FilesController);
 exports.FilesController = FilesController;

@@ -12,9 +12,11 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
 import multer = require('multer');
 import { EntityManager, Transaction, TransactionManager } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
 
-@Controller('files')
+@Controller('/api/v1/files')
+@ApiTags('文件上传下载')
 export class FilesController {
   constructor(private readonly albumService: FilesService) {}
 

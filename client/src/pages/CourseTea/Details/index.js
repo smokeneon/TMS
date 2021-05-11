@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Statistic, Button, Descriptions, Spin, Modal, Form, Table, Input, Space, message, Badge , Menu, Dropdown } from 'antd'
+import { Card, Statistic, Button, Descriptions, Spin, Modal, Form, Table, Input, Space, message, Badge , Menu, Dropdown, Upload } from 'antd'
 import { PageContainer } from '@ant-design/pro-layout';
 import { getCourseDetails } from './api'
 import { OpenState, ApprovalState} from '../../../common/const'
@@ -8,6 +8,8 @@ import axios from 'axios';
 import moment from 'moment'
 import { connect } from 'umi';
 import { changeScoreRequest, changeApprovalRequest, changeOpeningRequest } from './api'
+import { InboxOutlined } from '@ant-design/icons';
+const { Dragger } = Upload;
 const layout = {
   labelCol: { span: 5 },
   wrapperCol: { span: 16 },
@@ -15,11 +17,11 @@ const layout = {
 }
 const Index = (props) => {
   const { currentUser } = props;
-  console.log('currentUser', currentUser);
   const [record, setRecord] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [newAddress, setNewAddress] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isUploadModalVisible, setIsUploadModalVisible] = useState(false)
   const [applysItem, setApplysItem] = useState({})
   const [form] = Form.useForm()
   const showModal = (record) => () => {
@@ -175,6 +177,46 @@ const Index = (props) => {
       </Menu.Item>
     </Menu>
   );
+
+  const uploadProps = {
+    name: 'file',
+    multiple: true,
+    action: '/api/files',
+    data: {
+      userId: currentUser.userId,
+      courseId: props.location.query.courseId,
+    },
+    // beforeUpload() {
+    //   if(fileTitle === '') {
+    //     message.warning('请输入用户名')
+    //     return false
+    //   }
+    //   return true
+    // },
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        message.success(`${info.file.name} 文件上传成功`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} 文件上传失败`);
+      }
+    },
+  };
+
+  const uploadModalOk = () => {
+    setIsUploadModalVisible(false)
+    getCourseById()
+  }
+
+  const uploadModalCancel = () => {
+    setIsUploadModalVisible(false)
+  }
+  const uploadBtn = () => {
+    setIsUploadModalVisible(true)
+  }
   useEffect(() => {
     getCourseById()
   }, [])
@@ -275,7 +317,13 @@ const Index = (props) => {
             </Descriptions>
           </div>
         </Card>
-       
+        <Card
+          title="课程文件"
+          style={{margin: '0 0 12px 0'}}
+          extra={<Button type="primary" onClick={uploadBtn}>上传文件</Button>}
+        >
+          这是课程文件
+        </Card>
         <Card
           title="地址信息"
           style={{margin: '0 0 12px 0'}}
@@ -325,6 +373,15 @@ const Index = (props) => {
             <Input placeholder="请输入课程分数" />
           </Form.Item>
         </Form>
+      </Modal>
+
+      <Modal title="上传文件" visible={isUploadModalVisible} onOk={uploadModalOk} onCancel={uploadModalCancel}>
+        <Dragger {...uploadProps}>
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">拖动或点击该区域上传文件</p>
+        </Dragger>
       </Modal>
       </PageContainer>
       )
