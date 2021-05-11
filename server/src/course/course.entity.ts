@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Apply } from '../apply/apply.entity'
 import { User } from '../users/users.entity'
+import { Files } from '../files/files.entity'
 @Entity()
 export class Course {
   @ApiProperty({ description: '课程id（前台生成）', example: 2 })
@@ -95,4 +96,7 @@ export class Course {
   })
   timeStamp: Date;
 
+  @ManyToMany(() => Files, files => files.courses)
+  @JoinTable()
+  files: Files[];
 }

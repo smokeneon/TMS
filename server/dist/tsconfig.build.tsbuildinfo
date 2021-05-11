@@ -3661,14 +3661,19 @@
         "signature": "e4af73ba31aa700ec4a178b35ed4fb5846d09dd742b730799f7c6c517f3a4f2b",
         "affectsGlobalScope": false
       },
+      "../src/files/files.entity.ts": {
+        "version": "71e3437e723359a7fc0a8870706fdbb30af18f143159252c81a3858758a41bbe",
+        "signature": "7441a5d611ba77b96ce6a82ae97525aa9bf62e4ccd7fa96e1e520d52360613da",
+        "affectsGlobalScope": false
+      },
       "../src/course/course.entity.ts": {
-        "version": "c0c03c1fd3730650c129b85cfd412e15ae27a283e843616afaf177060a6281cb",
-        "signature": "0ca690b63ee3dbd1e024542a9e79dc866c5ab17cbbeaf94de6e2db93bb36a222",
+        "version": "e99a3fa1320c49f0a079d07367c1607775bc2daa46dec1faba77e24a6fdc2f84",
+        "signature": "23d9c9d863dd379bf284f05260cfc499a2d817019792ae943bc7c0e7d29d76b2",
         "affectsGlobalScope": false
       },
       "../src/users/users.entity.ts": {
-        "version": "3a253ade4342b2291fb30f6bf5f8f840ced38689327d70226bb394ab9dac7982",
-        "signature": "a6c877f90e7c609a7df0042307e6438cc7802023eacf3d3d89f955ceef318838",
+        "version": "71492647df4a8162704fbaf14defe5d325d4e5ad00e964a8382131a9420acd33",
+        "signature": "bec4f8dbfd5099f8c94ac172908404ea97a33245326a09e2cd6c76f0df4d5a7a",
         "affectsGlobalScope": false
       },
       "../src/utils/cryptogram.ts": {
@@ -4306,14 +4311,164 @@
         "signature": "a28b5c0c372fb375910b3fe3c3ce4331509bc18ccef7cc39c9ee9d8daf8225d1",
         "affectsGlobalScope": false
       },
-      "../src/app.module.ts": {
-        "version": "4ba6d75537c5fffeee90c74b5fab78a1a4208f2fbe895a6bb4ebc3d215fa947d",
-        "signature": "72ba1b6f51f679fef4130de0cef13456c2e316f3e9cf20467d45981a5609d917",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {
         "version": "d2ab8259c09e56c7df26a2d038d2d716efb51d4f43762a8c4278514590ce1e07",
         "signature": "d2ab8259c09e56c7df26a2d038d2d716efb51d4f43762a8c4278514590ce1e07",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/interfaces/serve-static-options.interface.d.ts": {
+        "version": "b87682ddc9e2c3714ca66991cdd86ff7e18cae6fd010742a93bd612a07d19697",
+        "signature": "b87682ddc9e2c3714ca66991cdd86ff7e18cae6fd010742a93bd612a07d19697",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/adapters/express-adapter.d.ts": {
+        "version": "6b12a83a6198f2a6019f7e20f5362039095d4dae77ce9aec3e9a5351f74180f5",
+        "signature": "6b12a83a6198f2a6019f7e20f5362039095d4dae77ce9aec3e9a5351f74180f5",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/adapters/index.d.ts": {
+        "version": "86bf2bfe29d0bc3fbc68e64c25ea6eab9bcb3c518ae941012ed75b1e87d391ae",
+        "signature": "86bf2bfe29d0bc3fbc68e64c25ea6eab9bcb3c518ae941012ed75b1e87d391ae",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/interfaces/nest-express-application.interface.d.ts": {
+        "version": "c84f26d79f2c55c932ab7441fbaaceffb0ecb74aa01267ba8f3d65c3545f60ba",
+        "signature": "c84f26d79f2c55c932ab7441fbaaceffb0ecb74aa01267ba8f3d65c3545f60ba",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/interfaces/index.d.ts": {
+        "version": "68a330d1246e3f0ed055b931ab6f4f9505d7c2db0560515f68c722c06541dc0d",
+        "signature": "68a330d1246e3f0ed055b931ab6f4f9505d7c2db0560515f68c722c06541dc0d",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts": {
+        "version": "8ae337fcd337d5ca179611dae780e7dbb45b3c0cbc6debc5067a4215e95cd873",
+        "signature": "8ae337fcd337d5ca179611dae780e7dbb45b3c0cbc6debc5067a4215e95cd873",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/interceptors/any-files.interceptor.d.ts": {
+        "version": "00427e68be5cbfd0694c650ebf27dc9d5cb8ec62254ca5af0cd3e412595f8d09",
+        "signature": "00427e68be5cbfd0694c650ebf27dc9d5cb8ec62254ca5af0cd3e412595f8d09",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/interceptors/file-fields.interceptor.d.ts": {
+        "version": "6a013828e3333e21fde3a4d1c7da0c41e8ce0218a98ad8e71025c2d437a2458b",
+        "signature": "6a013828e3333e21fde3a4d1c7da0c41e8ce0218a98ad8e71025c2d437a2458b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/interceptors/file.interceptor.d.ts": {
+        "version": "fc1a967ceb559957a8fd153d364596d7c906440c401e9a1f0ef9cda62a92a937",
+        "signature": "fc1a967ceb559957a8fd153d364596d7c906440c401e9a1f0ef9cda62a92a937",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/interceptors/files.interceptor.d.ts": {
+        "version": "fd09f594933708040bbab2ad98fdfd1f076209ff0d514cbc8ab50bc39f462619",
+        "signature": "fd09f594933708040bbab2ad98fdfd1f076209ff0d514cbc8ab50bc39f462619",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/interceptors/index.d.ts": {
+        "version": "6db46ed9adeb732a2c46b05dd64a3fe85b2789065f1ef7668f583c61f1046a14",
+        "signature": "6db46ed9adeb732a2c46b05dd64a3fe85b2789065f1ef7668f583c61f1046a14",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/interfaces/files-upload-module.interface.d.ts": {
+        "version": "7bb8a371f7790a421606678b50a943955bfc182beca2c42f8d1473cc2973fa12",
+        "signature": "7bb8a371f7790a421606678b50a943955bfc182beca2c42f8d1473cc2973fa12",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/interfaces/index.d.ts": {
+        "version": "d8c1697db4bb3234ff3f8481545284992f1516bc712421b81ee3ef3f226ae112",
+        "signature": "d8c1697db4bb3234ff3f8481545284992f1516bc712421b81ee3ef3f226ae112",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/multer.module.d.ts": {
+        "version": "549adfb8fb51148eeb2c0659941b3a508988ee0b00f325fbaae7e96bc4b3e4c9",
+        "signature": "549adfb8fb51148eeb2c0659941b3a508988ee0b00f325fbaae7e96bc4b3e4c9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/multer/index.d.ts": {
+        "version": "e2c3c3ca3818d610599392a9431e60ec021c5d59262ecd616538484990f6e331",
+        "signature": "e2c3c3ca3818d610599392a9431e60ec021c5d59262ecd616538484990f6e331",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@nestjs/platform-express/index.d.ts": {
+        "version": "e3cd60be3c4f95c43420be67eaa21637585b7c1a8129f9b39983bbd294f9513c",
+        "signature": "e3cd60be3c4f95c43420be67eaa21637585b7c1a8129f9b39983bbd294f9513c",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/dist/decorators/injectconfig.d.ts": {
+        "version": "73b5957ef1e0c467a8878e84e0dd64973a234d51eaa49fe9f00ec55f9203a007",
+        "signature": "73b5957ef1e0c467a8878e84e0dd64973a234d51eaa49fe9f00ec55f9203a007",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/dist/decorators/configparam.d.ts": {
+        "version": "a7286d2273f0adfe9e360a7abf36dc67bc5f119107e5ddc325b65fe104461877",
+        "signature": "a7286d2273f0adfe9e360a7abf36dc67bc5f119107e5ddc325b65fe104461877",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/dist/decorators/configurable.d.ts": {
+        "version": "39749a379b662d7ede982b91382243ed76d660a4b5821b43193002eb166214a8",
+        "signature": "39749a379b662d7ede982b91382243ed76d660a4b5821b43193002eb166214a8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/dist/decorators/index.d.ts": {
+        "version": "a1f2c5e09634398e11346943c82c69311221ef9c478587f7b2a27163b41e6f77",
+        "signature": "a1f2c5e09634398e11346943c82c69311221ef9c478587f7b2a27163b41e6f77",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/node_modules/dotenv/types/index.d.ts": {
+        "version": "40b741dd397d635ee3df8b4880f30f15fa7394b9da31d4454805e47692438ff3",
+        "signature": "40b741dd397d635ee3df8b4880f30f15fa7394b9da31d4454805e47692438ff3",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/dist/module/config.service.d.ts": {
+        "version": "0532d0b2cb9cda4ca35659113e76b2faae98a8c7892b6f1bbb668b2bb8b18246",
+        "signature": "0532d0b2cb9cda4ca35659113e76b2faae98a8c7892b6f1bbb668b2bb8b18246",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/dist/module/config.module.d.ts": {
+        "version": "f3736d2cef27335683a79ca7d6327f14c4b0788b58ab5f98ecdd983bc85f88ac",
+        "signature": "f3736d2cef27335683a79ca7d6327f14c4b0788b58ab5f98ecdd983bc85f88ac",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/dist/module/index.d.ts": {
+        "version": "3c5585e64494eff1dbb9b7ac3379081d0c9332e558730e5c9238e73076152e9f",
+        "signature": "3c5585e64494eff1dbb9b7ac3379081d0c9332e558730e5c9238e73076152e9f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/dist/index.d.ts": {
+        "version": "99ce691956468daa5459795824583f3c40d298a771d84625cf4a8a500d9dcc3b",
+        "signature": "99ce691956468daa5459795824583f3c40d298a771d84625cf4a8a500d9dcc3b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nestjs-config/index.d.ts": {
+        "version": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
+        "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/compressing/index.d.ts": {
+        "version": "48604849867048ad12a46c584688cb5285b0b2a0fcbd9eeefd06309faa5cb354",
+        "signature": "48604849867048ad12a46c584688cb5285b0b2a0fcbd9eeefd06309faa5cb354",
+        "affectsGlobalScope": false
+      },
+      "../src/files/files.service.ts": {
+        "version": "590c8fd7af1131fa07ee37b7183e4b92cb507dd208f62487a68aa4add7ac9b0e",
+        "signature": "400c3995df834ad64fb4d3b1e48c9b8a9be17799b59f9a3f5e7ac2fb88a499db",
+        "affectsGlobalScope": false
+      },
+      "../src/files/files.controller.ts": {
+        "version": "4594c558035643cb3bde5348ec7b713e0b92af9ebd4b7af3d19cea48e86eacba",
+        "signature": "2fcafb26f2a01c3d1643e94d3832c6a2935005bcbb8816294e55449526970d7f",
+        "affectsGlobalScope": false
+      },
+      "../src/files/files.module.ts": {
+        "version": "8e71198da363f519a6e189cef5862c2ef5ba757040008e26ec91d0f085d39765",
+        "signature": "7536446e76a5a61c1e395d9de80100924bcdd2c52261982fad783bd73a5790fb",
+        "affectsGlobalScope": false
+      },
+      "../src/app.module.ts": {
+        "version": "c0b2dd782911b51442b3a1fbe598f0cb8ff77d6a52dd35671be87eb517cc8de0",
+        "signature": "72ba1b6f51f679fef4130de0cef13456c2e316f3e9cf20467d45981a5609d917",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/core/adapters/index.d.ts": {
@@ -4494,6 +4649,16 @@
       "../src/main.ts": {
         "version": "7de20c81e0ed76ae338818e19f4ded69994a73b4f368988ae9ea57085e3a065c",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/nuid/index.d.ts": {
+        "version": "e05e69a6747be796c03b3f313777d9c544b8ed80654f77d2da6bb1e1930cf342",
+        "signature": "e05e69a6747be796c03b3f313777d9c544b8ed80654f77d2da6bb1e1930cf342",
+        "affectsGlobalScope": false
+      },
+      "../src/config/file.ts": {
+        "version": "2b2c759a9a48c3d8f7e41f3b38dfa1d446849f49a46ea645f2201cb474e37ea5",
+        "signature": "00fa46212fe884737bc55c9496d205b1fbf863bd9430f444163d05bbf38279e4",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/anymatch/index.d.ts": {
@@ -5576,6 +5741,70 @@
       "../node_modules/@nestjs/passport/index.d.ts": [
         "../node_modules/@nestjs/passport/dist/index.d.ts"
       ],
+      "../node_modules/@nestjs/platform-express/adapters/express-adapter.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/common/interfaces/external/cors-options.interface.d.ts",
+        "../node_modules/@nestjs/common/interfaces/nest-application-options.interface.d.ts",
+        "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
+        "../node_modules/@nestjs/platform-express/interfaces/serve-static-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/adapters/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/adapters/express-adapter.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/adapters/index.d.ts",
+        "../node_modules/@nestjs/platform-express/interfaces/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/index.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/interfaces/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/interfaces/nest-express-application.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/interfaces/nest-express-application.interface.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/interfaces/serve-static-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/multer/interceptors/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/multer.module.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/any-files.interceptor.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/file-fields.interceptor.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/file.interceptor.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/files.interceptor.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/multer/interceptors/any-files.interceptor.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interceptors/file-fields.interceptor.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interceptors/file.interceptor.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interceptors/files.interceptor.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interfaces/files-upload-module.interface.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/common/interfaces/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interfaces/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/multer/interfaces/files-upload-module.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/multer.module.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/files-upload-module.interface.d.ts"
+      ],
       "../node_modules/@nestjs/swagger/dist/decorators/api-body.decorator.d.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/swagger/dist/interfaces/open-api-spec.interface.d.ts",
@@ -6626,6 +6855,9 @@
       "../node_modules/class-validator/types/validation/validatorconstraintinterface.d.ts": [
         "../node_modules/class-validator/types/validation/validationarguments.d.ts"
       ],
+      "../node_modules/compressing/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts"
+      ],
       "../node_modules/jest-diff/build/difflines.d.ts": [
         "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
         "../node_modules/jest-diff/build/types.d.ts"
@@ -6658,6 +6890,38 @@
       "../node_modules/nest-status-monitor/dist/status.monitor.module.d.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/decorators/configparam.d.ts": [
+        "../node_modules/reflect-metadata/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/decorators/configurable.d.ts": [
+        "../node_modules/reflect-metadata/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/decorators/index.d.ts": [
+        "../node_modules/nestjs-config/dist/decorators/configparam.d.ts",
+        "../node_modules/nestjs-config/dist/decorators/configurable.d.ts",
+        "../node_modules/nestjs-config/dist/decorators/injectconfig.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/index.d.ts": [
+        "../node_modules/nestjs-config/dist/decorators/index.d.ts",
+        "../node_modules/nestjs-config/dist/module/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/module/config.module.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/nestjs-config/dist/module/config.service.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/module/config.service.d.ts": [
+        "../node_modules/nestjs-config/node_modules/dotenv/types/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/module/index.d.ts": [
+        "../node_modules/nestjs-config/dist/module/config.module.d.ts",
+        "../node_modules/nestjs-config/dist/module/config.service.d.ts"
+      ],
+      "../node_modules/nestjs-config/index.d.ts": [
+        "../node_modules/nestjs-config/dist/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/node_modules/dotenv/types/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
       ],
       "../node_modules/pretty-format/build/index.d.ts": [
         "../node_modules/pretty-format/build/types.d.ts"
@@ -8199,6 +8463,7 @@
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../node_modules/@types/node/path.d.ts",
         "../node_modules/nest-status-monitor/dist/index.d.ts",
+        "../node_modules/nestjs-config/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/app.controller.ts",
         "../src/app.service.ts",
@@ -8209,6 +8474,7 @@
         "../src/course/course.module.ts",
         "../src/email/email.module.ts",
         "../src/essay/essay.module.ts",
+        "../src/files/files.module.ts",
         "../src/users/users.controller.ts",
         "../src/users/users.module.ts"
       ],
@@ -8274,6 +8540,10 @@
         "../node_modules/@types/passport-local/index.d.ts",
         "../src/auth/auth.service.ts"
       ],
+      "../src/config/file.ts": [
+        "../node_modules/@types/node/path.d.ts",
+        "../node_modules/nuid/index.d.ts"
+      ],
       "../src/course/course.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/passport/index.d.ts",
@@ -8286,6 +8556,7 @@
         "../node_modules/@nestjs/swagger/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/apply/apply.entity.ts",
+        "../src/files/files.entity.ts",
         "../src/users/users.entity.ts"
       ],
       "../src/course/course.module.ts": [
@@ -8344,6 +8615,41 @@
         "../src/essay/essay.entity.ts",
         "../src/users/users.service.ts"
       ],
+      "../src/files/files.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/index.d.ts",
+        "../node_modules/@types/express/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/files/files.service.ts"
+      ],
+      "../src/files/files.entity.ts": [
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/course/course.entity.ts",
+        "../src/users/users.entity.ts"
+      ],
+      "../src/files/files.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../node_modules/nestjs-config/index.d.ts",
+        "../src/course/course.module.ts",
+        "../src/files/files.controller.ts",
+        "../src/files/files.entity.ts",
+        "../src/files/files.service.ts",
+        "../src/users/users.module.ts"
+      ],
+      "../src/files/files.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../node_modules/@types/node/path.d.ts",
+        "../node_modules/compressing/index.d.ts",
+        "../node_modules/nestjs-config/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/course/course.service.ts",
+        "../src/files/files.entity.ts",
+        "../src/users/users.service.ts"
+      ],
       "../src/main.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/core/index.d.ts",
@@ -8363,7 +8669,8 @@
         "../node_modules/class-validator/types/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/apply/apply.entity.ts",
-        "../src/course/course.entity.ts"
+        "../src/course/course.entity.ts",
+        "../src/files/files.entity.ts"
       ],
       "../src/users/users.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -9158,6 +9465,70 @@
       ],
       "../node_modules/@nestjs/passport/index.d.ts": [
         "../node_modules/@nestjs/passport/dist/index.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/adapters/express-adapter.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/common/interfaces/external/cors-options.interface.d.ts",
+        "../node_modules/@nestjs/common/interfaces/nest-application-options.interface.d.ts",
+        "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
+        "../node_modules/@nestjs/platform-express/interfaces/serve-static-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/adapters/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/adapters/express-adapter.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/adapters/index.d.ts",
+        "../node_modules/@nestjs/platform-express/interfaces/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/index.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/interfaces/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/interfaces/nest-express-application.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/interfaces/nest-express-application.interface.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/interfaces/serve-static-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/multer/interceptors/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/multer.module.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/any-files.interceptor.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/file-fields.interceptor.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/file.interceptor.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/files.interceptor.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interceptors/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/multer/interceptors/any-files.interceptor.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interceptors/file-fields.interceptor.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interceptors/file.interceptor.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interceptors/files.interceptor.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interfaces/files-upload-module.interface.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/common/interfaces/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interfaces/index.d.ts": [
+        "../node_modules/@nestjs/platform-express/multer/interfaces/files-upload-module.interface.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/@nestjs/platform-express/multer/multer.module.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/platform-express/multer/interfaces/files-upload-module.interface.d.ts"
       ],
       "../node_modules/@nestjs/swagger/dist/decorators/api-body.decorator.d.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -10209,6 +10580,9 @@
       "../node_modules/class-validator/types/validation/validatorconstraintinterface.d.ts": [
         "../node_modules/class-validator/types/validation/validationarguments.d.ts"
       ],
+      "../node_modules/compressing/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts"
+      ],
       "../node_modules/jest-diff/build/difflines.d.ts": [
         "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
         "../node_modules/jest-diff/build/types.d.ts"
@@ -10241,6 +10615,38 @@
       "../node_modules/nest-status-monitor/dist/status.monitor.module.d.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/decorators/configparam.d.ts": [
+        "../node_modules/reflect-metadata/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/decorators/configurable.d.ts": [
+        "../node_modules/reflect-metadata/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/decorators/index.d.ts": [
+        "../node_modules/nestjs-config/dist/decorators/configparam.d.ts",
+        "../node_modules/nestjs-config/dist/decorators/configurable.d.ts",
+        "../node_modules/nestjs-config/dist/decorators/injectconfig.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/index.d.ts": [
+        "../node_modules/nestjs-config/dist/decorators/index.d.ts",
+        "../node_modules/nestjs-config/dist/module/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/module/config.module.d.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/nestjs-config/dist/module/config.service.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/module/config.service.d.ts": [
+        "../node_modules/nestjs-config/node_modules/dotenv/types/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/dist/module/index.d.ts": [
+        "../node_modules/nestjs-config/dist/module/config.module.d.ts",
+        "../node_modules/nestjs-config/dist/module/config.service.d.ts"
+      ],
+      "../node_modules/nestjs-config/index.d.ts": [
+        "../node_modules/nestjs-config/dist/index.d.ts"
+      ],
+      "../node_modules/nestjs-config/node_modules/dotenv/types/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
       ],
       "../node_modules/pretty-format/build/index.d.ts": [
         "../node_modules/pretty-format/build/types.d.ts"
@@ -11810,6 +12216,7 @@
       ],
       "../src/course/course.entity.ts": [
         "../src/apply/apply.entity.ts",
+        "../src/files/files.entity.ts",
         "../src/users/users.entity.ts"
       ],
       "../src/course/course.service.ts": [
@@ -11835,6 +12242,23 @@
         "../src/essay/essay.entity.ts",
         "../src/users/users.service.ts"
       ],
+      "../src/files/files.controller.ts": [
+        "../node_modules/@types/express/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/files/files.service.ts"
+      ],
+      "../src/files/files.entity.ts": [
+        "../src/course/course.entity.ts",
+        "../src/users/users.entity.ts"
+      ],
+      "../src/files/files.service.ts": [
+        "../node_modules/compressing/index.d.ts",
+        "../node_modules/nestjs-config/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/course/course.service.ts",
+        "../src/files/files.entity.ts",
+        "../src/users/users.service.ts"
+      ],
       "../src/users/users.controller.ts": [
         "../src/auth/auth.service.ts",
         "../src/users/users.entity.ts",
@@ -11842,7 +12266,8 @@
       ],
       "../src/users/users.entity.ts": [
         "../src/apply/apply.entity.ts",
-        "../src/course/course.entity.ts"
+        "../src/course/course.entity.ts",
+        "../src/files/files.entity.ts"
       ],
       "../src/users/users.service.ts": [
         "../node_modules/typeorm/index.d.ts",
@@ -12063,6 +12488,22 @@
       "../node_modules/@nestjs/passport/dist/passport/passport.serializer.d.ts",
       "../node_modules/@nestjs/passport/dist/passport/passport.strategy.d.ts",
       "../node_modules/@nestjs/passport/index.d.ts",
+      "../node_modules/@nestjs/platform-express/adapters/express-adapter.d.ts",
+      "../node_modules/@nestjs/platform-express/adapters/index.d.ts",
+      "../node_modules/@nestjs/platform-express/index.d.ts",
+      "../node_modules/@nestjs/platform-express/interfaces/index.d.ts",
+      "../node_modules/@nestjs/platform-express/interfaces/nest-express-application.interface.d.ts",
+      "../node_modules/@nestjs/platform-express/interfaces/serve-static-options.interface.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/index.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/interceptors/any-files.interceptor.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/interceptors/file-fields.interceptor.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/interceptors/file.interceptor.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/interceptors/files.interceptor.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/interceptors/index.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/interfaces/files-upload-module.interface.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/interfaces/index.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/interfaces/multer-options.interface.d.ts",
+      "../node_modules/@nestjs/platform-express/multer/multer.module.d.ts",
       "../node_modules/@nestjs/swagger/dist/decorators/api-basic.decorator.d.ts",
       "../node_modules/@nestjs/swagger/dist/decorators/api-bearer.decorator.d.ts",
       "../node_modules/@nestjs/swagger/dist/decorators/api-body.decorator.d.ts",
@@ -12341,6 +12782,7 @@
       "../node_modules/class-validator/types/validation/validator.d.ts",
       "../node_modules/class-validator/types/validation/validatorconstraintinterface.d.ts",
       "../node_modules/class-validator/types/validation/validatoroptions.d.ts",
+      "../node_modules/compressing/index.d.ts",
       "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
       "../node_modules/jest-diff/build/difflines.d.ts",
       "../node_modules/jest-diff/build/index.d.ts",
@@ -12354,6 +12796,17 @@
       "../node_modules/nest-status-monitor/dist/config/status.monitor.configuration.d.ts",
       "../node_modules/nest-status-monitor/dist/index.d.ts",
       "../node_modules/nest-status-monitor/dist/status.monitor.module.d.ts",
+      "../node_modules/nestjs-config/dist/decorators/configparam.d.ts",
+      "../node_modules/nestjs-config/dist/decorators/configurable.d.ts",
+      "../node_modules/nestjs-config/dist/decorators/index.d.ts",
+      "../node_modules/nestjs-config/dist/decorators/injectconfig.d.ts",
+      "../node_modules/nestjs-config/dist/index.d.ts",
+      "../node_modules/nestjs-config/dist/module/config.module.d.ts",
+      "../node_modules/nestjs-config/dist/module/config.service.d.ts",
+      "../node_modules/nestjs-config/dist/module/index.d.ts",
+      "../node_modules/nestjs-config/index.d.ts",
+      "../node_modules/nestjs-config/node_modules/dotenv/types/index.d.ts",
+      "../node_modules/nuid/index.d.ts",
       "../node_modules/pretty-format/build/index.d.ts",
       "../node_modules/pretty-format/build/types.d.ts",
       "../node_modules/reflect-metadata/index.d.ts",
@@ -12789,6 +13242,7 @@
       "../src/auth/constants.ts",
       "../src/auth/jwt.strategy.ts",
       "../src/auth/local.strategy.ts",
+      "../src/config/file.ts",
       "../src/config/statusmonitor.ts",
       "../src/course/course.controller.ts",
       "../src/course/course.entity.ts",
@@ -12801,6 +13255,10 @@
       "../src/essay/essay.entity.ts",
       "../src/essay/essay.module.ts",
       "../src/essay/essay.service.ts",
+      "../src/files/files.controller.ts",
+      "../src/files/files.entity.ts",
+      "../src/files/files.module.ts",
+      "../src/files/files.service.ts",
       "../src/main.ts",
       "../src/users/users.controller.ts",
       "../src/users/users.entity.ts",

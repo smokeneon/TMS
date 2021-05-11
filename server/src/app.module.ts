@@ -1,4 +1,5 @@
 import * as path from 'path'
+import { resolve } from 'path';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -16,9 +17,11 @@ import { EssayModule } from './essay/essay.module'
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersController } from './users/users.controller';
-
+import { FilesModule } from './files/files.module';
+import { ConfigModule, ConfigService } from 'nestjs-config';
 @Module({
   imports: [
+    ConfigModule.load(resolve(__dirname, 'config', '**/!(*.d).{ts,js}')),
     MailerModule.forRootAsync({
       useFactory: () => ({
         transport: 'smtps://leonbeau@qq.com:mkfapmnixnabbbhi@smtp.qq.com',
@@ -52,6 +55,7 @@ import { UsersController } from './users/users.controller';
     ApplyModule,
     AuthModule,
     EssayModule,
+    FilesModule
   ],
   controllers: [AppController, UsersController],
   providers: [AppService],

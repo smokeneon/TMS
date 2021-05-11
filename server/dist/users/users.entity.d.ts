@@ -1,5 +1,6 @@
 import { Course } from '../course/course.entity';
 import { Apply } from '../apply/apply.entity';
+import { Files } from '../files/files.entity';
 export declare class User {
     userId: number;
     username: string;
@@ -11,5 +12,6 @@ export declare class User {
     email: string;
     courses: Course[];
     applys: Apply[];
+    files: Files[];
     timeStamp: Date;
 }

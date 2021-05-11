@@ -11,6 +11,7 @@ import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { IsNotEmpty } from 'class-validator';
 import { Course } from '../course/course.entity'
 import { Apply } from '../apply/apply.entity'
+import { Files } from '../files/files.entity'
 @Entity()
 export class User {
   @ApiProperty({ description: '用户id', example: '123' })
@@ -63,6 +64,9 @@ export class User {
 
   @ManyToMany(() => Apply, (apply) => apply.stu)
   applys: Apply[];
+
+  @ManyToMany(() => Files, (files) => files.users)
+  files: Files[];
 
   @ApiProperty({ description: '更新时间', example: '2021-05-21' })
   @Column({

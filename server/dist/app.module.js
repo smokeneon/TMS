@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const path = require("path");
+const path_1 = require("path");
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
@@ -27,6 +28,8 @@ const apply_module_1 = require("./apply/apply.module");
 const essay_module_1 = require("./essay/essay.module");
 const auth_module_1 = require("./auth/auth.module");
 const users_controller_1 = require("./users/users.controller");
+const files_module_1 = require("./files/files.module");
+const nestjs_config_1 = require("nestjs-config");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -35,6 +38,7 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     common_1.Module({
         imports: [
+            nestjs_config_1.ConfigModule.load(path_1.resolve(__dirname, 'config', '**/!(*.d).{ts,js}')),
             mailer_1.MailerModule.forRootAsync({
                 useFactory: () => ({
                     transport: 'smtps://leonbeau@qq.com:mkfapmnixnabbbhi@smtp.qq.com',
@@ -68,6 +72,7 @@ AppModule = __decorate([
             apply_module_1.ApplyModule,
             auth_module_1.AuthModule,
             essay_module_1.EssayModule,
+            files_module_1.FilesModule
         ],
         controllers: [app_controller_1.AppController, users_controller_1.UsersController],
         providers: [app_service_1.AppService],

@@ -14,6 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 const apply_entity_1 = require("../apply/apply.entity");
 const users_entity_1 = require("../users/users.entity");
+const files_entity_1 = require("../files/files.entity");
 let Course = class Course {
 };
 __decorate([
@@ -111,6 +112,11 @@ __decorate([
     }),
     __metadata("design:type", Date)
 ], Course.prototype, "timeStamp", void 0);
+__decorate([
+    typeorm_1.ManyToMany(() => files_entity_1.Files, files => files.courses),
+    typeorm_1.JoinTable(),
+    __metadata("design:type", Array)
+], Course.prototype, "files", void 0);
 Course = __decorate([
     typeorm_1.Entity()
 ], Course);

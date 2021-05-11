@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const course_entity_1 = require("../course/course.entity");
 const apply_entity_1 = require("../apply/apply.entity");
+const files_entity_1 = require("../files/files.entity");
 let User = class User {
 };
 __decorate([
@@ -75,6 +76,10 @@ __decorate([
     typeorm_1.ManyToMany(() => apply_entity_1.Apply, (apply) => apply.stu),
     __metadata("design:type", Array)
 ], User.prototype, "applys", void 0);
+__decorate([
+    typeorm_1.ManyToMany(() => files_entity_1.Files, (files) => files.users),
+    __metadata("design:type", Array)
+], User.prototype, "files", void 0);
 __decorate([
     swagger_1.ApiProperty({ description: '更新时间', example: '2021-05-21' }),
     typeorm_1.Column({
