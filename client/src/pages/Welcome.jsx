@@ -16,8 +16,8 @@ import moment from 'moment';
 import 'ant-design-pro/dist/ant-design-pro.css'
 
 const tags = [];
-let courses = ['概率论与数理统计','数字电子技术', '电路分析基础', '计算机网络', '医学护理', '口语交际', '离散数学']
-for (let i = 0; i < 7; i += 1) {
+let courses = ['概率论与数理统计','数字电子技术', '电路分析基础', '计算机网络', '医学护理', '口语交际', '离散数学', '英语', 'Oracle', '数字逻辑于技术','概率论与数理统计','数字电子技术', '电路分析基础', '计算机网络', '医学护理', '口语交际', '离散数学', '英语', 'Oracle', '数字逻辑于技术']
+for (let i = 0; i < courses.length; i += 1) {
   tags.push({
     name: courses[i],
     value: Math.floor(Math.random() * 50) + 20,
@@ -27,27 +27,27 @@ for (let i = 0; i < 7; i += 1) {
 const salesPieData = [
   {
     x: '医学',
-    y: 4544,
+    y: 3,
   },
   {
     x: '计算机',
-    y: 3321,
+    y: 6,
   },
   {
     x: '数学',
-    y: 3113,
+    y: 2,
   },
   {
     x: '物理学',
-    y: 2341,
+    y: 1,
   },
   {
     x: '职业素养',
-    y: 1231,
+    y: 3,
   },
   {
     x: '心理学',
-    y: 1231,
+    y: 3,
   },
 ];
 
@@ -74,7 +74,7 @@ const Welcome = (props) => {
     <PageContainer
       title={
       <div>
-      你好，{ currentUser.realname &&  currentUser.realname + ' (' + currentUser.username && currentUser.username + ') '}
+      你好，{ currentUser.realname + ' (' + currentUser.username + ') '}
         <Tag icon={<SmileOutlined />} color="blue">
           { currentUser.identity &&  identityState[currentUser.identity]}
         </Tag>
@@ -193,7 +193,7 @@ const Welcome = (props) => {
             <Col span={24}>
               <ChartCard 
                   title="总申报数"
-                  total={numeral(8846).format('0,0')}
+                  total={numeral(59).format('0,0')}
                   contentHeight={40}
                   style={{margin: '6px'}}
                 >

@@ -27,27 +27,28 @@ const Model = {
         sessionStorage.setItem("isLogin", "true");
         localStorage.setItem("token", response.data.token)
         localStorage.setItem("userId", response.data.user.userId)
+        localStorage.setItem("getTokenTime", new Date().getTime())
         message.success('🎉 🎉 🎉  登录成功！');
         let { redirect } = params;
-        if (redirect) {
-          const redirectUrlParams = new URL(redirect);
-          if (redirectUrlParams.origin === urlParams.origin) {
-            redirect = redirect.substr(urlParams.origin.length);
+        // if (redirect) {
+        //   const redirectUrlParams = new URL(redirect);
+        //   if (redirectUrlParams.origin === urlParams.origin) {
+        //     redirect = redirect.substr(urlParams.origin.length);
 
-            if (window.routerBase !== '/') {
-              redirect = redirect.replace(window.routerBase, '/');
-            }
+        //     if (window.routerBase !== '/') {
+        //       redirect = redirect.replace(window.routerBase, '/');
+        //     }
 
-            if (redirect.match(/^\/.*#/)) {
-              redirect = redirect.substr(redirect.indexOf('#') + 1);
-            }
-          } else {
-            window.location.href = '/';
-            return;
-          }
-        }
-
-        history.replace(redirect || '/');
+        //     if (redirect.match(/^\/.*#/)) {
+        //       redirect = redirect.substr(redirect.indexOf('#') + 1);
+        //     }
+        //   } else {
+        //     window.location.href = '/';
+        //     return;
+        //   }
+        // }
+        // history.replace(redirect || '/');
+        history.replace('/')
       }
     },
 

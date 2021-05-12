@@ -3,9 +3,8 @@ import { diskStorage } from 'multer';
 import * as nuid from 'nuid';
 import fs = require('fs')
 export default {
-  root: join(__dirname, '../uploads'),
+  root: resolve()+'/dist/upload',
   storage: diskStorage({
-   
     destination: function (req, file, cb) {
       if (!fs.existsSync(resolve()+'/dist/upload/'+req.body.courseId)) {
         fs.mkdirSync(resolve()+'/dist/upload/'+req.body.courseId)

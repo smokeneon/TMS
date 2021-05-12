@@ -38,7 +38,7 @@ const Index = (props) => {
       key: 'path',
       render: (text,record) => {
         let title = text.split('/')
-        return title["5"]
+        return title["3"]
       }
     },
     {

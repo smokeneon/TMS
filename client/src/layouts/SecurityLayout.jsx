@@ -33,8 +33,15 @@ class SecurityLayout extends React.Component {
 
     const token = localStorage.getItem('token')
 
+    const getTokenTime = localStorage.getItem('getTokenTime')
+    const getNowTime = new Date().getTime()
     if ((!isLogin && loading) || !isReady) {
       return <PageLoading />;
+    }
+    // 1h
+    if ((getNowTime - getTokenTime) > 3600000 ) {
+      message.warning('登陆超时，请重新登陆！')
+      return <Redirect to={`/user/login`} />;
     }
 
     if (!isLogin && window.location.pathname !== '/user/login' || token === null) {

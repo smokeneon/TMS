@@ -5,7 +5,7 @@ const multer_1 = require("multer");
 const nuid = require("nuid");
 const fs = require("fs");
 exports.default = {
-    root: path_1.join(__dirname, '../uploads'),
+    root: path_1.resolve() + '/dist/upload',
     storage: multer_1.diskStorage({
         destination: function (req, file, cb) {
             if (!fs.existsSync(path_1.resolve() + '/dist/upload/' + req.body.courseId)) {

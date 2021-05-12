@@ -37,7 +37,7 @@ export default [
               {
                 path: '/users',
                 name: '用户管理',
-                icon: 'crown',
+                icon: 'user',
                 authority: ['admin'],
                 routes: [
                   {
@@ -70,13 +70,13 @@ export default [
               {
                 path: '/course',
                 name: '课程管理',
-                icon: 'crown',
+                icon: 'fire',
                 authority: ['admin'],
                 routes: [
                   {
                     path: '/course/all',
                     name: '所有课程',
-                    icon: 'smile',
+                    icon: 'fire',
                     component: './Course/All',
                     authority: ['admin'],
                   },
@@ -97,7 +97,7 @@ export default [
               {
                 path: '/apply',
                 name: '申报管理',
-                icon: 'crown',
+                icon: 'rocket',
                 authority: ['admin'],
                 routes: [
                   {
@@ -131,14 +131,14 @@ export default [
               {
                 path: '/stu/course/all',
                 name: '全部课程',
-                icon: 'smile',
+                icon: 'fire',
                 component: './CourseStu/All',
                 authority: ['stu', 'tea'],
               },
               {
                 path: '/stu/course/canApply',
                 name: '可申请课程',
-                icon: 'smile',
+                icon: 'fire',
                 component: './CourseStu/CanApply',
                 authority: ['stu'],
               },
@@ -153,40 +153,40 @@ export default [
               {
                 path: '/tea/course/add',
                 name: '添加课程',
-                icon: 'smile',
+                icon: 'fire',
                 component: './CourseTea/Add',
                 authority: ['tea'],
               },
               {
                 path: '/tea/course/my',
                 name: '我的课程',
-                icon: 'smile',
+                icon: 'fire',
                 component: './CourseTea/My',
                 authority: ['tea'],
               },
               {
                 path: '/tea/course/details',
-                icon: 'smile',
+                icon: 'fire',
                 component: './CourseTea/Details',
                 authority: ['tea'],
               },
               {
                 path: '/note',
                 name: '新建笔记',
-                icon: 'smile',
+                icon: 'insertRowRight',
                 component: './Editor/',
                 authority: ['stu', 'tea', 'admin'],
               },
               {
                 path: '/essay/details',
-                icon: 'smile',
+                icon: 'insertRowRight',
                 component: './Editor/',
                 authority: ['stu', 'tea', 'admin'],
               },
               {
                 path: '/myNote',
                 name: '我的笔记',
-                icon: 'smile',
+                icon: 'insertRowRight',
                 component: './MyNote/',
                 authority: ['stu', 'tea', 'admin'],
               },
