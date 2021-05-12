@@ -7,7 +7,7 @@ import { Map, Marker } from 'react-amap';
 import axios from 'axios';
 import moment from 'moment'
 import { connect } from 'umi';
-import { changeScoreRequest, changeApprovalRequest, changeOpeningRequest, getFilesList } from './api'
+import { changeScoreRequest, changeApprovalRequest, changeOpeningRequest, getFilesList, downloadFile } from './api'
 import { InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 const layout = {
@@ -265,6 +265,9 @@ const Index = (props) => {
   const uploadBtn = () => {
     setIsUploadModalVisible(true)
   }
+  const downloadAll = () => {
+    downloadFile(props.location.query.courseId)
+  }
   useEffect(() => {
     getCourseById()
   }, [])
@@ -370,7 +373,7 @@ const Index = (props) => {
           style={{margin: '0 0 12px 0'}}
           extra={
             <Space>
-              <Button>下载全部</Button>
+              <Button onClick={downloadAll}>下载全部</Button>
               <Button type="primary" onClick={uploadBtn}>上传文件</Button>
             </Space>
           }
