@@ -73,11 +73,34 @@ let FilesService = class FilesService {
             };
         }
     }
-    async downloadAll() {
-        const uploadDir = this.configService.get('file').root;
+    async getList(courseId, manager) {
+        let files;
+        try {
+            files = await this.filesRepository.findAndCount({
+                where: {
+                    courseId: courseId,
+                },
+                relations: ["courses", "users"],
+            });
+            return {
+                code: 0,
+                message: '文件列表查询成功',
+                data: files["0"],
+                total: files["1"],
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '文件列表查询失败'
+            };
+        }
+    }
+    async downloadAll(courseId) {
+        const uploadDir = this.configService.get('file').root + '/' + courseId;
         const tarStream = new compressing_1.tar.Stream();
         await tarStream.addEntry(uploadDir);
-        return { filename: 'hello-world.tar', tarStream };
+        return { filename: 'tms.tar', tarStream };
     }
 };
 FilesService = __decorate([

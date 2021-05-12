@@ -26,7 +26,18 @@ export declare class FilesService {
         data: any;
         error?: undefined;
     }>;
-    downloadAll(): Promise<{
+    getList(courseId: any, manager: any): Promise<{
+        code: number;
+        message: string;
+        data: any;
+        total: any;
+    } | {
+        code: number;
+        message: string;
+        data?: undefined;
+        total?: undefined;
+    }>;
+    downloadAll(courseId: any): Promise<{
         filename: string;
         tarStream: tar.Stream;
     }>;

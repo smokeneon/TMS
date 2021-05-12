@@ -19,14 +19,17 @@ const files_service_1 = require("./files.service");
 const typeorm_1 = require("typeorm");
 const swagger_1 = require("@nestjs/swagger");
 let FilesController = class FilesController {
-    constructor(albumService) {
-        this.albumService = albumService;
+    constructor(filesService) {
+        this.filesService = filesService;
     }
     async upload(body, file, manager) {
-        return await this.albumService.upload(body, file, manager);
+        return await this.filesService.upload(body, file, manager);
     }
-    async downloadAll(res) {
-        const { filename, tarStream } = await this.albumService.downloadAll();
+    async getFileList(courseId, manager) {
+        return await this.filesService.getList(courseId, manager);
+    }
+    async downloadAll(courseId, res) {
+        const { filename, tarStream } = await this.filesService.downloadAll(courseId);
         res.setHeader('Content-Type', 'application/octet-stream');
         res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
         tarStream.pipe(res);
@@ -34,6 +37,7 @@ let FilesController = class FilesController {
 };
 __decorate([
     common_1.Post(),
+    swagger_1.ApiOperation({ summary: '上传文件' }),
     common_1.UseInterceptors(platform_express_1.FileInterceptor('file')),
     typeorm_1.Transaction(),
     __param(0, common_1.Body()), __param(1, common_1.UploadedFile()), __param(2, typeorm_1.TransactionManager()),
@@ -42,10 +46,20 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FilesController.prototype, "upload", null);
 __decorate([
-    common_1.Get('export'),
-    __param(0, common_1.Res()),
+    common_1.Get('/list/:courseId'),
+    swagger_1.ApiOperation({ summary: '下载文件列表' }),
+    typeorm_1.Transaction(),
+    __param(0, common_1.Param('courseId')), __param(1, typeorm_1.TransactionManager()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String, typeorm_1.EntityManager]),
+    __metadata("design:returntype", Promise)
+], FilesController.prototype, "getFileList", null);
+__decorate([
+    common_1.Get('/export/:courseId'),
+    swagger_1.ApiOperation({ summary: '下载所有文件' }),
+    __param(0, common_1.Param('courseId')), __param(1, common_1.Res()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], FilesController.prototype, "downloadAll", null);
 FilesController = __decorate([

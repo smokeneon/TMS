@@ -2,8 +2,8 @@ import { Response } from 'express';
 import { FilesService } from './files.service';
 import { EntityManager } from 'typeorm';
 export declare class FilesController {
-    private readonly albumService;
-    constructor(albumService: FilesService);
+    private readonly filesService;
+    constructor(filesService: FilesService);
     upload(body: any, file: any, manager: EntityManager): Promise<{
         code: number;
         message: string;
@@ -20,5 +20,16 @@ export declare class FilesController {
         data: any;
         error?: undefined;
     }>;
-    downloadAll(res: Response): Promise<void>;
+    getFileList(courseId: string, manager: EntityManager): Promise<{
+        code: number;
+        message: string;
+        data: any;
+        total: any;
+    } | {
+        code: number;
+        message: string;
+        data?: undefined;
+        total?: undefined;
+    }>;
+    downloadAll(courseId: string, res: Response): Promise<void>;
 }

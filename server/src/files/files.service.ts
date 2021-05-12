@@ -7,7 +7,8 @@ import { Repository } from 'typeorm';
 import { CourseService } from '../course/course.service';
 import { UsersService } from '../users/users.service'
 import { Files } from './files.entity';
-
+import request = require('request')
+import fs = require('fs')
 @Injectable()
 export class FilesService {
   constructor(
@@ -73,10 +74,36 @@ export class FilesService {
 
 }
 
-  async downloadAll() {
-    const uploadDir = this.configService.get('file').root;
+async getList(courseId, manager) {
+  let files;
+  try {
+    files = await this.filesRepository.findAndCount({
+      where: {
+        courseId: courseId,
+      },
+      relations: ["courses","users"],
+    })
+    return {
+      code: 0,
+      message: '文件列表查询成功',
+      data: files["0"],
+      total: files["1"],
+    }
+  } catch (error) {
+    return {
+      code: 1,
+      message: '文件列表查询失败'
+    }
+  }
+}
+
+  async downloadAll(courseId) {
+    // /Users/xinong/Documents/TMS-0322/server/dist/uploads
+    const uploadDir = this.configService.get('file').root + '/' +courseId;  
+    
     const tarStream = new tar.Stream();
     await tarStream.addEntry(uploadDir);
-    return { filename: 'hello-world.tar', tarStream };
+    return { filename: 'tms.tar', tarStream };
   }
+
 }

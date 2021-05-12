@@ -7,7 +7,7 @@ import { Map, Marker } from 'react-amap';
 import axios from 'axios';
 import moment from 'moment'
 import { connect } from 'umi';
-import { changeScoreRequest, changeApprovalRequest, changeOpeningRequest } from './api'
+import { changeScoreRequest, changeApprovalRequest, changeOpeningRequest, getFilesList } from './api'
 import { InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 const layout = {
@@ -23,7 +23,41 @@ const Index = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUploadModalVisible, setIsUploadModalVisible] = useState(false)
   const [applysItem, setApplysItem] = useState({})
+  const [filesList, setFilesList] = useState([])
   const [form] = Form.useForm()
+
+  const filesColumns = [
+    {
+      title: '文件id',
+      dataIndex: 'fileId',
+      key: 'fileId',
+    },
+    {
+      title: '文件名',
+      dataIndex: 'path',
+      key: 'path',
+      render: (text,record) => {
+        let title = text.split('/')
+        return title["5"]
+      }
+    },
+    {
+      title: '上传时间',
+      dataIndex: 'createTime',
+      key: 'createTime',
+      render: (text,record) => {
+        return moment(text).format('YYYY-MM-DD')
+      }
+    },
+    {
+      title: '更新时间',
+      dataIndex: 'updateTime',
+      key: 'updateTime',
+      render: (text,record) => {
+        return moment(text).format('YYYY-MM-DD')
+      }
+    },
+  ]
   const showModal = (record) => () => {
     setApplysItem(record)
     setIsModalVisible(true);
@@ -105,10 +139,12 @@ const Index = (props) => {
     // 获取该课程的详情
     let newRecord
     getCourseDetails(props.location.query.courseId).then(res => {
-      if(res.data.code === 0) {
-       axios.get(`https://restapi.amap.com/v3/geocode/regeo?output=json&location=${res.data.data.address}&key=c37598c7e2b37eea85e2c5b7a7b7b30c&radius=1000&extensions=all`)
+    if(res.data.code === 0) {
+      axios.get(`https://restapi.amap.com/v3/geocode/regeo?output=json&location=${res.data.data.address}&key=c37598c7e2b37eea85e2c5b7a7b7b30c&radius=1000&extensions=all`)
        .then(res => {
          setNewAddress(res.data.regeocode.formatted_address)
+       }).catch(error => {
+         message.error('地址获取失败')
        })
  
        newRecord = {
@@ -121,6 +157,18 @@ const Index = (props) => {
        setRecord(newRecord)
        setIsLoading(false)
       }
+    }).catch(error => {
+      message.error('课程详情获取失败')
+    })
+    // 获取文件列表
+    getFilesList(props.location.query.courseId).then(res => {
+        if(res.data.code === 0) {
+          setFilesList(res.data.data)
+        }else{
+          message.error('文件列表获取失败')
+        }
+    }).catch(error => {
+      message.error('文件列表获取失败')
     })
   }
   const changeOpenState = ({ key }) => {
@@ -320,9 +368,18 @@ const Index = (props) => {
         <Card
           title="课程文件"
           style={{margin: '0 0 12px 0'}}
-          extra={<Button type="primary" onClick={uploadBtn}>上传文件</Button>}
+          extra={
+            <Space>
+              <Button>下载全部</Button>
+              <Button type="primary" onClick={uploadBtn}>上传文件</Button>
+            </Space>
+          }
         >
-          这是课程文件
+          <div style={{
+            padding: '12px',
+          }}>
+            <Table dataSource={filesList} columns={filesColumns}/>
+          </div>
         </Card>
         <Card
           title="地址信息"

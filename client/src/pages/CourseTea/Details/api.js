@@ -57,3 +57,15 @@ export const changeScoreRequest = (apply, score) => {
     }
   })
 }
+
+// 获取文件列表
+export const getFilesList = (courseId) => {
+ 
+  return axios({
+    method: 'get',
+    url: `/api/files/list/${courseId}`,
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+}
