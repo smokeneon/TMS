@@ -1,15 +1,16 @@
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { diskStorage } from 'multer';
 import * as nuid from 'nuid';
-import fs = require('fs');
+import fs = require('fs')
 export default {
   root: join(__dirname, '../uploads'),
   storage: diskStorage({
    
     destination: function (req, file, cb) {
-      fs.mkdir( join(__dirname, '../uploads/'+req.body.courseId) ,function(isHave){
-        cb(null,join(__dirname, '../uploads/'+req.body.courseId))
-      })
+      if (!fs.existsSync(resolve()+'/dist/upload/'+req.body.courseId)) {
+        fs.mkdirSync(resolve()+'/dist/upload/'+req.body.courseId)
+      } 
+      cb(null,resolve()+'/dist/upload/'+req.body.courseId)
     },
     filename: (req, file, cb) => {
       let suffix = file.originalname.split('.')

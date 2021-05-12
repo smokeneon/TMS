@@ -8,9 +8,10 @@ exports.default = {
     root: path_1.join(__dirname, '../uploads'),
     storage: multer_1.diskStorage({
         destination: function (req, file, cb) {
-            fs.mkdir(path_1.join(__dirname, '../uploads/' + req.body.courseId), function (isHave) {
-                cb(null, path_1.join(__dirname, '../uploads/' + req.body.courseId));
-            });
+            if (!fs.existsSync(path_1.resolve() + '/dist/upload/' + req.body.courseId)) {
+                fs.mkdirSync(path_1.resolve() + '/dist/upload/' + req.body.courseId);
+            }
+            cb(null, path_1.resolve() + '/dist/upload/' + req.body.courseId);
         },
         filename: (req, file, cb) => {
             let suffix = file.originalname.split('.');
