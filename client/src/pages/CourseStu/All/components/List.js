@@ -4,7 +4,7 @@ import { SearchOutlined } from '@ant-design/icons'
 import { OpenState, ApprovalState } from '../../../../common/const'
 import DrawerContent from './DrawerContent'
 import { getUserList, } from '../api'
-
+import { Link } from 'umi'
 const formItemLayout = {
   labelCol: { span: 1 },
   wrapperCol: { span: 23 },
@@ -132,7 +132,15 @@ const SubjectList = forwardRef((props, ref) => {
       fixed: 'right',
       render: (text, record) => (
         <Space size="middle">
-            <a onClick={showDrawer(record)}>详情</a>
+          <Link to={{
+            pathname: '/tea/course/details',
+            query: {
+              courseId: record.courseId,
+            }
+            }}>
+            <a>详情</a>
+          </Link>
+            {/* <a onClick={showDrawer(record)}>详情</a> */}
         </Space>
       ),
     },
@@ -172,7 +180,7 @@ const SubjectList = forwardRef((props, ref) => {
         closable={false}
         onClose={closeDrawer}
         visible={drawerVisable}
-        height="75vh"
+        height="40vh"
       >
         <DrawerContent record={drawRecord} />
       </Drawer>

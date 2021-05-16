@@ -81,6 +81,7 @@ const Index = (props) => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+  // 申报信息
   const columns = [
     {
       title: 'applyNumber',
@@ -108,10 +109,15 @@ const Index = (props) => {
       dataIndex: 'score',
       key: 'score',
       render: (text, scoreRecord) => {
-        if (record.openState === 2 && record.approvalState === 2) {
-          return text
+        console.log('text,scoreRecord', text, scoreRecord);
+        if (scoreRecord.course &&  scoreRecord.course.openState === 2 && scoreRecord.course.approvalState === 2) {
+          if (text === -1) {
+            return '分数未录入'
+          } else {
+            return text
+          }
         } else {
-          return '课程未完成'
+          return '课程未完结'
         }
       },
     },
@@ -278,7 +284,7 @@ const Index = (props) => {
       : (
       <PageContainer 
         title={record.courseName && record.courseName + ' 详情'} 
-        content="该页面展示该课程的详情信息, 你可以通过点击按钮更新课程状态"
+        content="该页面展示该课程的详情信息"
         extraContent={
         <Space>
          
@@ -373,8 +379,12 @@ const Index = (props) => {
           style={{margin: '0 0 12px 0'}}
           extra={
             <Space>
-              <Button onClick={downloadAll}>下载全部</Button>
-              <Button type="primary" onClick={uploadBtn}>上传文件</Button>
+               <Button onClick={downloadAll}>下载全部</Button>
+              {
+                currentUser.identity === 'tea' || currentUser.identity === 'admin' && (
+                  <Button type="primary" onClick={uploadBtn}>上传文件</Button>
+                )
+              }
             </Space>
           }
         >
@@ -401,12 +411,17 @@ const Index = (props) => {
             </Map>
           </div>
         </Card>
-        <Card
-           title="申报信息"
-           style={{margin: '0 0 12px 0'}}
-        >
-           <Table dataSource={record.applys} columns={columns} pagination={false} />
-        </Card>
+        {
+          currentUser.identity === 'admin ' || currentUser.identity === 'tea' && (
+            <Card
+                title="申报信息"
+                style={{margin: '0 0 12px 0'}}
+            >
+                <Table dataSource={record.applys} columns={columns} />
+            </Card>
+          )
+        }
+       
         <Modal 
         title="设置课程分数" 
         visible={isModalVisible}

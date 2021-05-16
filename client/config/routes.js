@@ -127,7 +127,7 @@ export default [
                   }
                 ],
               },
-              // 参训者身份菜单
+              // 参训者身份菜单 课程 参训者和专家
               {
                 path: '/stu/course/all',
                 name: '全部课程',
@@ -189,6 +189,13 @@ export default [
                 name: '我的笔记',
                 icon: 'insertRowRight',
                 component: './MyNote/',
+                authority: ['stu', 'tea', 'admin'],
+              },
+              {
+                path: '/me',
+                name: '我的信息',
+                icon: 'heart',
+                component: './MyInfo/',
                 authority: ['stu', 'tea', 'admin'],
               },
               {
