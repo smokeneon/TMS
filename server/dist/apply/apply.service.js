@@ -340,6 +340,25 @@ let ApplyService = class ApplyService {
             };
         }
     }
+    async findByUserId(id) {
+        try {
+            const res = await typeorm_2.getRepository(apply_entity_1.Apply)
+                .createQueryBuilder("apply")
+                .where("apply.stuId = :stuId", { stuId: id })
+                .getMany();
+            return {
+                code: 0,
+                message: '查询成功',
+                data: res || [],
+            };
+        }
+        catch (error) {
+            return {
+                code: 0,
+                message: '查询失败',
+            };
+        }
+    }
 };
 ApplyService = __decorate([
     common_1.Injectable(),

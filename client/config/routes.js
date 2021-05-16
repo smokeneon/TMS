@@ -170,6 +170,7 @@ export default [
                 component: './CourseTea/Details',
                 authority: ['tea'],
               },
+              // 所有身份都可访问的
               {
                 path: '/note',
                 name: '新建笔记',

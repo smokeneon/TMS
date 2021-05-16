@@ -46,6 +46,7 @@ export class Apply {
   @JoinTable()
   stu: User[];
   
+  
   // @ManyToMany(() => User, {
   //   eager: true
   // })

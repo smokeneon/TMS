@@ -61,12 +61,18 @@ const SubjectList = forwardRef((props, ref) => {
   const deleteConfirm = record => () => {
     let currentUserId = localStorage.getItem('userId');
     if (currentUserId === record.userId.toString()) {
-      // console.log('daozhel');
       return message.warning('您不能删除自己')
     }
-    deleteItem(record.id).then(res => {
-      message.success(res.data.message)
-      getList(requestParams)
+    deleteItem(record.userId).then(res => {
+      if (res.data.code === 0 ) {
+        message.success(res.data.message)
+        getList(requestParams)
+      }
+      if (res.data.code === 2 ) {
+        message.warning(res.data.message)
+      }   
+    }).catch( error => {
+      message.error('删除失败')
     })
   }
   const openModal = record => () => {
@@ -89,17 +95,17 @@ const SubjectList = forwardRef((props, ref) => {
         </Typography.Text>
       ),
     },
-    // {
-    //   title: '密码',
-    //   dataIndex: 'password',
-    //   key: 'password',
-    //   width: 160,
-    //   render: (text) => (
-    //     <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
-    //       {text}
-    //     </Typography.Text>
-    //   ),
-    // },
+    {
+      title: '真实姓名',
+      dataIndex: 'realname',
+      key: 'realname',
+      width: 160,
+      render: (text) => (
+        <Typography.Text style={{ width: 160 }} ellipsis={{ tooltip: text }}>
+          {text}
+        </Typography.Text>
+      ),
+    },
     {
       title: '学号',
       dataIndex: 'stuNum',
@@ -159,7 +165,7 @@ const SubjectList = forwardRef((props, ref) => {
       <div style={{padding: '0px 0 24px 0'}}>
         <Form onFinish={onSearch} form={form} layout="inline">
           <Form.Item name="searchText" {...formItemLayout}>
-            <Input placeholder="请输入名称" style={{ width: 200 }} />
+            <Input placeholder="请输入用户名" style={{ width: 200 }} />
           </Form.Item>
           <Button icon={<SearchOutlined />} loading={searchLoading} htmlType="submit">
             查询

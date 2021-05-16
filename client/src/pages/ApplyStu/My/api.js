@@ -2,7 +2,6 @@ import axios from 'axios'
 // 获得列表
 let token = localStorage.getItem('token')
 export const getApplyList = (params, stuId) => {
-  console.log('params', params);
   return axios({
     method: 'get',
     url: '/api/apply/my',

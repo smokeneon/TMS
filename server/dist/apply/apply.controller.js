@@ -52,6 +52,9 @@ let ApplyController = class ApplyController {
     async detail(id) {
         return await this.applyService.findOne(id);
     }
+    async findByUserId(id) {
+        return await this.applyService.findByUserId(id);
+    }
 };
 __decorate([
     common_1.Post('/add'),
@@ -135,6 +138,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ApplyController.prototype, "detail", null);
+__decorate([
+    common_1.Get('/byUserId/:id'),
+    swagger_1.ApiOperation({ summary: '根据用户id查询申报列表 无分页' }),
+    __param(0, common_1.Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ApplyController.prototype, "findByUserId", null);
 ApplyController = __decorate([
     common_1.Controller('/api/v1/apply'),
     swagger_1.ApiTags('申报增删改查'),

@@ -345,6 +345,26 @@ export class ApplyService {
       }
     }
   }
+
+  async findByUserId(id: string): Promise<object> {
+    try {
+      const res = await getRepository(Apply)
+      .createQueryBuilder("apply")
+      .where("apply.stuId = :stuId", { stuId: id })
+      // .leftJoinAndSelect("apply.course", "course")
+      .getMany()
+      return {
+        code: 0,
+        message: '查询成功',
+        data: res || [],
+      }
+    } catch (error) {
+      return {
+        code: 0,
+        message: '查询失败',
+      }
+    }
+  }
 }
 
 

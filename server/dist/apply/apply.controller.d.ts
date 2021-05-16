@@ -14,4 +14,5 @@ export declare class ApplyController {
     findAllFinished(pagination: string): Promise<Object>;
     findAllNotFinished(pagination: string): Promise<Object>;
     detail(id: string): Promise<object>;
+    findByUserId(id: string): Promise<object>;
 }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Tag } from 'antd'
+import { Table, Space, Typography, Form, Input, Button, Popconfirm, message, Tag, Drawer, Descriptions, Card } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import Moment from 'moment'
 import UserAddModal from './UserAddModal'
-import { applyState } from '../../../../common/const'
+import { applyState, ApprovalState, OpenState } from '../../../../common/const'
 import { deleteItem, getApplyList } from '../api'
+import moment from 'moment'
 
 const formItemLayout = {
   labelCol: { span: 1 },
@@ -18,6 +19,8 @@ const SubjectList = forwardRef((props, ref) => {
   const [tableLoading, setTableLoading] = useState(true)
   const [searchLoading, setSearchLoading] = useState(false)
   const [chooseItem, setChooseItem] = useState({})
+  const [showDrawer, setShowDrawer] = useState(false)
+  const [drawerRecord, setDrawerRecord] = useState({})
   const requestParams = { page: 1, size: 10, search: null }
   const [form] = Form.useForm()
  
@@ -78,6 +81,14 @@ const SubjectList = forwardRef((props, ref) => {
     setModalVisable(false)
     getList(requestParams)
   }
+  const showDetailDrawer = record => () => {
+    setDrawerRecord(record)
+    setShowDrawer(true)
+  }
+
+  const onClose = () => {
+    setShowDrawer(false)
+  };
   const columns = [
     {
       title: '申报id',
@@ -91,9 +102,11 @@ const SubjectList = forwardRef((props, ref) => {
       dataIndex: 'applyNumber',
       key: 'applyNumber',
       width: 120,
-      render: (text) => (
+      render: (text, record) => (
         <Typography.Text style={{ width: 120 }} ellipsis={{ tooltip: text }}>
-          {text}
+          <a onClick={showDetailDrawer(record)}>
+            {text}
+          </a>
         </Typography.Text>
       ),
     },
@@ -201,6 +214,49 @@ const SubjectList = forwardRef((props, ref) => {
         record={chooseItem}
         getList={getList}
       />
+      <Drawer
+        title="申报详情"
+        placement="bottom"
+        closable={false}
+        onClose={onClose}
+        height="70vh"
+        visible={showDrawer}
+      >
+        <Card>
+          <Descriptions title="基本信息">
+            <Descriptions.Item label="申报编号">{drawerRecord.applyNumber}</Descriptions.Item>
+            <Descriptions.Item label="分数">{ 
+              drawerRecord.course 
+              && drawerRecord.course.approvalState === 2 
+              && drawerRecord.course.openState === 2 ? 
+             (drawerRecord.score === '-1' ? drawerRecord.score : '分数未录入' ) 
+             : '课程未完结'
+            }</Descriptions.Item>
+            <Descriptions.Item label="申报时间">{moment(drawerRecord.timeStamp).format('YYYY-MM-DD')}</Descriptions.Item>
+            <Descriptions.Item label="申报姓名">{drawerRecord.stu && drawerRecord.stu["0"].realname}</Descriptions.Item>
+            <Descriptions.Item label="申报用户名">{drawerRecord.stu && drawerRecord.stu["0"].username}</Descriptions.Item>
+            <Descriptions.Item label="申报人邮箱">{drawerRecord.stu && drawerRecord.stu["0"].email}</Descriptions.Item>
+          </Descriptions>
+
+          <Descriptions title="课程信息">
+            <Descriptions.Item label="课程id">{drawerRecord.course && drawerRecord.course.courseId}</Descriptions.Item>
+            <Descriptions.Item label="课程名">{drawerRecord.course && drawerRecord.course.courseName}</Descriptions.Item>
+            <Descriptions.Item label="所属科目">{drawerRecord.course && drawerRecord.course.subject}</Descriptions.Item>
+            <Descriptions.Item label="开课时间">{
+                  drawerRecord.course 
+                  && (moment(parseInt(drawerRecord.course.startDate)).format("YYYY-MM-DD") + ' ~ ' + 
+                    moment(parseInt(drawerRecord.course.endDate)).format("YYYY-MM-DD")
+                  )}
+            </Descriptions.Item>
+            <Descriptions.Item label="审批状态">{drawerRecord.course && ApprovalState[drawerRecord.course.approvalState]}</Descriptions.Item>
+            <Descriptions.Item label="开课状态">{drawerRecord.course && OpenState[drawerRecord.course.openState]}</Descriptions.Item>
+            <Descriptions.Item label="专家姓名">{drawerRecord.course && drawerRecord.course.users && drawerRecord.course.users["0"].realname}</Descriptions.Item>
+            <Descriptions.Item label="专家用户名">{drawerRecord.course && drawerRecord.course.users && drawerRecord.course.users["0"].username}</Descriptions.Item>
+            <Descriptions.Item label="专家邮箱">{drawerRecord.course && drawerRecord.course.users && drawerRecord.course.users["0"].email}</Descriptions.Item>
+          </Descriptions>
+        </Card>
+       
+      </Drawer>
     </div>
   )
 })

@@ -7,7 +7,7 @@ import { OpenState, ApprovalState } from '../../../../common/const'
 import DrawerContent from './DrawerContent'
 import axios from 'axios'
 import { deleteItem, getUserList, changeApprovalRequest, changeOpeningRequest } from '../api'
-
+import { Link } from 'umi'
 const formItemLayout = {
   labelCol: { span: 1 },
   wrapperCol: { span: 23 },
@@ -192,7 +192,14 @@ const SubjectList = forwardRef((props, ref) => {
       fixed: 'right',
       render: (text, record) => (
         <Space size="middle">
-            <a onClick={showDrawer(record)}>详情</a>
+           <Link to={{
+            pathname: '/tea/course/details',
+            query: {
+              courseId: record.courseId,
+            }
+            }}>
+            <a>详情</a>
+          </Link>
           <a onClick={openModal(record)}>编辑</a>
           <Popconfirm
             title="你确定删除此条吗?"

@@ -47,8 +47,26 @@ export class UsersService {
   }
 
   async remove(userId: string): Promise<any> {
+    let userDetail = await this.getDetails(userId);
+    if (userDetail.code === 0) {
+      if (userDetail.data.courses.length != 0) {
+        return {
+          code: 2,
+          message: '当前用户存在课程记录，无法删除！'
+        }
+      }
+
+      if (userDetail.data.files.length != 0) {
+        return {
+          code: 2,
+          message: '当前用户存在文件记录，无法删除！'
+        }
+      }
+    }
+    
     try {
       const res = await this.usersRepository.delete(userId);
+      
       if (res.affected === 1) {
         return {
           code: 0,
@@ -62,7 +80,8 @@ export class UsersService {
     } catch (error) {
       return {
         code: 1,
-        message: '删除失败'
+        message: '删除失败',
+        error
       }
     }
     
@@ -93,6 +112,7 @@ export class UsersService {
           .createQueryBuilder('user')
           .where("user.identity like :identity", { identity: pagination.type || '%%'})
           .andWhere("user.username like :username", { username: '%' + pagination.search + '%' || '%%' })
+          .orderBy("user.userId","DESC")
           .skip((pagination.page-1)*pagination.size || 0)
           .take(pagination.size || 10)
           .getManyAndCount()
@@ -100,6 +120,7 @@ export class UsersService {
         user = await getRepository(User)
           .createQueryBuilder('user')
           .where("user.identity like :identity", { identity: pagination.type || '%%'})
+          .orderBy("user.userId","DESC")
           .skip((pagination.page-1)*pagination.size || 0)
           .take(pagination.size || 10)
           .getManyAndCount()
@@ -122,13 +143,15 @@ export class UsersService {
   }
 
   // 查询个人详情
+  // 失效
   async getDetails(id): Promise<any> {
     let user;
     try {
       user = await this.usersRepository.findOne({
-        relations: ["courses", "applys"],
-        where: { userId: id,  }
+        where: { userId: id,  },
+        relations: ["courses","files"],
       })
+      
       return {
         code: 0,
         message: '查询成功',
@@ -192,6 +215,7 @@ export class UsersService {
     }
   }
 
+  // 目测查不出来
   async findOne(id: string): Promise<object> {
     try {
       const res = await this.usersRepository.findOne(id);

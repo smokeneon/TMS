@@ -4,11 +4,12 @@ import {
   MailOutlined,
   SolutionOutlined,
   KeyOutlined,
-  RobotOutlined
+  RobotOutlined,
+  SmileOutlined
 } from '@ant-design/icons';
 
-import { Alert, Tabs, message } from 'antd';
-import React, { useState } from 'react';
+import { Alert, Tabs, message, notification } from 'antd';
+import React, { useState, useEffect } from 'react';
 import { Form } from 'antd';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText, ProFormSelect } from '@ant-design/pro-form';
 import { FormattedMessage } from 'umi';
@@ -33,6 +34,23 @@ const Login = (props) => {
   const { status, type: loginType } = userLogin;
   const [type, setType] = useState('account');
   const [form] = Form.useForm();
+
+  const openNotification = () => {
+    notification.open({
+      message: '欢迎你使用 TMS',
+      icon: <SmileOutlined style={{ color: '#13C2C2' }} />,
+      duration: 8,
+      description: 
+        <div style={{padding: '12px 0 0 0'}}>
+          <p>参训者测试账号：guojia / 111111</p>
+          <p>专家测试账号：wuyong / 111111</p>
+          <p>管理员测试账号：huangliang / 111111</p>
+        </div>,
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+    });
+  };
 
   const handleSubmit = (values) => {
     if (type === 'account') {
@@ -62,6 +80,10 @@ const Login = (props) => {
     }
    
   };
+
+  useEffect(() => {
+   openNotification()
+  }, [])
 
   return (
     <div className={styles.main}>
@@ -112,7 +134,7 @@ const Login = (props) => {
                 size: 'large',
                 prefix: <UserOutlined className={styles.prefixIcon} />,
               }}
-              placeholder="用户名: 测试账号admin"
+              placeholder="用户名"
               rules={[
                 {
                   required: true,
@@ -126,7 +148,7 @@ const Login = (props) => {
                 size: 'large',
                 prefix: <LockOutlined className={styles.prefixIcon} />,
               }}
-              placeholder="密码: 测试账号admin"
+              placeholder="密码"
               rules={[
                 {
                   required: true,

@@ -3657,7 +3657,7 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.entity.ts": {
-        "version": "787b1f7c3fe693941f6bb10cde24434828f6b1a896fa4609b9d8e6b951b57d7f",
+        "version": "1ab91e588e4180e2d42ac7f605a5fe100099b88b302b73e7a892ab615257cd6d",
         "signature": "e4af73ba31aa700ec4a178b35ed4fb5846d09dd742b730799f7c6c517f3a4f2b",
         "affectsGlobalScope": false
       },
@@ -3682,7 +3682,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "dd0d1abc36d7effda2567bcccf31a8d24e9d636f2f780dc9b30a857b0ba61bce",
+        "version": "2c77411df63b2d289246f4dfe840229f6070a788a37ce314f19c77db6b393695",
         "signature": "9c8db212fab7e843a24908e0ba694d8cab2bc06e82a14bece61d5eade227f4d8",
         "affectsGlobalScope": false
       },
@@ -4062,7 +4062,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.module.ts": {
-        "version": "2a9b677127e40491ad393f1b983f887ded6b9f6777ae0e5918537f44b0853aad",
+        "version": "cd185c0aebe96305dbbe40684a7a0df8b51610f4605ea20866653ba8f8d5253f",
         "signature": "aa1725e38b5a0b4009f6a74f296f173e7926c119a60454dbd2e523861735df69",
         "affectsGlobalScope": false
       },
@@ -4237,13 +4237,13 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.service.ts": {
-        "version": "c3f86bea307a09150c189a75c20da304763c9db7bf861b954e2569bcea96fa39",
-        "signature": "c788211ac9bb9f99015f2bf40221b51fc5090e50270e1bb844580bf093b21401",
+        "version": "d50403207e9bd21d1d4bf57a3b6303a9944320e86cc3ebd5236d5f3bbe87095b",
+        "signature": "cf0abe04237466b420dfe9bbeac552c39561b37e12a6441e5d88f5fcc8c2cc08",
         "affectsGlobalScope": false
       },
       "../src/apply/apply.controller.ts": {
-        "version": "64c7941c8b8f1a385467899b949c3a70e869fb853aa7d8911615de781e3f67d7",
-        "signature": "b800468fbf0c07606248f834fc3866f01206c790c98cf56be830b911de466b1e",
+        "version": "7497db5b44ea1195f684362e64f1db4b57d03786d08493452f41e9e87c8c6a4e",
+        "signature": "65b4460d18fb12e8e3c05d35d55f30f3ce917fba3e086cacc8e0f52dd7e93868",
         "affectsGlobalScope": false
       },
       "../src/apply/apply.module.ts": {

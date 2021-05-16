@@ -80,4 +80,10 @@ export class ApplyController {
   async detail(@Param('id') id: string) {
     return await this.applyService.findOne(id);
   }
+
+  @Get('/byUserId/:id')
+  @ApiOperation({ summary: '根据用户id查询申报列表 无分页' })
+  async findByUserId(@Param('id') id: string) {
+    return await this.applyService.findByUserId(id);
+  }
 }

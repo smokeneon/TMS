@@ -3,6 +3,7 @@ import React,{ useState, useEffect } from 'react'
 import { Form, Input, message, Modal, Select } from 'antd'
 import T from 'prop-types'
 import { addUser, editUser } from '../api'
+import { truncate } from 'lodash-es';
 
 const { Option } = Select;
 
@@ -19,12 +20,14 @@ const layout = {
 
 const UserAddModal = props => {
   const { addOrEdit, visable, hiddenModal, record, getList } = props
+  const [modalLoading, setModalLoading] = useState(false)
   const [form] = Form.useForm();
   const initModal = () => {
     hiddenModal()
     form.resetFields()
   }
   const handleOk = () => {
+    setModalLoading(truncate)
     form.validateFields().then(params => {
       const newParams = {
         ...params,
@@ -34,6 +37,7 @@ const UserAddModal = props => {
         addUser(newParams).then(res => {
           // console.log('res', res);
           if (res.status === 201 && res.data.code === 0) {
+            setModalLoading(false)
             message.success(res.data.message)
             initModal()
           } else {
@@ -43,6 +47,7 @@ const UserAddModal = props => {
       } else {
         editUser(record.userId, newParams).then(res => {
           if (res.status === 200 && res.data.code === 0) {
+            setModalLoading(false)
             message.success(res.data.message)
             initModal()
           } else {
@@ -66,6 +71,7 @@ const UserAddModal = props => {
       visible={visable}
       onOk={handleOk}
       onCancel={handleCancel}
+      confirmLoading={modalLoading}
       destroyOnClose
     >
     <Form {...layout} form={form}>
@@ -114,7 +120,11 @@ const UserAddModal = props => {
         rules={[
           {
             required: true,
-            message: '请输入邮箱!',
+            message: "请输入邮箱",
+          },
+          {
+            pattern: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$$/,
+            message: '邮箱格式错误',
           },
         ]}
       >

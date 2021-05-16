@@ -17,4 +17,5 @@ export declare class ApplyService {
     findAll(pagination: any): Promise<Object>;
     findMy(pagination: any): Promise<Object>;
     findOne(id: string): Promise<object>;
+    findByUserId(id: string): Promise<object>;
 }
