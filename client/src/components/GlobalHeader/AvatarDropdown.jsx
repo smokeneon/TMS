@@ -1,9 +1,10 @@
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, SettingOutlined, UserOutlined, QrcodeOutlined } from '@ant-design/icons';
 import { Avatar, Menu, Spin } from 'antd';
 import React from 'react';
 import { history, connect } from 'umi';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
+import qcode from '../../assets/qcode.png';
 
 class AvatarDropdown extends React.Component {
   onMenuClick = (event) => {
@@ -54,13 +55,25 @@ class AvatarDropdown extends React.Component {
         </Menu.Item>
       </Menu>
     );
+    const menuHeaderDropdown2 = (
+      <div style={{width: '120px', height: '120px'}}>
+        <img src={qcode} width="120px" height="120px" />
+      </div>
+    )
     return currentUser && currentUser.username ? (
+      <>
+      <HeaderDropdown overlay={menuHeaderDropdown2}>
+        <span className={`${styles.action} ${styles.account}`}>
+          <QrcodeOutlined />
+        </span>
+      </HeaderDropdown>
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
           <Avatar size="small" style={{ backgroundColor: '#f5f5f5' }} className={styles.avatar} icon={<UserOutlined />} alt="avatar" />
           <span className={`${styles.name} anticon`}>你好，{currentUser.realname}</span>
         </span>
       </HeaderDropdown>
+      </>
     ) : (
       <span className={`${styles.action} ${styles.account}`}>
         <Spin
