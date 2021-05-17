@@ -1,6 +1,6 @@
 import React,{ useEffect, useState }  from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Tag, Row, Col, Carousel, Divider } from 'antd';
+import { Card, Alert, Tag, Row, Col, Carousel, Divider, message } from 'antd';
 import './Welcome.less';
 import WelcomeSvg from '../assets/welcome.svg'
 import WelcomeSvg2 from '../assets/welcome2.svg'
@@ -15,54 +15,75 @@ import numeral from 'numeral';
 import moment from 'moment';
 import 'ant-design-pro/dist/ant-design-pro.css'
 
-const tags = [];
-let courses = ['概率论与数理统计','数字电子技术', '电路分析基础', '计算机网络', '医学护理', '口语交际', '离散数学', '英语', 'Oracle', '数字逻辑于技术','概率论与数理统计','数字电子技术', '电路分析基础', '计算机网络', '医学护理', '口语交际', '离散数学', '英语', 'Oracle', '数字逻辑于技术']
-for (let i = 0; i < courses.length; i += 1) {
-  tags.push({
-    name: courses[i],
-    value: Math.floor(Math.random() * 50) + 20,
-  });
-}
-
-const salesPieData = [
-  {
-    x: '医学',
-    y: 3,
-  },
-  {
-    x: '计算机',
-    y: 6,
-  },
-  {
-    x: '数学',
-    y: 2,
-  },
-  {
-    x: '物理学',
-    y: 1,
-  },
-  {
-    x: '职业素养',
-    y: 3,
-  },
-  {
-    x: '心理学',
-    y: 3,
-  },
-];
-
-const visitData = [];
-const beginDay = new Date().getTime();
-for (let i = 0; i < 20; i += 1) {
-  visitData.push({
-    x: moment(new Date(beginDay + 1000 * 60 * 60 * 24 * i)).format('YYYY-MM-DD'),
-    y: Math.floor(Math.random() * 100) + 10,
-  });
-}
 const Welcome = (props) => {
   const { currentUser } = props;
+  const [pieData, setPieData] = useState([])
+  const [histogramData, setHistogramData] = useState([])
+  const [histogramTotal, setHistogramTotal] = useState(0)
+
+  const [hotData, setHotData] = useState([])
   const [weather, setWeather] = useState({})
+  // 获取饼图数据
+  const pieDate = () => {
+    axios.get('/api/course/pie').then(res => {
+      if(res.data.code === 0) {
+        let newData = res.data.data.map(item => {
+          return {
+            x: item.x,
+            y: parseInt(item.y),
+          }
+        })
+        setPieData(newData)
+      } else {
+        message.error(res.data.message)
+      }
+    }).catch(error => {
+      message.error('饼图数据获取失败')
+    })
+  }
+
+  const hotCourse = () => {
+    axios.get('/api/course/hot').then(res => {
+      console.log('res',res);
+      if(res.data.code === 0) { 
+        let newData = res.data.data.map(item => {
+          return {
+            name: item.courseName,
+            value: parseInt(item.mount),
+          }
+        })
+        setHotData(newData)
+      } else {
+        message.error(res.data.message)
+      }
+    }).catch(error => {
+      message.error('热门课程获取失败')
+    })
+  }
+
+  const applyData = () => {
+    axios.get('/api/apply/histogram').then(res => {
+      if(res.data.code === 0) {
+        let newData = res.data.data.map(item => {
+          return {
+            x: moment(item.time).format('YYYY-MM-DD') ,
+            y: parseInt(item.mount),
+          }
+        })
+        setHistogramTotal(parseInt(res.data.count["0"].total))
+        setHistogramData(newData)
+      } else {
+        message.error(res.data.message)
+      }
+    }).catch(error => {
+      message.error('饼图数据获取失败')
+    })
+  }
   useEffect(() => {
+    pieDate()
+    applyData()
+    hotCourse()
+    // 查天气
     axios.get('https://restapi.amap.com/v3/weather/weatherInfo?city=610100&key=c37598c7e2b37eea85e2c5b7a7b7b30c')
       .then(res => {
         if(res.data.info === 'OK') {
@@ -70,6 +91,9 @@ const Welcome = (props) => {
         }
       })
   }, [])
+  useEffect(() => {
+    console.log('histogramData', histogramData);
+  }, [histogramData])
   return (
     <PageContainer
       title={
@@ -80,7 +104,7 @@ const Welcome = (props) => {
         </Tag>
       </div>
       }
-      content="欢迎使用，中小学教育信息化培训者培训管理平台"
+      content="欢迎使用，中小学教育信息化培训者培训管理系统"
       extraContent={
         <>
           <div>西安市: {weather.weather + ' ' + weather.temperature +'度'}</div>
@@ -182,7 +206,7 @@ const Welcome = (props) => {
                 hasLegend
                 title="累计学科"
                 subTitle="所属学科"
-                data={salesPieData}
+                data={pieData}
                 height={260}
               />
             {/* </div> */}
@@ -193,16 +217,16 @@ const Welcome = (props) => {
             <Col span={24}>
               <ChartCard 
                   title="总申报数"
-                  total={numeral(59).format('0,0')}
+                  total={numeral(histogramTotal).format('0,0')}
                   contentHeight={40}
                   style={{margin: '6px'}}
                 >
-                <MiniArea line height={35} data={visitData} />
+                <MiniArea line height={35} data={histogramData} />
               </ChartCard>
             </Col>
             <Col span={24}>
               <Card style={{margin: '6px'}} title="热门选课">
-                <TagCloud data={tags} height={102} />
+                <TagCloud data={hotData} height={102} />
               </Card>
             </Col>
           </Row>

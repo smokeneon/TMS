@@ -5,6 +5,7 @@ export declare class CourseService {
     private courseRepository;
     private readonly usersService;
     constructor(courseRepository: Repository<Course>, usersService: UsersService);
+    hotCourses(manager: any): Promise<any>;
     create(course: any, manager: any): Promise<any>;
     remove(courseId: string): Promise<object>;
     changeApprovalState(body: any, manager: any): Promise<any>;
@@ -18,5 +19,6 @@ export declare class CourseService {
     getCanApplyList(pagination: any): Promise<any>;
     getListByTeaId(pagination: any): Promise<any>;
     findAllWithNoPage(): Promise<any>;
+    getPie(manager: any): Promise<any>;
     findAll(pagination: any): Promise<Object>;
 }

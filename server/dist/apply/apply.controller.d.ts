@@ -5,6 +5,7 @@ export declare class ApplyController {
     private readonly applyService;
     constructor(applyService: ApplyService);
     create(apply: any, manager: EntityManager): Promise<any>;
+    getHistogram(manager: EntityManager): Promise<any>;
     remove(id: string): Promise<object>;
     update(id: number, body: Apply): Promise<object>;
     changeScoreRequest(body: any, manager: EntityManager): Promise<any>;

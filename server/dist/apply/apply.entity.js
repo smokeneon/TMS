@@ -80,6 +80,16 @@ __decorate([
     }),
     __metadata("design:type", Date)
 ], Apply.prototype, "timeStamp", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '创建时间 自动生成', example: '...' }),
+    typeorm_1.CreateDateColumn(),
+    __metadata("design:type", Object)
+], Apply.prototype, "createTime", void 0);
+__decorate([
+    swagger_1.ApiProperty({ description: '更新时间 自动生成', example: '...' }),
+    typeorm_1.UpdateDateColumn(),
+    __metadata("design:type", Object)
+], Apply.prototype, "updateTime", void 0);
 Apply = __decorate([
     typeorm_1.Entity()
 ], Apply);

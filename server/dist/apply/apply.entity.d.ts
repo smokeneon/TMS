@@ -10,4 +10,6 @@ export declare class Apply {
     approvalState: number;
     score: number;
     timeStamp: Date;
+    createTime: any;
+    updateTime: any;
 }

@@ -4,6 +4,8 @@ import { EntityManager } from 'typeorm';
 export declare class CourseController {
     private readonly courseService;
     constructor(courseService: CourseService);
+    getHotCourses(manager: EntityManager): Promise<any>;
+    getPieDate(manager: EntityManager): Promise<any>;
     getList(pagination: string): Promise<any>;
     getApprovedList(pagination: string): Promise<any>;
     getNotApprovedList(pagination: string): Promise<any>;

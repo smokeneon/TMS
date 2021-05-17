@@ -23,6 +23,22 @@ class PageBody  {
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
+
+  @Get('/hot')
+  @ApiOperation({ summary: '查询所有热门课程'})
+  @Transaction()
+  async getHotCourses(@TransactionManager() manager: EntityManager) {
+    return await this.courseService.hotCourses(manager)
+  }
+
+  
+  @Get('/pie')
+  @ApiOperation({ summary: '获取课程饼图数据' })
+  @Transaction()
+  async getPieDate( @TransactionManager() manager: EntityManager) {
+    return await this.courseService.getPie(manager);
+  }
+
   // 课程列表页面用的这个接口
   @Get('/list')
   @ApiOperation({ summary: '左连接申报表查询' })
@@ -112,10 +128,13 @@ export class CourseController {
     return await this.courseService.findOne(id);
   }
 
+
   @Get('/toDetails/:courseId')
   @ApiOperation({ summary: '根据课程id查询详情 连表查询'})
   async getDetails(@Param('courseId') id: string) {
     return await this.courseService.getDetails(id);
   }
+
   
+
 }

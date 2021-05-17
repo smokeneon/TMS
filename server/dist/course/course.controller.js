@@ -25,6 +25,12 @@ let CourseController = class CourseController {
     constructor(courseService) {
         this.courseService = courseService;
     }
+    async getHotCourses(manager) {
+        return await this.courseService.hotCourses(manager);
+    }
+    async getPieDate(manager) {
+        return await this.courseService.getPie(manager);
+    }
     async getList(pagination) {
         return await this.courseService.getList(pagination);
     }
@@ -68,6 +74,24 @@ let CourseController = class CourseController {
         return await this.courseService.getDetails(id);
     }
 };
+__decorate([
+    common_1.Get('/hot'),
+    swagger_1.ApiOperation({ summary: '查询所有热门课程' }),
+    typeorm_1.Transaction(),
+    __param(0, typeorm_1.TransactionManager()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeorm_1.EntityManager]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getHotCourses", null);
+__decorate([
+    common_1.Get('/pie'),
+    swagger_1.ApiOperation({ summary: '获取课程饼图数据' }),
+    typeorm_1.Transaction(),
+    __param(0, typeorm_1.TransactionManager()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeorm_1.EntityManager]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getPieDate", null);
 __decorate([
     common_1.Get('/list'),
     swagger_1.ApiOperation({ summary: '左连接申报表查询' }),

@@ -109,7 +109,6 @@ const Index = (props) => {
       dataIndex: 'score',
       key: 'score',
       render: (text, scoreRecord) => {
-        console.log('text,scoreRecord', text, scoreRecord);
         if (scoreRecord.course &&  scoreRecord.course.openState === 2 && scoreRecord.course.approvalState === 2) {
           if (text === -1) {
             return '分数未录入'

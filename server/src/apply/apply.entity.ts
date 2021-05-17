@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Course } from '../course/course.entity'
 import { User } from '../users/users.entity'
 
@@ -75,4 +75,12 @@ export class Apply {
   })
   timeStamp: Date;
   
+
+  @ApiProperty({ description: '创建时间 自动生成', example: '...' })
+  @CreateDateColumn()
+  createTime;
+
+  @ApiProperty({ description: '更新时间 自动生成', example: '...' })
+  @UpdateDateColumn()
+  updateTime;
 }

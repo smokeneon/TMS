@@ -23,6 +23,23 @@ let CourseService = class CourseService {
         this.courseRepository = courseRepository;
         this.usersService = usersService;
     }
+    async hotCourses(manager) {
+        try {
+            let res = await manager.query(`select course.courseName, a.mount from (select courseCourseId as courseCourseId, count(*) as mount from apply group by courseCourseId ) a inner join course  on a.courseCourseId=course.courseId`);
+            return {
+                code: 0,
+                message: '查询热门课程成功',
+                data: res,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询热门课程失败',
+                error
+            };
+        }
+    }
     async create(course, manager) {
         try {
             let user = await this.usersService.findOne(course.teaId);
@@ -375,6 +392,23 @@ let CourseService = class CourseService {
             return {
                 code: 1,
                 message: '查询失败'
+            };
+        }
+    }
+    async getPie(manager) {
+        try {
+            let res = await manager.query(`SELECT subject x, count(*) y FROM course GROUP BY subject`);
+            return {
+                code: 0,
+                message: '查询图表信息成功',
+                data: res
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询图表信息失败',
+                error
             };
         }
     }

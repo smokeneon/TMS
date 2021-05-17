@@ -15,6 +15,7 @@ export declare class ApplyService {
     findAllFinished(pagination: any): Promise<Object>;
     findAllNotFinished(pagination: any): Promise<Object>;
     findAll(pagination: any): Promise<Object>;
+    getHistogramData(manager: any): Promise<any>;
     findMy(pagination: any): Promise<Object>;
     findOne(id: string): Promise<object>;
     findByUserId(id: string): Promise<object>;

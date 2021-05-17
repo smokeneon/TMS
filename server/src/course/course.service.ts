@@ -12,7 +12,23 @@ export class CourseService {
     private readonly usersService: UsersService,
   ) {}
 
-
+  async hotCourses(manager): Promise<any> {
+    try {
+      let res =  await manager.query(`select course.courseName, a.mount from (select courseCourseId as courseCourseId, count(*) as mount from apply group by courseCourseId ) a inner join course  on a.courseCourseId=course.courseId`);
+      
+      return  {
+       code: 0,
+       message: '查询热门课程成功',
+       data: res,
+     }
+     } catch (error) {
+       return {
+         code: 1,
+         message: '查询热门课程失败',
+         error
+       }
+     }
+  }
   async create(course, manager): Promise<any> {
     
     try {
@@ -406,6 +422,23 @@ export class CourseService {
     }
   }
 
+  async getPie(manager): Promise<any> {
+    try {
+     let res =  await manager.query(`SELECT subject x, count(*) y FROM course GROUP BY subject`);
+    return  {
+      code: 0,
+      message: '查询图表信息成功',
+      data: res
+    }
+    } catch (error) {
+      return {
+        code: 1,
+        message: '查询图表信息失败',
+        error
+      }
+    }
+  }
+
    // 分页查询接口
    async findAll(pagination): Promise<Object> {
     let search = pagination.search || '';
@@ -436,6 +469,8 @@ export class CourseService {
       }
     }
   }
+
+  
 }
 
 

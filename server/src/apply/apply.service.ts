@@ -290,6 +290,24 @@ export class ApplyService {
     }
   }
 
+  async getHistogramData(manager): Promise<any> {
+    try {
+      let res =  await manager.query(`select DATE_FORMAT(timeStamp, '%Y-%m-%d') as time, count(apply.applyId) as mount from apply group by date_format(timeStamp, '%Y-%m-%d') order by date_format(timeStamp, '%Y-%m-%d')`);
+      let count = await manager.query(`select count(*) total from apply`)
+      return  {
+       code: 0,
+       message: '查询统计信息成功',
+       data: res,
+       count,
+     }
+     } catch (error) {
+       return {
+         code: 1,
+         message: '查询统计信息失败',
+         error
+       }
+     }
+  }
    // 分页查询接口 联查课程 我的所有申报
    async findMy(pagination): Promise<Object> {
     let search = pagination.search || '';

@@ -287,6 +287,25 @@ let ApplyService = class ApplyService {
             };
         }
     }
+    async getHistogramData(manager) {
+        try {
+            let res = await manager.query(`select DATE_FORMAT(timeStamp, '%Y-%m-%d') as time, count(apply.applyId) as mount from apply group by date_format(timeStamp, '%Y-%m-%d') order by date_format(timeStamp, '%Y-%m-%d')`);
+            let count = await manager.query(`select count(*) total from apply`);
+            return {
+                code: 0,
+                message: '查询统计信息成功',
+                data: res,
+                count,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '查询统计信息失败',
+                error
+            };
+        }
+    }
     async findMy(pagination) {
         let search = pagination.search || '';
         let res;

@@ -25,6 +25,13 @@ export class ApplyController {
     return await this.applyService.create(apply, manager);
   }
 
+  @Get('/histogram')
+  @ApiOperation({ summary: '申报表的统计图' })
+  @Transaction()
+  async getHistogram(@TransactionManager() manager: EntityManager) {
+    return await this.applyService.getHistogramData(manager);
+  }
+
 
   @Delete(':id')
   @ApiOperation({ summary: '删除一个申报' })

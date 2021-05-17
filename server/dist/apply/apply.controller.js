@@ -25,6 +25,9 @@ let ApplyController = class ApplyController {
     async create(apply, manager) {
         return await this.applyService.create(apply, manager);
     }
+    async getHistogram(manager) {
+        return await this.applyService.getHistogramData(manager);
+    }
     async remove(id) {
         return await this.applyService.remove(id);
     }
@@ -65,6 +68,15 @@ __decorate([
     __metadata("design:paramtypes", [Object, typeorm_1.EntityManager]),
     __metadata("design:returntype", Promise)
 ], ApplyController.prototype, "create", null);
+__decorate([
+    common_1.Get('/histogram'),
+    swagger_1.ApiOperation({ summary: '申报表的统计图' }),
+    typeorm_1.Transaction(),
+    __param(0, typeorm_1.TransactionManager()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeorm_1.EntityManager]),
+    __metadata("design:returntype", Promise)
+], ApplyController.prototype, "getHistogram", null);
 __decorate([
     common_1.Delete(':id'),
     swagger_1.ApiOperation({ summary: '删除一个申报' }),
