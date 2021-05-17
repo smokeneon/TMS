@@ -103,6 +103,7 @@ export class CourseService {
   async changeApprovalState(body, manager): Promise<any> {
     try {
       const course = await manager.find(Course, { courseId: body.courseId });
+      
       let approvalState = Number(body.approvalState)
       let newCourse = {
         ...course["0"],
@@ -122,8 +123,17 @@ export class CourseService {
           error,
         }
       }
-      await this.emailService.sendMail('leonbeau@qq.com')
-      
+      const ApprovalState = {
+        0: '未提交',
+        1: '审批中',
+        2: '审批成功',
+        3: '审批失败',
+      }
+      await this.emailService.sendMailToUser(
+        course["0"].users["0"].email, 
+        `你申报的${course["0"].courseName}, 管理员已更新状态为${ApprovalState[Number(body.approvalState)]}, 请登陆系统查看。 详情请登陆http://www.tms.leondon.cn`
+        )
+
       return {
         code: 0,
         message: '更新课程审批状态成功'

@@ -20,11 +20,13 @@ const typeorm_2 = require("typeorm");
 const apply_entity_1 = require("./apply.entity");
 const course_service_1 = require("../course/course.service");
 const users_service_1 = require("../users/users.service");
+const email_service_1 = require("../email/email.service");
 let ApplyService = class ApplyService {
-    constructor(applyRepository, courseService, usersService) {
+    constructor(applyRepository, courseService, usersService, emailService) {
         this.applyRepository = applyRepository;
         this.courseService = courseService;
         this.usersService = usersService;
+        this.emailService = emailService;
     }
     async create(apply, manager) {
         try {
@@ -76,6 +78,7 @@ let ApplyService = class ApplyService {
         };
         try {
             await manager.save(apply_entity_1.Apply, newApply);
+            await this.emailService.sendMailToUser(users["0"].email, `你申报的课程${course.data.courseName}已申报成功, 请留意后续专家通知！详情请登陆http://www.tms.leondon.cn`);
             return {
                 code: 0,
                 message: '添加申报成功'
@@ -384,7 +387,8 @@ ApplyService = __decorate([
     __param(0, typeorm_1.InjectRepository(apply_entity_1.Apply)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         course_service_1.CourseService,
-        users_service_1.UsersService])
+        users_service_1.UsersService,
+        email_service_1.EmailService])
 ], ApplyService);
 exports.ApplyService = ApplyService;
 //# sourceMappingURL=apply.service.js.map

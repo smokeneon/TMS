@@ -5,14 +5,15 @@ import { getRepository, Repository, getTreeRepository, Like } from 'typeorm';
 import { Apply } from './apply.entity'
 import { CourseService } from '../course/course.service';
 import { UsersService } from '../users/users.service'
-
+import { EmailService } from '../email/email.service'
 @Injectable()
 export class ApplyService {
   constructor(
     @InjectRepository(Apply)
     private applyRepository: Repository<Apply>,
     private readonly courseService: CourseService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService, 
+    private readonly emailService: EmailService,
   ) {}
   async create(apply, manager): Promise<any> {
     
@@ -56,6 +57,7 @@ export class ApplyService {
         }
       } 
     }
+    
    
     let newApply = {
       applyNumber: apply.applyNumber,
@@ -66,6 +68,7 @@ export class ApplyService {
     }
     try {
       await manager.save(Apply, newApply);
+      await this.emailService.sendMailToUser(users["0"].email, `你申报的课程${course.data.courseName}已申报成功, 请留意后续专家通知！详情请登陆http://www.tms.leondon.cn`)
       return {
         code: 0,
         message: '添加申报成功'
@@ -112,6 +115,7 @@ export class ApplyService {
         error
       }
     }
+    // await this.emailService.sendMailToUser(users["0"].email, `你申报的课程${course.data.courseName}已申报成功, 请留意后续专家通知！详情请登陆http://www.tms.leondon.cn`)
     return {
       code: 0,
       message: '更新分数成功'

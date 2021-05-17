@@ -2,11 +2,13 @@ import { Repository } from 'typeorm';
 import { Apply } from './apply.entity';
 import { CourseService } from '../course/course.service';
 import { UsersService } from '../users/users.service';
+import { EmailService } from '../email/email.service';
 export declare class ApplyService {
     private applyRepository;
     private readonly courseService;
     private readonly usersService;
-    constructor(applyRepository: Repository<Apply>, courseService: CourseService, usersService: UsersService);
+    private readonly emailService;
+    constructor(applyRepository: Repository<Apply>, courseService: CourseService, usersService: UsersService, emailService: EmailService);
     create(apply: any, manager: any): Promise<any>;
     changeScore(body: any, manager: any): Promise<any>;
     remove(id: string): Promise<object>;

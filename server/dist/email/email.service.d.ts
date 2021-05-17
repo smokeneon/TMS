@@ -11,4 +11,8 @@ export declare class EmailService {
         message: string;
         VerificationCode?: undefined;
     }>;
+    sendMailToUser(email: string, message: string): Promise<{
+        code: number;
+        message: string;
+    }>;
 }

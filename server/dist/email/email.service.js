@@ -41,6 +41,26 @@ let EmailService = class EmailService {
             };
         }
     }
+    async sendMailToUser(email, message) {
+        try {
+            await this.mailerService.sendMail({
+                to: email,
+                from: 'leonbeau@qq.com',
+                subject: '中小学教育信息化培训者培训管理系统',
+                html: message
+            });
+            return {
+                code: 0,
+                message: `${email}邮件发送成功`,
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: `${email}邮件发送失败`
+            };
+        }
+    }
 };
 EmailService = __decorate([
     common_1.Injectable(),

@@ -4207,12 +4207,12 @@
         "affectsGlobalScope": false
       },
       "../src/email/email.service.ts": {
-        "version": "b4053108531a5a7f793d35f3e50ffaaf061f8a03dfab0c230f23ad40c722ecf8",
-        "signature": "c468f8f8f2c606d4fbf58ea70dd934e665fba72667354f3f5b96a85c4ae10ae4",
+        "version": "31041173afa85fa366aaee14aabf9bfeea28b208b2fe2cd61b1f7b382ec1c493",
+        "signature": "062fab504e830bdcada1e19f1372dff8cab5a7f0dfe47900da18ce6842c576df",
         "affectsGlobalScope": false
       },
       "../src/course/course.service.ts": {
-        "version": "68692bb1351d0ebb169d3a5489ac996065274e1389ae02600df763e402e35914",
+        "version": "526782f881b59f7580c53766d21cc07047687d20ad81c4771edfd2c3e14ea9fc",
         "signature": "09253805af565b0269de83bb6564e3fa01d756406fdfbeb42d23feaa0b7fb595",
         "affectsGlobalScope": false
       },
@@ -4297,8 +4297,8 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.service.ts": {
-        "version": "b1f98349b4fd8c5ddaf3f6028c419c74e406e987cf7f5e18548e3a37f61f9392",
-        "signature": "86e3fa12ad2076d7bd19f2df48933f53d121c8ab94c367d35b58224845e4d76b",
+        "version": "151ba3200a11bfdc9a28f4a95cb977c094cc3a8b99f542fa05e54bf74005d4d7",
+        "signature": "0442cfeb4e8083ee51e3bedb0e90b0a9c84ac023fbeefd6757b1daed13761d9b",
         "affectsGlobalScope": false
       },
       "../src/apply/apply.controller.ts": {
@@ -4307,7 +4307,7 @@
         "affectsGlobalScope": false
       },
       "../src/apply/apply.module.ts": {
-        "version": "e1936dba44c88da8ca15d468c01f398323db49f1c639aaf00b516b7ee6a2e18e",
+        "version": "d422200cf24be41508259d4d36fb29076d585cd6c085ac88020b6a22652b9d94",
         "signature": "05f4b2f0901fbdd7dce6daabad67e42cdfc14cee28bf05770d80ef4fa41b78b4",
         "affectsGlobalScope": false
       },
@@ -8501,6 +8501,7 @@
         "../src/apply/apply.entity.ts",
         "../src/apply/apply.service.ts",
         "../src/course/course.module.ts",
+        "../src/email/email.module.ts",
         "../src/users/users.module.ts"
       ],
       "../src/apply/apply.service.ts": [
@@ -8510,6 +8511,7 @@
         "../src/apply/apply.entity.ts",
         "../src/course/course.entity.ts",
         "../src/course/course.service.ts",
+        "../src/email/email.service.ts",
         "../src/users/users.service.ts"
       ],
       "../src/auth/auth.module.ts": [
@@ -12202,6 +12204,7 @@
         "../node_modules/typeorm/index.d.ts",
         "../src/apply/apply.entity.ts",
         "../src/course/course.service.ts",
+        "../src/email/email.service.ts",
         "../src/users/users.service.ts"
       ],
       "../src/auth/auth.service.ts": [
