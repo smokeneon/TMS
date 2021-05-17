@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CourseService } from './course.service';
+import { FilesService } from '../files/files.service'
 import { Course } from './course.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { EntityManager, Transaction, TransactionManager } from 'typeorm';
@@ -31,7 +32,7 @@ export class CourseController {
     return await this.courseService.hotCourses(manager)
   }
 
-  
+
   @Get('/pie')
   @ApiOperation({ summary: '获取课程饼图数据' })
   @Transaction()

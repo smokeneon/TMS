@@ -13,11 +13,12 @@ const course_controller_1 = require("./course.controller");
 const course_service_1 = require("./course.service");
 const course_entity_1 = require("./course.entity");
 const users_module_1 = require("../users/users.module");
+const email_module_1 = require("../email/email.module");
 let CourseModule = class CourseModule {
 };
 CourseModule = __decorate([
     common_1.Module({
-        imports: [typeorm_1.TypeOrmModule.forFeature([course_entity_1.Course]), users_module_1.UsersModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([course_entity_1.Course]), users_module_1.UsersModule, email_module_1.EmailModule],
         controllers: [course_controller_1.CourseController],
         providers: [course_service_1.CourseService],
         exports: [course_service_1.CourseService],

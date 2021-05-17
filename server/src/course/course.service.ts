@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { getRepository, Like, Not, Repository } from 'typeorm';
 import { Course } from './course.entity'
 import { UsersService } from '../users/users.service';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class CourseService {
@@ -10,6 +11,7 @@ export class CourseService {
     @InjectRepository(Course)
     private courseRepository: Repository<Course>,
     private readonly usersService: UsersService,
+    private readonly emailService: EmailService,
   ) {}
 
   async hotCourses(manager): Promise<any> {
@@ -120,6 +122,8 @@ export class CourseService {
           error,
         }
       }
+      await this.emailService.sendMail('leonbeau@qq.com')
+      
       return {
         code: 0,
         message: '更新课程审批状态成功'

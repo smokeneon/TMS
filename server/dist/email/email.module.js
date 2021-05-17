@@ -17,6 +17,7 @@ EmailModule = __decorate([
         imports: [],
         controllers: [email_controller_1.EmailController],
         providers: [email_service_1.EmailService],
+        exports: [email_service_1.EmailService]
     })
 ], EmailModule);
 exports.EmailModule = EmailModule;

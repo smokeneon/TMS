@@ -18,10 +18,12 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const course_entity_1 = require("./course.entity");
 const users_service_1 = require("../users/users.service");
+const email_service_1 = require("../email/email.service");
 let CourseService = class CourseService {
-    constructor(courseRepository, usersService) {
+    constructor(courseRepository, usersService, emailService) {
         this.courseRepository = courseRepository;
         this.usersService = usersService;
+        this.emailService = emailService;
     }
     async hotCourses(manager) {
         try {
@@ -119,6 +121,7 @@ let CourseService = class CourseService {
                     error,
                 };
             }
+            await this.emailService.sendMail('leonbeau@qq.com');
             return {
                 code: 0,
                 message: '更新课程审批状态成功'
@@ -446,7 +449,8 @@ CourseService = __decorate([
     common_1.Injectable(),
     __param(0, typeorm_1.InjectRepository(course_entity_1.Course)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        users_service_1.UsersService])
+        users_service_1.UsersService,
+        email_service_1.EmailService])
 ], CourseService);
 exports.CourseService = CourseService;
 //# sourceMappingURL=course.service.js.map

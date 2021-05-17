@@ -1,10 +1,12 @@
 import { Repository } from 'typeorm';
 import { Course } from './course.entity';
 import { UsersService } from '../users/users.service';
+import { EmailService } from 'src/email/email.service';
 export declare class CourseService {
     private courseRepository;
     private readonly usersService;
-    constructor(courseRepository: Repository<Course>, usersService: UsersService);
+    private readonly emailService;
+    constructor(courseRepository: Repository<Course>, usersService: UsersService, emailService: EmailService);
     hotCourses(manager: any): Promise<any>;
     create(course: any, manager: any): Promise<any>;
     remove(courseId: string): Promise<object>;

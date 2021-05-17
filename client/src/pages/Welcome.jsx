@@ -1,6 +1,6 @@
 import React,{ useEffect, useState }  from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Tag, Row, Col, Carousel, Divider, message } from 'antd';
+import { Card, Alert, Tag, Row, Col, Carousel, Divider, message, Skeleton } from 'antd';
 import './Welcome.less';
 import WelcomeSvg from '../assets/welcome.svg'
 import WelcomeSvg2 from '../assets/welcome2.svg'
@@ -18,13 +18,18 @@ import 'ant-design-pro/dist/ant-design-pro.css'
 const Welcome = (props) => {
   const { currentUser } = props;
   const [pieData, setPieData] = useState([])
+ 
   const [histogramData, setHistogramData] = useState([])
   const [histogramTotal, setHistogramTotal] = useState(0)
 
   const [hotData, setHotData] = useState([])
   const [weather, setWeather] = useState({})
+  const [pieLoading, setPieLoading] = useState(false)
+  const [histogramLoading, setHistogramLoading] = useState(false)
+  const [hotLoading, setHotLoading] = useState(false)
   // 获取饼图数据
   const pieDate = () => {
+    setPieLoading(true)
     axios.get('/api/course/pie').then(res => {
       if(res.data.code === 0) {
         let newData = res.data.data.map(item => {
@@ -34,6 +39,7 @@ const Welcome = (props) => {
           }
         })
         setPieData(newData)
+        setPieLoading(false)
       } else {
         message.error(res.data.message)
       }
@@ -43,6 +49,7 @@ const Welcome = (props) => {
   }
 
   const hotCourse = () => {
+    setHotLoading(true)
     axios.get('/api/course/hot').then(res => {
       console.log('res',res);
       if(res.data.code === 0) { 
@@ -53,6 +60,7 @@ const Welcome = (props) => {
           }
         })
         setHotData(newData)
+        setHotLoading(false)
       } else {
         message.error(res.data.message)
       }
@@ -62,6 +70,7 @@ const Welcome = (props) => {
   }
 
   const applyData = () => {
+    setHistogramLoading(true)
     axios.get('/api/apply/histogram').then(res => {
       if(res.data.code === 0) {
         let newData = res.data.data.map(item => {
@@ -72,6 +81,7 @@ const Welcome = (props) => {
         })
         setHistogramTotal(parseInt(res.data.count["0"].total))
         setHistogramData(newData)
+        setHistogramLoading(false)
       } else {
         message.error(res.data.message)
       }
@@ -202,31 +212,53 @@ const Welcome = (props) => {
             style={{margin: '6px'}}
             >
             {/* <div  style={{height:'23.7rem', display: 'flex', alignItems: 'center', justifyContent: 'center', clear: 'both'}}> */}
-              <Pie
-                hasLegend
-                title="累计学科"
-                subTitle="所属学科"
-                data={pieData}
-                height={260}
-              />
+             {
+               !pieLoading ? (
+                <Pie
+                  hasLegend
+                  title="累计学科"
+                  subTitle="所属学科"
+                  data={pieData}
+                  height={260}
+                />
+               ):(
+                <Skeleton active />
+               )
+             }
+            
             {/* </div> */}
           </Card>
         </Col>
         <Col xs={24} sm={24} md={10} lg={10} xl={10}>
           <Row>
             <Col span={24}>
-              <ChartCard 
-                  title="总申报数"
-                  total={numeral(histogramTotal).format('0,0')}
-                  contentHeight={40}
-                  style={{margin: '6px'}}
-                >
-                <MiniArea line height={35} data={histogramData} />
-              </ChartCard>
+              {
+                !histogramLoading ? (
+                  <ChartCard 
+                      title="总申报数"
+                      total={numeral(histogramTotal).format('0,0')}
+                      contentHeight={40}
+                      style={{margin: '6px'}}
+                    >
+                    <MiniArea line height={35} data={histogramData} />
+                  </ChartCard>
+                ):(
+                  <div style={{backgroundColor: '#fff'}}>
+                    <Skeleton active />
+                  </div>
+                )
+              }
             </Col>
             <Col span={24}>
               <Card style={{margin: '6px'}} title="热门选课">
-                <TagCloud data={hotData} height={102} />
+                {
+                  !hotLoading ? (
+                    <TagCloud data={hotData} height={102} />
+                  ):(
+                  <Skeleton active />
+                  )
+                }
+                
               </Card>
             </Col>
           </Row>
