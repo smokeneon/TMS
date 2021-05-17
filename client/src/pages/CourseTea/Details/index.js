@@ -412,7 +412,7 @@ const Index = (props) => {
           </div>
         </Card>
         {
-          currentUser.identity === 'admin ' || currentUser.identity === 'tea' && (
+          (currentUser.identity === 'admin' || currentUser.identity === 'tea') && (
             <Card
                 title="申报信息"
                 style={{margin: '0 0 12px 0'}}
