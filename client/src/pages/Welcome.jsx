@@ -52,7 +52,7 @@ const Welcome = (props) => {
   const hotCourse = () => {
     setHotLoading(true)
     axios.get('/api/course/hot').then(res => {
-      console.log('res',res);
+      // console.log('res',res);
       if(res.data.code === 0) { 
         let newData = res.data.data.map(item => {
           return {
@@ -103,7 +103,7 @@ const Welcome = (props) => {
       })
   }, [])
   useEffect(() => {
-    console.log('histogramData', histogramData);
+    // console.log('histogramData', histogramData);
   }, [histogramData])
   return (
     <PageContainer

@@ -25,7 +25,7 @@ export function getAuthority(str) {
   return authority;
 }
 export function setAuthority(authority) {
-  console.log('authority', authority);
+  // console.log('authority', authority);
   const proAuthority = typeof authority === 'string' ? [authority] : authority;
   localStorage.setItem('antd-pro-authority', JSON.stringify(proAuthority)); // auto reload
 

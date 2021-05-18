@@ -34,7 +34,6 @@ class SecurityLayout extends React.Component {
     const token = localStorage.getItem('token')
 
     const getTokenTime = localStorage.getItem('getTokenTime')
-    console.log('getTokenTime', getTokenTime);
     const getNowTime = new Date().getTime()
     if ((!isLogin && loading) || !isReady) {
       return <PageLoading />;

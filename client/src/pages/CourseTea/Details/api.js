@@ -105,7 +105,7 @@ export const getFilesList = (courseId) => {
 }
 //  模拟点击a 标签进行下载
 function executeDownload(data, fileName) {
-  console.log('fileName', fileName);
+  // console.log('fileName', fileName);
   if (!data) {
       return
   }

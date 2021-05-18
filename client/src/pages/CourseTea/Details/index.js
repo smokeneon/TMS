@@ -296,7 +296,11 @@ const Index = (props) => {
     setIsUploadModalVisible(true)
   }
   const downloadAll = () => {
-    downloadFile(props.location.query.courseId)
+    if (filesList.length === 0) {
+      message.warning('当前无文件可下载')
+    } else {
+      downloadFile(props.location.query.courseId)
+    }
   }
   useEffect(() => {
     getCourseById()
