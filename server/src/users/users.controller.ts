@@ -61,12 +61,19 @@ export class UsersController {
     return await this.usersService.remove(id);
   }
 
+  @Post('/find')
+  @ApiOperation({ summary: '找回密码' })
+  async findPass(@Body() body) {
+    return await this.usersService.findPass(body);
+  }
+
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '编辑一个用户' })
   async update(@Param('id') id: number, @Body() body: User) {
     return await this.usersService.edit(id, body);
   }
+
 
   @Get()
   // @UseGuards(AuthGuard('jwt'))
@@ -105,7 +112,7 @@ export class UsersController {
     return await this.usersService.findAllNoPagination(type);
   }
 
-x// 这个接口给登陆用
+ // 这个接口给登陆用
   @Get(':id')
   @ApiOperation({ summary: '根据用户id查询详情' })
   async detail(@Param('id') id: string) {
@@ -159,6 +166,7 @@ x// 这个接口给登陆用
       }
     }
   }
+
   // @Query 从req的query获取东西 @Params 从req的params获取东西
 
   // @Post('/many')

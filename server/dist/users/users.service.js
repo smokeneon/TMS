@@ -87,6 +87,47 @@ let UsersService = class UsersService {
             };
         }
     }
+    async findPass(user) {
+        let account;
+        try {
+            account = await this.usersRepository.findOne({
+                where: { username: user.username },
+            });
+            if (typeof (account) == "undefined") {
+                return {
+                    code: 1,
+                    message: '未找到账户信息，请检查用户名'
+                };
+            }
+            if (account.email != user.email) {
+                return {
+                    code: 1,
+                    message: '用户邮箱不匹配，请检查用户名或邮箱'
+                };
+            }
+            try {
+                const salt = cryptogram_1.makeSalt();
+                const hashPwd = cryptogram_1.encryptPassword(String(user.password), salt);
+                await this.usersRepository.update(account.userId, { password: hashPwd, pwd_salt: salt });
+                return {
+                    code: 0,
+                    message: '更新密码成功'
+                };
+            }
+            catch (error) {
+                return {
+                    code: 1,
+                    message: '找回密码失败',
+                    error
+                };
+            }
+        }
+        catch (error) {
+        }
+        return {
+            ceshi: '找回密码'
+        };
+    }
     async edit(id, user) {
         try {
             await this.usersRepository.update(id, user);

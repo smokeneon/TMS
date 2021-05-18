@@ -22,13 +22,13 @@ export declare class UsersController {
     }>;
     create(user: User): Promise<any>;
     remove(id: string): Promise<any>;
+    findPass(body: any): Promise<any>;
     update(id: number, body: User): Promise<any>;
     findAll(pagination: string): Promise<Object>;
     findJoinAll(pagination: string): Promise<Object>;
     findDetailById(id: string): Promise<any>;
     findAllNoPagination1(): Promise<any>;
     findAllNoPagination2(): Promise<any>;
-    x: any;
     detail(id: string): Promise<object>;
     findOneByUsername(username: string): Promise<User | {
         code: number;

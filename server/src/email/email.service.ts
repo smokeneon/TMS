@@ -16,9 +16,9 @@ export class EmailService {
       await this.mailerService.sendMail({
         to: email,
         from: 'leonbeau@qq.com',
-        subject: '欢迎注册中小学教育信息化培训者培训管理系统',
+        subject: '欢迎使用中小学教育信息化培训者培训管理系统',
         // template: 'welcome',
-        html: `欢迎使用TMS，您的注册验证码是${out}`
+        html: `欢迎使用TMS，您的验证码是${out}`
       })
       return {
         code: 0,

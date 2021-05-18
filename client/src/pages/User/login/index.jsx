@@ -8,14 +8,23 @@ import {
   SmileOutlined
 } from '@ant-design/icons';
 
-import { Alert, Tabs, message, notification } from 'antd';
+import { Alert, Tabs, message, notification, Modal, Form } from 'antd';
 import React, { useState, useEffect } from 'react';
-import { Form } from 'antd';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText, ProFormSelect } from '@ant-design/pro-form';
 import { FormattedMessage } from 'umi';
 import styles from './index.less';
 import { connect } from 'umi';
 import axios from 'axios'
+
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    offset: 4,
+    span: 16,
+  },
+};
 
 const LoginMessage = ({ content }) => (
   <Alert
@@ -30,11 +39,41 @@ const LoginMessage = ({ content }) => (
 
 const Login = (props) => {
   const [verifiedCode, setVerifiedCode] = useState(null)
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const { userLogin = {}, submitting } = props;
   const { status, type: loginType } = userLogin;
   const [type, setType] = useState('account');
   const [form] = Form.useForm();
+  const [findform] = Form.useForm();
+  // modal
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
 
+  const handleOk = () => {
+    findform.validateFields().then(params => {  
+      let newParams = {
+        username: params.findUsername,
+        password: params.findPassword,
+        email: params.findEmail,
+      }
+      axios.post('/api/user/find', newParams).then(res => {
+        if (res.data.code === 0) {
+          message.success(res.data.message)
+          findform.resetFields()
+          setIsModalVisible(false);
+        } else {
+          message.error(res.data.message)
+        }
+      }).catch(error => {
+        message.error('更新密码失败')
+      })
+    })
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   const openNotification = () => {
     notification.open({
       message: '欢迎你使用 TMS',
@@ -169,6 +208,7 @@ const Login = (props) => {
                   float: 'right',
                   padding: '0 0 24px 0'
                 }}
+                onClick={showModal}
               >
                 <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
               </a>
@@ -315,6 +355,111 @@ const Login = (props) => {
         )}
        
       </ProForm>
+
+      <Modal title="找回密码" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <ProForm
+          form={findform}
+          onFinish={(values) => {
+            handleSubmit(values);
+            return Promise.resolve();
+          }}
+          submitter={false}
+          {...layout}
+          name="findPassword"
+        >
+          <ProFormText
+              name="findUsername"
+              fieldProps={{
+                size: 'large',
+                prefix: <UserOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder="请输入用户名"
+              rules={[
+                ({ getFieldValue }) => ({
+                  async validator(_, value) {
+                    if (typeof value === 'undefined' || value.trim() === '')
+                      return Promise.reject(new Error('字符不能为空'))
+                      // let res = await axios.get(`/api/user/register/${value}`)
+                      // if (res.data.code === 0) {
+                      //   return Promise.resolve(res.data.message)
+                      // }
+                      // if ( res.data.code === 2) {
+                      //   return Promise.reject(new Error(res.data.message))
+                      // }
+                      // return Promse.reject(new Error(res.data.message))
+                  },
+                }),
+              ]}
+            />
+          <ProFormText
+              fieldProps={{
+                size: 'large',
+                prefix: <MailOutlined className={styles.prefixIcon} />,
+              }}
+              name="findEmail"
+              placeholder="邮箱"
+              rules={[
+                {
+                  required: true,
+                  message: "请输入邮箱",
+                },
+                {
+                  pattern: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$$/,
+                  message: '邮箱格式错误',
+                },
+              ]}
+            />
+          <ProFormCaptcha
+            fieldProps={{
+              size: 'large',
+              prefix: <KeyOutlined className={styles.prefixIcon} />,
+            }}
+            captchaProps={{
+              size: 'large',
+            }}
+            phoneName="findEmail"
+            name="findCode"
+            rules={[
+              ({ getFieldValue }) => ({
+                async validator(_, value) {
+                  if (typeof value === 'undefined' || value.trim() === '')
+                    return Promise.reject(new Error('验证码不能为空'))
+                    if (value != verifiedCode) {
+                      return Promise.reject(new Error('验证码不正确'))
+                    } else {
+                      return Promise.resolve('验证码正确')
+                    }
+                },
+              }),
+            ]}
+            placeholder="请输入验证码"
+            onGetCaptcha={async (email) => {
+              let res = await axios.get(`/api/email/${email}`)
+              if (res.data.code === 0) {
+                setVerifiedCode(res.data.VerificationCode)
+                message.success(res.data.message)
+              }
+              if (res.data.code === 1) {
+                message.error(res.data.message+',请检查邮箱是否正确')
+              }
+            }}
+          />
+           <ProFormText.Password
+              name="findPassword"
+              fieldProps={{
+                size: 'large',
+                prefix: <LockOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder="请输入新密码"
+              rules={[
+                {
+                  required: true,
+                  message: "密码不能为空",
+                },
+              ]}
+            />
+        </ProForm>
+      </Modal>
     </div>
   );
 };

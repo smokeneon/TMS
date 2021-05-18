@@ -87,6 +87,52 @@ export class UsersService {
     
   }
 
+  async findPass(user): Promise<any> {
+    let account;
+    // console.log('user', user);
+    
+    try {
+      account = await this.usersRepository.findOne({
+        where: { username: user.username },
+      })
+      if (typeof(account) == "undefined") {
+        return {
+          code: 1,
+          message: '未找到账户信息，请检查用户名'
+        }
+      } 
+      // 判断用户验证的邮箱是否和数据库匹配
+      if (account.email != user.email) {
+       return {
+        code: 1,
+        message: '用户邮箱不匹配，请检查用户名或邮箱'
+       }
+      }
+
+      try {
+        // 加盐
+        const salt = makeSalt(); // 制作密码盐
+        const hashPwd = encryptPassword(String(user.password), salt);  // 加密密码
+        await this.usersRepository.update(account.userId, { password: hashPwd, pwd_salt: salt });
+        return {
+          code: 0,
+          message: '更新密码成功'
+        }
+      } catch (error) {
+        return {
+          code: 1,
+          message: '找回密码失败',
+          error
+        }
+      }
+      
+    } catch (error) {
+      
+    }
+    return {
+      ceshi: '找回密码'
+    }
+  }
   async edit(id: number, user: User): Promise<any> {
     try {
       await this.usersRepository.update(id, user);

@@ -48,6 +48,9 @@ let UsersController = class UsersController {
     async remove(id) {
         return await this.usersService.remove(id);
     }
+    async findPass(body) {
+        return await this.usersService.findPass(body);
+    }
     async update(id, body) {
         return await this.usersService.edit(id, body);
     }
@@ -136,6 +139,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "remove", null);
+__decorate([
+    common_1.Post('/find'),
+    swagger_1.ApiOperation({ summary: '找回密码' }),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "findPass", null);
 __decorate([
     common_1.Put(':id'),
     common_1.UseGuards(passport_1.AuthGuard('jwt')),
