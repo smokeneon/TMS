@@ -41,4 +41,13 @@ export declare class FilesService {
         filename: string;
         tarStream: tar.Stream;
     }>;
+    deleteFile(fileId: any): Promise<{
+        code: number;
+        message: string;
+        error?: undefined;
+    } | {
+        code: number;
+        message: string;
+        error: any;
+    }>;
 }

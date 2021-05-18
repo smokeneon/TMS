@@ -32,4 +32,13 @@ export declare class FilesController {
         total?: undefined;
     }>;
     downloadAll(courseId: string, res: Response): Promise<void>;
+    deleteFile(fileId: string): Promise<{
+        code: number;
+        message: string;
+        error?: undefined;
+    } | {
+        code: number;
+        message: string;
+        error: any;
+    }>;
 }

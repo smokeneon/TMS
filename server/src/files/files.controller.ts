@@ -7,6 +7,7 @@ import {
   Res,
   Body,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -46,5 +47,11 @@ export class FilesController {
       `attachment; filename=${filename}`,
     );
     tarStream.pipe(res);
+  }
+
+  @Delete(':fileId')
+  @ApiOperation({ summary: '根据文件id删除文件' })
+  async deleteFile(@Param('fileId') fileId: string) {
+    return await this.filesService.deleteFile(fileId);
   }
 }

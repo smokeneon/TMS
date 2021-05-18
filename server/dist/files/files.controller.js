@@ -34,6 +34,9 @@ let FilesController = class FilesController {
         res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
         tarStream.pipe(res);
     }
+    async deleteFile(fileId) {
+        return await this.filesService.deleteFile(fileId);
+    }
 };
 __decorate([
     common_1.Post(),
@@ -62,6 +65,14 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], FilesController.prototype, "downloadAll", null);
+__decorate([
+    common_1.Delete(':fileId'),
+    swagger_1.ApiOperation({ summary: '根据文件id删除文件' }),
+    __param(0, common_1.Param('fileId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FilesController.prototype, "deleteFile", null);
 FilesController = __decorate([
     common_1.Controller('/api/v1/files'),
     swagger_1.ApiTags('文件上传下载'),

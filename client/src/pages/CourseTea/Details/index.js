@@ -7,8 +7,8 @@ import { Map, Marker } from 'react-amap';
 import axios from 'axios';
 import moment from 'moment'
 import { connect } from 'umi';
-import { changeScoreRequest, changeApprovalRequest, changeOpeningRequest, getFilesList, downloadFile } from './api'
-import { InboxOutlined } from '@ant-design/icons';
+import { changeScoreRequest, changeApprovalRequest, changeOpeningRequest, getFilesList, downloadFile, deleteFile } from './api'
+import { InboxOutlined, CloseOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 const layout = {
   labelCol: { span: 5 },
@@ -57,7 +57,32 @@ const Index = (props) => {
         return moment(text).format('YYYY-MM-DD')
       }
     },
+    {
+      title: '操作',
+      key: 'action',
+      render: (text, record) => {
+        if (currentUser.identity === 'tea' || currentUser.identity === 'admin') {
+          return  <a onClick={deleteFileById(record.fileId)}><CloseOutlined /></a>
+        } else {
+          return ''
+        }
+       
+      }
+    },
   ]
+
+  const deleteFileById = (fileId) => () => {
+    deleteFile(fileId).then(res => {
+      if(res.data.code === 0) {
+        getCourseById()
+        message.success(res.data.message)
+      } else {
+        message.error(res.data.message)
+      }
+    }).catch(error => {
+      message.error('文件删除失败')
+    })
+  } 
   const showModal = (record) => () => {
     setApplysItem(record)
     setIsModalVisible(true);
@@ -249,7 +274,7 @@ const Index = (props) => {
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
+        // console.log(info.file, info.fileList);
       }
       if (status === 'done') {
         message.success(`${info.file.name} 文件上传成功`);
@@ -380,7 +405,7 @@ const Index = (props) => {
             <Space>
                <Button onClick={downloadAll}>下载全部</Button>
               {
-                currentUser.identity === 'tea' || currentUser.identity === 'admin' && (
+                (currentUser.identity === 'tea' || currentUser.identity === 'admin') && (
                   <Button type="primary" onClick={uploadBtn}>上传文件</Button>
                 )
               }

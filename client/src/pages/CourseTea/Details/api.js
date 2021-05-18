@@ -130,3 +130,15 @@ export const downloadFile = (courseId) => {
   //   }
   // })
 }
+
+// 删除文件
+export const deleteFile = (fileId) => {
+ 
+  return axios({
+    method: 'delete',
+    url: `/api/files/${fileId}`,
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+}

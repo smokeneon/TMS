@@ -17,10 +17,12 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const compressing_1 = require("compressing");
 const nestjs_config_1 = require("nestjs-config");
+const path_1 = require("path");
 const typeorm_2 = require("typeorm");
 const course_service_1 = require("../course/course.service");
 const users_service_1 = require("../users/users.service");
 const files_entity_1 = require("./files.entity");
+const fs = require("fs");
 let FilesService = class FilesService {
     constructor(filesRepository, configService, courseService, usersService) {
         this.filesRepository = filesRepository;
@@ -101,6 +103,47 @@ let FilesService = class FilesService {
         const tarStream = new compressing_1.tar.Stream();
         await tarStream.addEntry(uploadDir);
         return { filename: 'tms.tar', tarStream };
+    }
+    async deleteFile(fileId) {
+        let fileInfo;
+        try {
+            fileInfo = await this.filesRepository.findOne({ fileId: fileId });
+            if (typeof (fileInfo) === "undefined") {
+                return {
+                    code: 1,
+                    message: '文件不存在'
+                };
+            }
+            let filePath = path_1.resolve() + '/dist' + fileInfo.path;
+            fs.unlink(filePath, (err) => {
+                if (err) {
+                    console.log('文件unlink失败');
+                }
+                else {
+                    console.log('文件unlink成功');
+                }
+            });
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '文件查询失败',
+                error
+            };
+        }
+        try {
+            await this.filesRepository.delete({ fileId: fileId });
+            return {
+                code: 0,
+                message: '文件删除成功'
+            };
+        }
+        catch (error) {
+            return {
+                code: 1,
+                message: '文件删除失败'
+            };
+        }
     }
 };
 FilesService = __decorate([
