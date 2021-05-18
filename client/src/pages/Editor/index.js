@@ -48,7 +48,7 @@ const Index = (props) => {
       userId: currentUser.userId,
       content: value,
       firstEssay: 'no',
-      essayId: essayId,
+      essayId: essayId || props.location.query.essayId,
       title: title
     }
     if (firstEssay === 'no') {
